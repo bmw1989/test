@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Scan</title>
+<script language="javascript">
+
+  var boundaryString = "AaBbCcX30";
+  var postContent="";
+  var idRetour;
+idRetour = window.location.search.substr(4);//Récupération de l'id
+
+</script>
+</head>
+<body >
+
+<table>
+<tr>
+<td width="16%">
+<td align=middle width="30%">
+<INPUT type=button value="Scanner le document/نسغ الوثيقة" name=Scan1>
+<INPUT type=button value="Valider la pièce ./تأكيد الوثيقة" name=Upload onClick="OnUpload();">
+</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>
+            <OBJECT id=Eztwain height=500 standby="Loading EZTwainX" width=400
+            	classid=CLSID:74F4F118-91E6-4AFC-B8D2-04066781F239 name=Eztwain>
+            <PARAM NAME="AppTitle" VALUE="AnasRIH"/>
+            <param name="LicenseKey" value="-1176386730"/>
+            <PARAM NAME="EnableLogging" VALUE="True"/>
+            	Votre navigateur ne peut pas activer le composant EZTwainX control.
+            </OBJECT>
+</td>
+<td></td>
+<DIV id=eventlog
+      style="BORDER-RIGHT: #ddd 1px solid; BORDER-TOP: #ddd 1px solid; OVERFLOW: auto; BORDER-LEFT: #ddd 1px solid; BORDER-BOTTOM: #ddd 1px solid; HEIGHT: 15em;display: none;"></DIV>
+</tr>
+
+ <SCRIPT language=jscript>
+
+  Eztwain.EnableLogging = true;
+//Eztwain.LicenseKey = 453379784;
+//Eztwain.LicenseKey = 1907401797;
+//Eztwain.LicenseKey = -1557332603;
+//Eztwain.LicenseKey = 1700087277;
+  Eztwain.BackColor = 0xcc8844;
+
+var logelmt = document.getElementById("eventlog");
+
+function Log(s)
+{
+  eventlog.innerHTML = eventlog.innerHTML+s+"<BR>";
+  eventlog.scrollTop = eventlog.scrollHeight;
+}
+
+function Eztwain::Click()
+{
+  Log( "event:Click");
+}
+function Eztwain::Error(num, description, scode, source, helpFile, helpContext)
+{
+  Log("event:Erreur("+num+","+description+")");
+}
+
+//Scanner le document
+function Eztwain::AcquireDone()
+{
+  Log("event:Acquisition términée");
+}
+/*function LoadFile::OnClick()
+ {
+ Eztwain.LoadFromFile("");
+ Eztwain.CurrentPage.PixelType = 0;
+ }*/
+function Eztwain::Load()
+{
+  Log("event:Chargement");
+}
+function Eztwain::RectangleSelected(x,y,w,h)
+{
+  Log("event:RectangleSelected(" + x + "," + y + "," + w + "," + h + ")");
+  Eztwain.Crop(x,y,w,h);
+  Eztwain.ToolMode = 0;
+}
+
+function Eztwain::ServerResponse(s)
+{
+//	Log("event:ServerResponse(\""+s+"\")");
+}
+
+function Eztwain::UploadFinish()
+{
+  Log("event:UploadFinish");
+}
+
+function Eztwain::UploadStart()
+{
+  Log("event:UploadStart");
+}
+
+function Eztwain::UploadProgress(filePercent, jobPercent)
+{
+  Log("event:UploadProgress("+filePercent+"%, "+jobPercent+"%)");
+}
+
+function Eztwain::UploadFile(filename)
+{
+  Log("event:UploadFile(\""+filename+"\")");
+}
+
+function Scan1::OnClick()
+{
+  Eztwain.ScanWithUI = false;
+  Eztwain.ScanType = 0;  // B&W
+  Eztwain.ScanDPI = 150;
+  Eztwain.AcquireSingleImage();
+  //Eztwain.ScanWithUI = false;
+  //Eztwain.AcquireSingleImage();
+  //Eztwain.CurrentPage.PixelType = 0;
+}
+
+function OnUpload()
+{
+  postContent   = Eztwain.AsBase64String(".tiff");
+
+  window.opener.document.getElementById(idRetour).value=postContent;
+  window.opener.document.getElementById(idRetour+"Div").style.display='block';
+  window.opener.document.getElementById(idRetour+"Div2").style.display='block';
+  window.opener.document.getElementById(idRetour+"Img").src='data:image/tiff;base64,' + postContent;
+  self.close ();
+}
+
+</SCRIPT>
+
+</table>
+</body>
+</html>

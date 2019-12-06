@@ -1,0 +1,219 @@
+<!--User Manage List-->
+<div class="user-manage-list">
+	<div>
+			<div class="card shadow-box py-5 px-4 mb-4 search-form-wrap">
+				<div class="row">
+					<div class="col-12 col-sm-8  ">
+						<div class="d-flex justify-content-between">
+							<div class="d-flex align-self-center">
+								<h3 class="text-capitalize">{{ 'Gestion des utilisateurs' | translate }}</h3>
+							</div>
+						</div>
+						<br/>
+						<form>
+							<div>
+								<div class="form-group row">
+									<label class="col-md-2 col-form-label" for="rechMultiusernameId">{{'LOGIN'|translate}}</label>
+									<div class="col-md-4" >
+									  <input type="text" id="rechMultiusernameId" name="rechMultiusername" required class="form-control" 
+									  mdInput [(ngModel)]="rechMulti.username" />
+									</div>
+									
+									<label class="col-md-2 col-form-label">{{'Profile'|translate}}</label>
+									<div class="col-md-4">
+										<select  id="rechMultiprofilId" name="rechMultiprofil"
+												class="form-control h-auto p-cursor custom-select" required
+												[(ngModel)]="rechMulti.refProfil.codeProfil" #rechMultiprofil="ngModel">
+										  <option  *ngFor="let profil of profilList" [ngValue]="profil.codeProfil">
+											{{ profil.libelleFr }}
+										  </option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-md-2 col-form-label" for="rechMultinomFrId">{{'Nom'|translate}}</label>
+									<div class="col-md-4" >
+										<ng-template [ngIf]="translate.currentLang=='fr'" [ngIfElse]="nomArabe">
+											<input type="text" id="rechMultinomFrId" name="rechMultinomFr" required class="form-control" 
+												mdInput [(ngModel)]="rechMulti.nomFr"/>
+										</ng-template>
+										<ng-template #nomArabe>
+											<input type="text" id="rechMultinomArId" name="rechMultinomAr" required class="form-control" 
+												mdInput [(ngModel)]="rechMulti.nomAr"/>
+										</ng-template>
+									</div>
+								</div>
+							
+								<div class="form-group row">
+									<label class="col-md-2 col-form-label" for="rechMultiprenomFrId">{{'Prenom'|translate}}</label>
+									<div class="col-md-4" >
+										<ng-template [ngIf]="translate.currentLang=='fr'" [ngIfElse]="prenomArabe">
+											<input type="text" id="rechMultiprenomFrId" name="rechMultiprenomFr" required class="form-control" 
+												mdInput [(ngModel)]="rechMulti.prenomFr"/>
+										</ng-template>
+										<ng-template #prenomArabe >
+											<input type="text" id="rechMultiprenomArId" name="rechMultiprenomAr" required class="form-control" 
+												mdInput [(ngModel)]="rechMulti.prenomAr" />
+										</ng-template>
+									</div>
+									<div class="col-12 col-sm-4 col-md-4 col-lg-3 col-xl-3">
+											<button class="btn btn-md bg-primary h-100" (click)="rechercherUtilisateur()">{{'find'|translate}}</button>
+										</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+<div class="chk-block mb-0">
+	<div class="chk-block-title px-4">
+		<div class="d-block d-sm-flex justify-content-between align-items-center">
+			<div class="d-flex justify-content-start align-items-center">
+				<button *ngIf="!this.estModeConnecte" class="btn btn-primary" data-toggle="modal" (click)="initAjouter();ajouterModal.show()">{{ 'ajouter' | translate }}<i class="fa fa-plus ml-2"></i></button>
+			</div>
+		</div>
+	</div>
+	<div class="chk-block-content p-0">
+		<div class="chk-block-content">
+		<div class="table-responsive">
+			<table id="idTable" class="table  table-striped  table-sm mb-0">
+				<thead>
+					<tr class="text-muted font-sm">
+						<th scope="col">Login</th>
+						<th scope="col">Nom & prénom</th>
+						<th scope="col">Nom & prénom</th>
+
+						<th class="text-center text-nowrap" scope="col">Profil</th>
+						<th class="text-center text-nowrap" scope="col">Date Creation</th>
+						<th class="text-center" scope="col">Statut</th>
+						<th class="text-center" scope="col">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let userList of userManageList;let i = index">
+						<td>
+							<div class="d-flex align-items-center">
+								
+								<div>
+									<h6 class="mb-0">{{userList.username}} </h6>
+									
+								</div>
+							</div>
+						</td>
+						<td>
+							<span class="font-sm">{{userList.nomAr}} {{userList.prenomAr}}</span>
+						</td>
+						<td>
+							<span class="font-sm">{{userList.nomFr}} {{userList.prenomFr}}</span>
+						</td>
+						<td >
+							<span class="font-sm">{{userList.refProfil.libelleFr}}</span>
+						</td>
+						<td class="text-center font-sm">{{userList.dateCreation|date}}</td>
+						<td class="text-center">
+							<ng-template [ngIf]="userList.estActiver==1" [ngIfElse]="desactiver">
+								<span class="fa fa-circle online mr-2"></span>
+								<span class="font-sm">Activer</span>
+							</ng-template>
+							<ng-template #desactiver>
+								<span class="fa fa-circle offline mr-2"></span>
+								<span class="font-sm">Désactiver</span>
+							</ng-template>
+						</td>	  
+						<td class="text-center font-sm text-nowrap">
+							<a class="mr-3 text-muted" href="javascript:void(0)" data-toggle="modal" (click)="initModifier(userList);ajouterModal.show()"><i class="fa fa-edit" aria-hidden="true"></i></a>
+							<ng-template [ngIf]="userList.estActiver==1" [ngIfElse]="desac">
+								<a class="mr-3 text-muted" href="javascript:void(0)" (click)="desactiverUtilisateur(userList)"> Désactiver</a>
+							</ng-template>
+							<ng-template #desac>
+									<a class="mr-3 text-muted" href="javascript:void(0)" (click)="activerUtilisateur(userList)"> Activer</a>
+							</ng-template>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		</div>
+		<!-- pager -->
+		<div class="pagination">
+			<a (click)="setPage(1)" [ngClass]="{disabled:pager.currentPage === 1}">Premier</a>
+			<a (click)="setPage(pager.currentPage - 1)" [ngClass]="{disabled:pager.currentPage === 1}">Précédent</a>
+			<span *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+			  <a (click)="setPage(page)">{{page}}</a>
+			</span>
+			<a (click)="setPage(pager.currentPage + 1)" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">Suivant</a>
+			<a (click)="setPage(pager.totalPages)" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">Dernier</a>
+		  </div>
+	</div>
+</div>
+
+
+<div bsModal #ajouterModal="bs-modal"  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-info modal-lg" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h4 class="modal-title">Ajout d'un nouveau utilisateur</h4>
+		  <button type="button" class="close" (click)="ajouterModal.hide()" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		 
+			<div class="form-group row">
+				<label class="col-md-2 col-form-label" for="usernameId">Login</label>
+				<div class="col-md-4" >
+				  <input type="text" id="usernameId" name="username" [disabled]="!estModeAjout" required class="form-control" 
+				  mdInput [(ngModel)]="newUser.username" />
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-md-2 col-form-label" for="nomFrId">Nom</label>
+				<div class="col-md-4" >
+				  <input type="text" id="nomFrId" name="nomFr" [disabled]="estModeAjout" required class="form-control" 
+				  mdInput [(ngModel)]="newUser.nomFr" />
+				</div>
+				<div class="col-md-4" >
+				  <input type="text" id="nomArId" name="nomAr" required [disabled]="!estModeAjout" class="form-control" 
+				  mdInput [(ngModel)]="newUser.nomAr" />
+				</div>
+				<label class="col-md-2 col-form-label" for="nomArId">النسب</label>
+			</div>
+			<div class="form-group row">
+				<label class="col-md-2 col-form-label" for="prenomFrId">Prénom</label>
+				<div class="col-md-4" >
+				  <input type="text" id="prenomFrId" name="prenomFr" [disabled]="!estModeAjout" required class="form-control" 
+				  mdInput [(ngModel)]="newUser.prenomFr" />
+				</div>
+				<div class="col-md-4" >
+				  <input type="text" id="prenomArId" name="prenomAr" [disabled]="!estModeAjout" required class="form-control" 
+				  mdInput [(ngModel)]="newUser.prenomAr" />
+				</div>
+				<label class="col-md-2 col-form-label" for="nomArId">الإ سم</label>
+			</div>
+			<div class="form-group row">
+				<label class="col-md-2 col-form-label">Profil</label>
+				<div class="col-md-4">
+					<select  id="profilId" name="profil"
+							
+							class="form-control h-auto p-cursor custom-select" required
+							[(ngModel)]="newUser.refProfil.codeProfil" #profil="ngModel">
+					  <option *ngFor="let profil of profilList" [ngValue]="profil.codeProfil">
+						{{ profil.libelleFr }}
+					  </option>
+					</select>
+				</div>
+				
+			</div>
+		</div>
+		
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" (click)="ajouterModal.hide()">Annuler</button>
+		  <button type="button" class="btn btn-info" (click)="ajouterModal.hide(); ajouterUtilisateur()" >Enregistrer</button>
+		</div>
+		
+	  </div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+  </div>
+</div>

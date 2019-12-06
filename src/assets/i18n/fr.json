@@ -1,0 +1,17 @@
+{
+    "firstname" : "Nom",
+    "Prenom": "Prénom",
+    "Gestion des habilitations":"Gestion des habilitations",
+    "Gestion des utilisateurs":"Gestion des utilisateurs",
+    "Gestion des profiles":"Gestion des profiles",
+    "find" : "Rechercher",
+   
+    "notification": {
+      "N1":"Acte(s) de naissance à valider",
+      "N2":"Acte(s) de naissance rejetés à modifier",
+      "N3":"Acte(s) de marriage à valider",
+      "N4":"Acte(s) de marriage rejetés à modifier"
+    },
+    "accueil" : "Accueil",
+    "ajouter" : "Ajouter"
+}

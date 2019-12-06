@@ -1,0 +1,20 @@
+<div class="alert alert-danger" *ngIf="resultVO.messagesErrors?.length > 0">
+  <strong>Message d'erreur</strong>
+  <ul class="list-group">
+    <li *ngFor="let err of resultVO.messagesErrors" class="list-group list-group-accent">{{err}}</li>
+  </ul>
+</div>
+
+<div class="alert alert-info" *ngIf="resultVO.messagesInfo?.length > 0">
+  <strong>Messages Info!</strong>
+  <ul>
+    <li *ngFor="let info of resultVO.messagesInfo">{{info}}</li>
+  </ul>
+</div>
+
+<div class="alert alert-warning" *ngIf="resultVO.messagesWarning?.length > 0">
+  <strong>Messages Warning!</strong>
+  <ul>
+    <li *ngFor="let warning of resultVO.messagesWarning">{{warning}}</li>
+  </ul>
+</div>

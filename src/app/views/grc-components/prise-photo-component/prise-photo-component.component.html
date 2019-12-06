@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="form-group row" *ngIf="photo">
+          <table class="table" style="width:60%">
+            <tbody>
+            <tr>
+              <td class="alignCenter" >
+                <input [disabled]="modeConsultation" type="button" value="Capturer Photo / أخد صورة"
+                       (click)="openPopupPhoto ()" class="btn btn-info btn-block"/>
+              </td>
+              <td class="alignCenter" >
+                <input [readonly]="modeConsultation" type="hidden" id="resultPhotoPortraitId" name="resultPhotoPortraitId"
+                       [(ngModel)]="photo.dataBase64">
+                <div id="resultPhotoPortraitIdDiv" [style.display]="photo?.dataBase64 ? 'block' : 'none'">
+                  <a (click)="telechargementPhoto()" style="cursor: pointer; color: cornflowerblue" title="Visualiser">
+                    <i class="icon-paper-clip icon-large"></i> Photo Portrait</a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="alignCenter" colspan="2">
+                <div id="resultPhotoPortraitIdDiv2" [style.display]="photo?.dataBase64 ? 'block' : 'none'">
+                  <img src="" id = "resultPhotoPortraitIdImg" height="100%" width="100%" onloadstart="">
+                </div>
+              </td>
+            </tr>
+
+
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

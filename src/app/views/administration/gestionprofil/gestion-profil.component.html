@@ -1,0 +1,209 @@
+<!--User Manage List-->
+<div class="user-manage-list">
+		<div>
+				<div class="card shadow-box py-5 px-4 mb-4 search-form-wrap">
+					<div class="row">
+						<div class="col-12 col-sm-8  ">
+							<div class="d-flex justify-content-between">
+								<div class="d-flex align-self-center">
+									<h3 class="text-capitalize">Gestion des profils</h3>
+								</div>
+							</div>
+							<br/>
+							<form>
+								<div>
+									<div class="form-group row">
+										<label class="col-md-2 col-form-label" for="rechMulticodeprofilId">CODE</label>
+										<div class="col-md-3" >
+										  <input type="text" id="rechMulticodeprofilId" name="rechMulticodeprofil"  class="form-control" 
+										  mdInput [(ngModel)]="rechMulti.codeProfil" />
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-md-2 col-form-label" for="rechMultilibelleFrId">Libellé</label>
+										<div class="col-md-3" >
+										  <input type="text" id="rechMultilibelleFrId" name="rechMultilibelleFr"  class="form-control" 
+										  mdInput [(ngModel)]="rechMulti.libelleFr" />
+										</div>
+										<div class="col-md-3" >
+										  <input type="text" id="rechMultilibelleArId" name="rechMultilibelleAr"  class="form-control" 
+										  mdInput [(ngModel)]="rechMulti.libelleAr" />
+										</div>
+										<label class="col-md-2 col-form-label" for="rechMultilibelleArId">صياغة</label>
+									</div>
+									<div class="form-group row">
+										<div class="col-12 col-sm-4 col-md-4 col-lg-3 col-xl-3">
+											<button class="btn btn-md bg-primary h-100" (click)="rechercherProfil()">{{'find'|translate}}</button>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+	<div class="chk-block mb-0">
+		<div class="chk-block-title px-4">
+			<div class="d-block d-sm-flex justify-content-between align-items-center">
+				<div class="d-flex justify-content-start align-items-center">
+					<button *ngIf="!this.estModeConnecte" class="btn btn-primary" data-toggle="modal" (click)="initAjouter();ajouterModal.show()">Ajouter<i class="fa fa-plus ml-2"></i></button>
+				</div>
+			</div>
+		</div>
+		<div class="chk-block-content p-0">
+			<div class="chk-block-content">
+			<div class="table-responsive">
+				<table class="table table-striped mb-0">
+					<thead>
+						<tr class="text-muted font-sm">
+							<th scope="col">CODE</th>
+							<th scope="col">Libellé FR</th>
+							<th scope="col">Libellé AR</th>
+							<th scope="col">Statut</th>
+							<th class="text-center" scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let profilList of profilManageList;let i = index">
+							
+							<td>
+								<div class="d-flex align-items-center">
+									
+									<div>
+										<h6 class="mb-0">{{profilList.codeProfil}} </h6>
+										
+									</div>
+								</div>
+							</td>
+							<td>
+								<span class="font-sm">{{profilList.libelleFr}} </span>
+							</td>
+							<td>
+								<span class="font-sm">{{profilList.libelleAr}} </span>
+							</td>
+							<td class="text-center">
+								<div class="d-flex">
+									<ng-template [ngIf]="profilList.estActiver==1" [ngIfElse]="desactiver">
+										<span class="fa fa-circle online mr-2"></span>
+										<span class="font-sm">Activer</span>
+									</ng-template>
+									<ng-template #desactiver>
+										<span class="fa fa-circle offline mr-2"></span>
+										<span class="font-sm">Désactiver</span>
+									</ng-template>
+								</div>
+								
+							</td>
+							<td class="text-center font-sm text-nowrap">
+								<a class="mr-3 text-muted" href="javascript:void(0)" data-toggle="modal" (click)="initModifier(profilList);ajouterModal.show()"><i class="fa fa-edit" aria-hidden="true"></i></a>
+								<ng-template [ngIf]="profilList.estActiver==1" [ngIfElse]="desac">
+									<a class="mr-3 text-muted" href="javascript:void(0)" (click)="desactiverProfil(profilList)"> Désactiver</a>
+								</ng-template>
+								<ng-template #desac>
+										<a class="mr-3 text-muted" href="javascript:void(0)" (click)="activerProfil(profilList)"> Activer</a>
+								</ng-template>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			</div>
+			<!-- pager -->
+			<div class="pagination">
+				<a (click)="setPage(1)" [ngClass]="{disabled:pager.currentPage === 1}">Premier</a>
+				<a (click)="setPage(pager.currentPage - 1)" [ngClass]="{disabled:pager.currentPage === 1}">Précédent</a>
+				<span *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+				  <a (click)="setPage(page)">{{page}}</a>
+				</span>
+				<a (click)="setPage(pager.currentPage + 1)" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">Suivant</a>
+				<a (click)="setPage(pager.totalPages)" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">Dernier</a>
+			  </div>
+		</div>
+	</div>
+
+
+	<div bsModal #ajouterModal="bs-modal"  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-info modal-xl" role="document">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h4 class="modal-title">Profil</h4>
+			  <button type="button" class="close"  (click)="ajouterModal.hide()" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group row">
+					<label class="col-md-2 col-form-label" for="codeProfilId">Code Profil</label>
+					<div class="col-md-4" >
+					  <input type="text" id="codeProfilId" [disabled]="!estModeAjout" name="codeProfil" required class="form-control" 
+					  mdInput [(ngModel)]="newProfil.codeProfil" />
+					</div>
+					<div class="col-md-4" >
+						<input  type="checkbox" [(ngModel)]="newProfil.estActiver" />
+						<label class="col-md-3 col-form-label"> Active</label>
+					</div>
+					
+				</div>
+				<div class="form-group row">
+					<label class="col-md-2 col-form-label" for="libelleFrId">Libellé</label>
+					<div class="col-md-4" >
+					  <input type="text" id="libelleFrId" name="libelleFr" required class="form-control" 
+					  mdInput [(ngModel)]="newProfil.libelleFr" />
+					</div>
+					
+					<div class="col-md-4" >
+					  <input type="text" id="libelleArId" name="libelleAr" required class="form-control" 
+					  mdInput [(ngModel)]="newProfil.libelleAr" />
+					</div>
+					<label class="col-md-2 col-form-label" for="libelleArId">صياغة</label>
+				</div>
+				<div class="row">
+					<div class="col-lg-6 col-xl-4 mb-4 mb-lg-3">
+						<div class="chk-ui-heading">
+							<h3 class="text-capitalize">Module</h3>
+						</div>
+						
+						<div class="list-group">
+							<div *ngFor="let parent of listAllMenu">
+								<button type="button" (click)="onChoisirModule(parent)" class="list-group-item list-group-item-action">{{parent.libelleFr}}</button>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 col-xl-4 mb-4 mb-lg-3">
+						<div *ngIf="menuSelected">
+							<div class="chk-ui-heading">
+								<h3 class="text-capitalize">Fonctionnalitées choisis ({{menuSelected.libelleFr}})</h3>
+							</div>
+							<div class="sortable-drag-list" [sortablejs]="menuSelected.childrenOutProfil" [sortablejsOptions]="groupOptions">
+								<div class="drag-handle mb-4" *ngFor="let menu of menuSelected.childrenOutProfil">
+									<h3 class="font-weight-normal"> <i class="fa fa-bars mr-3" aria-hidden="true"></i> {{ menu.libelleFr }} </h3>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6 col-xl-4 mb-4">
+						<div *ngIf="menuSelected">
+							<div class="chk-ui-heading">
+								<h3 class="text-capitalize">Fonctionnalitées choisis ({{menuSelected.libelleFr}})</h3>
+							</div>
+							<div class="sortable-drag-list" [sortablejs]="menuSelected.childrenInProfil" [sortablejsOptions]="groupOptions">
+								<div class="drag-handle mb-4" *ngFor="let menu of menuSelected.childrenInProfil">
+									<h3 class="font-weight-normal"> <i class="fa fa-bars mr-3" aria-hidden="true"></i> {{ menu.libelleFr }}
+									</h3>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-secondary" (click)="ajouterModal.hide()">Annuler</button>
+			  <button type="button" class="btn btn-info" (click)="ajouterModal.hide(); enregistrerProfil()" >Enregistrer</button>
+			</div>
+			
+		  </div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	  </div>
+</div>

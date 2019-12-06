@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="form-group row">
+          <table class="table" style="width:60%">
+            <tbody>
+            <tr>
+              <td class="alignCenter" >
+                <input [disabled]="modeConsultation" type="button" value="{{pieceJointe.libelle}} / {{pieceJointe.libelleAr}}"
+                       (click)="openPopupScan ()" class="btn btn-info btn-block"/>
+              </td>
+              <td class="alignCenter" >
+                <input [readonly]="modeConsultation" type="hidden" id="{{pieceJointe.id}}" name="'{{pieceJointe.id}}'"
+                        [(ngModel)]="pieceJointe.dataBase64">
+                <div id="{{pieceJointe.id}}Div" [style.display]="pieceJointe.dataBase64 ? 'block' : 'none'">
+                  <a (click)="telechargementPJ()" style="cursor: pointer; color: cornflowerblue" title="Visualiser">
+                    <i class="icon-paper-clip icon-large"></i> {{pieceJointe.libelle}} / {{pieceJointe.libelleAr}}</a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="alignCenter" colspan="2">
+                <div id="{{pieceJointe.id}}Div2" [style.display]="pieceJointe.dataBase64 ? 'block' : 'none'">
+                  <img src="data:image/tiff;base64,{{pieceJointe.dataBase64}}" id = "{{pieceJointe.id}}Img" height="964" width="700" onloadstart="">
+                </div>
+              </td>
+            </tr>
+
+
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

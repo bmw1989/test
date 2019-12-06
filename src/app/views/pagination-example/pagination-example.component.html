@@ -1,0 +1,23 @@
+<div>
+  <div class="container">
+    <div class="text-center">
+      <h1>Pagination Example</h1>
+
+      <!-- items being paged -->
+      <div *ngFor="let item of pagedItems">{{item.name}}</div>
+
+      <!-- pager -->
+        <div class="pagination">
+          <a (click)="setPage(1)" [ngClass]="{disabled:pager.currentPage === 1}">Premier</a>
+          <a (click)="setPage(pager.currentPage - 1)" [ngClass]="{disabled:pager.currentPage === 1}">Précédent</a>
+          <span *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+            <a (click)="setPage(page)">{{page}}</a>
+          </span>
+          <a (click)="setPage(pager.currentPage + 1)" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">Suivant</a>
+          <a (click)="setPage(pager.totalPages)" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">Dernier</a>
+        </div>
+
+    </div>
+
+  </div>
+</div>

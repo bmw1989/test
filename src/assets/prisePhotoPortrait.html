@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)https://makitweb.com/demo/webcam/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capture de Photo</title>
+
+</head>
+
+<body>
+<!-- CSS -->
+<style>
+    #my_camera{
+        width: 320px;
+        height: 240px;
+        border: 1px solid black;
+    }
+</style>
+
+<div id="my_camera" style="width: 320px; height: 240px;"><div></div><video autoplay="autoplay" style="width: 320px; height: 240px;"></video></div>
+<input type="button" value="Prendre Photo / أخد صورة" onclick="take_snapshot()">
+
+<div id="results"><img src=""></div>
+
+<input type="button" value="Valider Photo / تأكيد صورة" onclick="validerPhoto()">
+<input type="button" value="Annuler / إلغاء" onclick="annulerPhoto()">
+<!-- Webcam.min.js -->
+<script type="text/javascript" src="js/webcam.min.js"></script>
+
+<!-- Configure a few settings and attach camera -->
+<script language="JavaScript">
+    Webcam.set({
+        width: 320,
+        height: 240,
+        image_format: 'jpeg',
+        jpeg_quality: 90,
+
+    });
+    Webcam.attach( '#my_camera' );
+</script>
+<script language="JavaScript">
+
+    var base64data = '';
+
+    function take_snapshot() {
+        Webcam.snap( function(data_uri) {
+            // display results in page
+            document.getElementById('results').innerHTML =
+                '<img src="'+data_uri+'"/>';
+
+            const result = data_uri.split(',');
+            base64data = result[1];
+        } );
+    }
+
+    function annulerPhoto () {
+        self.close ();
+    }
+
+    function validerPhoto () {
+        const idRetour = 'resultPhotoPortraitId';
+        window.opener.document.getElementById(idRetour).value=base64data;
+        window.opener.document.getElementById(idRetour+"Div").style.display='block';
+        window.opener.document.getElementById(idRetour+"Div2").style.display='block';
+        window.opener.document.getElementById(idRetour+"Img").src='data:image/tiff;base64,' + base64data;
+        self.close ();
+    }
+</script>
+
+</body></html>
