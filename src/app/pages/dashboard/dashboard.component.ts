@@ -7,6 +7,6 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class DashboardComponent {
   constructor(public translate: TranslateService){
-    console.log(translate.currentLang);
+
   }
 }

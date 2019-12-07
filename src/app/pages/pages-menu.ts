@@ -34,3 +34,25 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
 ];
+
+export const navItems: NbMenuItem[] = [
+  {
+    title: 'Dashboard',
+    icon: 'home-outline',
+    link: '/pages/dashboard',
+   
+  },
+  
+ {
+    
+    title: 'Gestion des habilitations',
+    icon: 'lock-outline',
+    children: [
+      {
+        title: 'Gestion des utilisateurs',
+        link: '/administration/gestusers',
+      }
+    ],
+  },
+];
+

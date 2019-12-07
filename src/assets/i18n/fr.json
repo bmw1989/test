@@ -1,6 +1,6 @@
 {
-    "firstname" : "Nom",
-    "Prenom": "Prénom",
+    "lastname" : "Nom",
+    "firstname": "Prénom",
     "Gestion des habilitations":"Gestion des habilitations",
     "Gestion des utilisateurs":"Gestion des utilisateurs",
     "Gestion des profiles":"Gestion des profiles",
@@ -13,5 +13,19 @@
       "N4":"Acte(s) de marriage rejetés à modifier"
     },
     "accueil" : "Accueil",
-    "ajouter" : "Ajouter"
+    "ajouter" : "Ajouter",
+    "Informations personnelle" : "Informations personnelle",
+    "phonefixe" : "Téléphone Fixe",
+    "phonemobile" : "Téléphone Mobile",
+    "email" : "Mail",
+    "Contribuables" : "Contribuables",
+    "Fiche Contribuables": "Fiche Contribuables",
+    "save":"Enregistrer",
+    "adresse" : "Adresse",
+    "zone" : "Zone",
+    "carre" : "Carré",
+    "bloc" : "Bloc",
+    "batiment" : "Bâtiment",
+    "etage" : "étage",
+    "porte" : "Porte"
 }

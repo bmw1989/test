@@ -2,9 +2,24 @@
     "Gestion des habilitations":"إدارة الإستخدام",
     "Gestion des utilisateurs":"إدارة المستخدمين",
     "Gestion des profiles":"إدارة البرفيل",
-    "firstname" : "النسب",
-    "Prenom": "الإ سم",
+    "lastname" : "النسب",
+    "firstname": "الإ سم",
     "find" : "بحث",
     "accueil" : "إستقبال",
-    "ajouter" : "إضافة"
+    "ajouter" : "إضافة",
+    "Informations personnelle" : "معلومات شخصية",
+    "phonefixe" : "الهاتف",
+    "phonemobile": "الهاتف المحمول",
+    "email" : "البريد الالكتروني",
+    "Contribuables" : "دافع الضرائب",
+    "Fiche Contribuables" : "المعلومات شخصية",
+    "save" : "حفظ",
+    "adresse" : "عنوان",
+    "zone" : "منطقة",
+    "carre" : "مربع",
+    "bloc" : "بلك",
+    "batiment" : "عمارة",
+    "etage" : "الطابق",
+    "porte" : "رقم الباب"
+
 }

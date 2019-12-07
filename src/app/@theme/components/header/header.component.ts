@@ -5,6 +5,7 @@ import { UserData } from '../../../@core/data/users';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthenticationService } from '../../../views/loginRoot/service/authenticationService';
 
 @Component({
   selector: 'ngx-header',
@@ -52,7 +53,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private userService: UserData,
               public translate: TranslateService,
               private directionService: NbLayoutDirectionService,
-              private breakpointService: NbMediaBreakpointsService) {
+              private breakpointService: NbMediaBreakpointsService,
+              private authService:AuthenticationService) {
 
               this.currentDirection = this.directionService.getDirection();
 
@@ -62,6 +64,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    console.log("user : ");
+    console.log(this.authService.getUserConnected());
     this.currentTheme = this.themeService.currentTheme;
 
     this.userService.getUsers()

@@ -17,13 +17,11 @@ export class LoginComponent implements OnInit {
   constructor(private authService:AuthenticationService, private router:Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    console.log("hena");
     this.route.queryParams.subscribe(params => {
       let param = params["param"];
       if (param != null && param != '') {
         this.resultVO.messagesErrors = [params["param"]];
       }
-      console.log(param);
     });
   }
 

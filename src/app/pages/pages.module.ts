@@ -5,7 +5,7 @@ import { ThemeModule } from '../@theme/theme.module';
 import { PagesComponent } from './pages.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { PagesRoutingModule } from './pages-routing.module';
-
+import { AdministrationService } from './administration/administration.service';
 @NgModule({
   imports: [
     PagesRoutingModule,
@@ -15,6 +15,9 @@ import { PagesRoutingModule } from './pages-routing.module';
   ],
   declarations: [
     PagesComponent,
+  ],
+  providers:[
+    AdministrationService,
   ],
 })
 export class PagesModule {

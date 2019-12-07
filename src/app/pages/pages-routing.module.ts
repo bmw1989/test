@@ -17,6 +17,9 @@ const routes: Routes = [{
       redirectTo: 'dashboard',
       pathMatch: 'full',
     },
+    
+    { path: 'administration', loadChildren : () => import('./administration/administration.module').then(m => m.AdministrationModule)},
+    { path: 'contribuable', loadChildren : () => import('./contribuable/contribuable.module').then(m => m.ContribuableModule)},
   ],
 }];
 

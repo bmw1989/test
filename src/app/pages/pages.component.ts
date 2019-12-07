@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { MENU_ITEMS } from './pages-menu';
+import { MENU_ITEMS , navItems} from './pages-menu';
 import { NbMenuItem } from '@nebular/theme';
 import { AuthenticationService } from '../views/loginRoot/service/authenticationService';
 import { DesignService } from '../service/design/design.service';
@@ -27,13 +27,24 @@ export class PagesComponent implements OnInit{
     private router: Router, private translator: PagesMenuTranslator){}
 
   ngOnInit() {
-    this.getListMenu();
+   this.getListMenu();
+   this.menu = [];
   }
 
   getListMenu() {
 		this.designService.getMenuByUser().then(data =>{
-    //this.menu = data as NbMenuItem[];
-    this.menu = this.translator.translate(data as NbMenuItem[]);
+
+    //console.log(data);
+
+    let mdashboard = new NbMenuItem();
+    mdashboard.title = 'accueil';
+    mdashboard.icon = 'home-outline';
+    mdashboard.link = '/pages/dashboard';
+    this.menu.push(mdashboard);
+    this.menu.push.apply(this.menu,data as NbMenuItem[] );
+    this.menu=this.translator.translate(this.menu);
+    console.log(this.menu);
+    
 	  }, (error =>{
 		 if (error == 403) {
 		  this.authServiceApp.logout();

@@ -8,10 +8,10 @@ import { Utilisateur } from 'app/model/utilisateur/Utilisateur';
 import { ResultVO } from 'app/model/commun/vo/ResultVO';
 import { host } from 'app/util/constantes-app';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthenticationService } from '../loginRoot/service/authenticationService';
 import { Profil } from 'app/model/utilisateur/Profil';
 import {BeanRechercheUtilisateur} from './model/beanRechercheUtilisateur';
 import {BeanRechercheProfil} from './model/beanRechercheProfil';
+import { AuthenticationService } from '../../views/loginRoot/service/authenticationService';
 
 
 @Injectable({

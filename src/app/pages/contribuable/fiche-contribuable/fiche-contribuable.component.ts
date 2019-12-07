@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthenticationService } from 'app/views/loginRoot/service/authenticationService';
-import { ResultVO } from 'app/model/commun/vo/ResultVO';
 import { Contribuable } from '../model/contribuable';
+import { ResultVO } from '../../../model/commun/vo/ResultVO';
+import { AuthenticationService } from '../../../views/loginRoot/service/authenticationService';
+import { PersonnePhysique } from '../model/personne-physique';
 
 
 
@@ -16,18 +17,13 @@ export class FicheContribuableComponent implements OnInit {
 	
 	@Input() resultVO: ResultVO;
 
-	public ajouterModal;
-
-   @Input() newUser: Contribuable;
+   @Input() newContribuable: Contribuable;
   
 	constructor(private authServiceApp: AuthenticationService,
 			   public translate: TranslateService) { }
 
 	ngOnInit() {
-
-
-
-		 
+		 this.newContribuable = new PersonnePhysique();
 	}
 
 

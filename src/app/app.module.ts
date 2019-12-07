@@ -26,10 +26,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GRCComponentsModule } from './views/grc-components/grc-components.module';
 import { ReferentielService } from './service/referentiel.service';
 import { UtilService } from './util/util.service';
-import { AdministrationService } from './views/administration/administration.service';
+
 import { PagerService } from './views/pagination-example/pager.service';
-import { LoginComponent } from './views/loginRoot/login.component';
+
 import { PaginationExampleComponent } from './views/pagination-example/pagination-example.component';
+import { LoginComponent } from './views/loginRoot/login.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -63,15 +64,14 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
       })
-      ,GRCComponentsModule,
-
+      ,GRCComponentsModule
   ],
   bootstrap: [AppComponent],
   providers:[
     ReferentielService,
     PagerService,
     UtilService,
-    AdministrationService,],
+    ],
 })
 export class AppModule {
 }
