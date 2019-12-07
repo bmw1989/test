@@ -5,6 +5,7 @@ import { NbMenuItem } from '@nebular/theme';
 import { AuthenticationService } from '../views/loginRoot/service/authenticationService';
 import { DesignService } from '../service/design/design.service';
 import { Router } from '@angular/router';
+import { PagesMenuTranslator } from './pages-menu-translator';
 
 @Component({
   selector: 'ngx-pages',
@@ -15,6 +16,7 @@ import { Router } from '@angular/router';
       <router-outlet></router-outlet>
     </ngx-one-column-layout>
   `,
+  providers: [PagesMenuTranslator],
 })
 export class PagesComponent implements OnInit{
 
@@ -22,7 +24,7 @@ export class PagesComponent implements OnInit{
 
   constructor(private authServiceApp: AuthenticationService,
     private designService:DesignService,
-    private router: Router){}
+    private router: Router, private translator: PagesMenuTranslator){}
 
   ngOnInit() {
     this.getListMenu();
@@ -30,7 +32,8 @@ export class PagesComponent implements OnInit{
 
   getListMenu() {
 		this.designService.getMenuByUser().then(data =>{
-		this.menu = data as NbMenuItem[];
+    //this.menu = data as NbMenuItem[];
+    this.menu = this.translator.translate(data as NbMenuItem[]);
 	  }, (error =>{
 		 if (error == 403) {
 		  this.authServiceApp.logout();
