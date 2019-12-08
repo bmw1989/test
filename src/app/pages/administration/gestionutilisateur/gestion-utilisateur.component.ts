@@ -12,12 +12,11 @@ import {BeanRechercheUtilisateur} from '../model/beanRechercheUtilisateur';
 @Component({
   selector: 'app-gestion-utilisateur.component',
   templateUrl: './gestion-utilisateur.component.html',
-  styleUrls: ['./gestion-utilisateur.component.scss']
+  styleUrls: ['./gestion-utilisateur.component.scss'],
 })
 
 export class GestionutilisateurComponent implements OnInit {
-	
-	checkboxes 	: any;
+
 	@Input() resultVO: ResultVO;
 
 	public ajouterModal;
@@ -25,8 +24,8 @@ export class GestionutilisateurComponent implements OnInit {
 	color = {
 	  "Platinum" : "primary",
 	  "Gold"     : "success",
-	  "Silver"   : "warning"
-   }
+	  "Silver"   : "warning",
+   };
 
    @Input() newUser: Utilisateur;
    @Input() rechMulti: BeanRechercheUtilisateur;
@@ -72,9 +71,8 @@ export class GestionutilisateurComponent implements OnInit {
 			if (resultat) {
 				
 				this.userManageList = resultat.data as Utilisateur[];
-				if(this.userManageList !=undefined)
+				if(this.userManageList !==undefined)
 					this.setPage(1);
-				console.log(this.userManageList);
 			}
 		}, (error => {
 			if (error) {
@@ -98,7 +96,7 @@ export class GestionutilisateurComponent implements OnInit {
 				this.userManageList = resultat.data as Utilisateur[];
 				//console.log("users :");
 				//console.log(this.userManageList);
-				if(this.userManageList !=undefined)
+				if(this.userManageList !==undefined)
 				this.setPage(1);
 			}
 		}, (error => {
@@ -197,27 +195,7 @@ export class GestionutilisateurComponent implements OnInit {
 	
 	  }
 	  
-	  /**
-	   * 
-	   * @param response objet de retour
-	   */
-	  getAddUserPopupResponse(response: any){
-		  if(response){
-			  let addUser = {
-				  image: "assets/img/user-4.jpg",
-				  firstName : response.firstName,
-				  lastName : response.lastName,
-				  email : response.email,
-				  accountType : response.accountType,
-				  status : "Active",
-				  statusType : "online",
-				  time:"Since 1 hour",
-				  dateCreated : new Date()//,
-				  //accountTypeColor : this.color[response.accountType]
-			  }
-			  //this.userManageList.push(addUser);     
-		 }
-	 }
+
 	 setPage(page: number) {
 		if (page < 1 || page > this.pager.totalPages) {
 		  return;

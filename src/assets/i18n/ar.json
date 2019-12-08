@@ -20,6 +20,8 @@
     "bloc" : "بلك",
     "batiment" : "عمارة",
     "etage" : "الطابق",
-    "porte" : "رقم الباب"
-
+    "porte" : "رقم الباب",
+    "activites" : "الأنشطة",
+    "activite principal" :"النشاط الرئيسي",
+    "activite" : "النشاط"
 }

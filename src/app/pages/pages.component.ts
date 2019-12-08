@@ -43,7 +43,6 @@ export class PagesComponent implements OnInit{
     this.menu.push(mdashboard);
     this.menu.push.apply(this.menu,data as NbMenuItem[] );
     this.menu=this.translator.translate(this.menu);
-    console.log(this.menu);
     
 	  }, (error =>{
 		 if (error == 403) {

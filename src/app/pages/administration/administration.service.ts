@@ -3,7 +3,6 @@
  */
 import { AbstractServiceService } from 'app/service/AbstractService';
 import { Injectable } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Utilisateur } from 'app/model/utilisateur/Utilisateur';
 import { ResultVO } from 'app/model/commun/vo/ResultVO';
 import { host } from 'app/util/constantes-app';
@@ -22,11 +21,11 @@ import { AuthenticationService } from '../../views/loginRoot/service/authenticat
 export class AdministrationService extends  AbstractServiceService{
 
     constructor( private authService:AuthenticationService ,
-        private modalService: NgbModal, private http: HttpClient ) {
+       private http: HttpClient ) {
         super();
     }
 
-    ajouterNouveauUtilisateur(user:Utilisateur):Promise<ResultVO>{
+    ajouterNouveauUtilisateur(user: Utilisateur): Promise<ResultVO> {
         return this.http.post(host+"/createuser", JSON.stringify(user) , {headers:new HttpHeaders({'authorization':this.authService.getJwtToken(),
                 'Content-Type': 'application/json'})})
             .toPromise()
@@ -35,22 +34,22 @@ export class AdministrationService extends  AbstractServiceService{
     }
 
     getListProfil() {
-        return this.http.get(host + '/profils',{headers:new HttpHeaders({'authorization':this.authService.getJwtToken()})})
+        return this.http.get(host + '/profils',{ headers:new HttpHeaders({'authorization':this.authService.getJwtToken()})})
           .toPromise().then(response => response as ResultVO)
           .catch(this.handleError);
      }
 
-    
-    getListUtilisateurs(rechMulti:BeanRechercheUtilisateur) : Promise<ResultVO>{
+
+    getListUtilisateurs(rechMulti:BeanRechercheUtilisateur): Promise<ResultVO>{
        return this.http.post(host + '/utilisateurs', JSON.stringify(rechMulti) ,{headers:new HttpHeaders({'authorization':this.authService.getJwtToken(),
        'Content-Type': 'application/json'})})
        .toPromise().then(response => response as ResultVO)
        .catch(this.handleError);
      }
-    
 
-    getListAllProfils(rechMulti:BeanRechercheProfil) : Promise<ResultVO>{
-    
+
+    getListAllProfils(rechMulti:BeanRechercheProfil): Promise<ResultVO>{
+
      // console.log("Token ");
       //console.log(this.authService.getJwtToken());
      return this.http.post(host + '/allprofils', JSON.stringify(rechMulti) ,{headers:new HttpHeaders({'authorization':this.authService.getJwtToken(),

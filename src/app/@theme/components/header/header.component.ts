@@ -65,8 +65,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    console.log("user : ");
-    console.log(this.authService.getUserConnected());
     this.currentTheme = this.themeService.currentTheme;
 
     this.userService.getUsers()

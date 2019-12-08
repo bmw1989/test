@@ -27,5 +27,8 @@
     "bloc" : "Bloc",
     "batiment" : "Bâtiment",
     "etage" : "étage",
-    "porte" : "Porte"
+    "porte" : "Porte",
+    "activites" : "Activités",
+    "activite principal" :"Activité principale",
+    "activite" : "Activité"
 }

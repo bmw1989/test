@@ -1,7 +1,7 @@
 <div class="row">
 
     <div class="col-12">
-        <nb-card size="small">
+        <nb-card size="medium">
           <form>
           <nb-tabset fullWidth>
             <nb-tab tabTitle="{{'Informations personnelle'|translate}}">
@@ -50,7 +50,6 @@
                 <div class="col-sm-5">
                   <textarea rows="4" [(ngModel)]="newContribuable.adresse" nbInput fullWidth id="inputadresse" name="inputadresse" placeholder="" ></textarea>
                 </div>
-                
               </div>
               <div class="form-group row">
                 <label for="inputzone" class="label col-sm-1 col-form-label">{{'zone'|translate}}</label>
@@ -81,8 +80,27 @@
                   </div>
                 </div>
             </nb-tab>
-            <nb-tab tabTitle="Full width tab #3">
-              <span>Content #3</span>
+            <nb-tab id="activiteTab" tabTitle="{{'activites'|translate}}">
+                <div class="form-group row">
+                  <label  class="label col-sm-2 col-form-label">{{'activite principal'|translate}}</label>
+                  <div class="col-sm-3">
+                    <nb-select fullWidth [selected]="activitePrincipalSelected" (selectedChange)="changeActivitePrincipal($event)" status="info">
+                      <nb-option *ngFor="let principale of listTypeActPrincipale" [value]="principale"> {{ principale.libelleFr }}</nb-option>
+                    </nb-select>
+                  </div>
+
+                  <label *ngIf="activitePrincipalSelected" class="label col-sm-2 col-form-label">{{'activite'|translate}}</label>
+                  <div class="col-sm-3" *ngIf="activitePrincipalSelected">
+                    <nb-select [(ngModel)]="activiteSelected" name="activiteId" fullWidth status="info">
+                      <nb-option *ngFor="let activite of activitePrincipalSelected.children" [value]="activite"> {{ activite.libelleFr }}</nb-option>
+                    </nb-select>
+                  </div>
+                  <button (click)="ajouterActivite()" nbButton>{{'add'|translate}}</button>
+                </div>
+              <div class="form-group row justify-content-center" *ngIf="listActivitesChoisies.length>0">
+                <ng2-smart-table [source]="source" (deleteConfirm)="onDeleteConfirm($event)"  [settings]="settings">
+                </ng2-smart-table>
+              </div>
             </nb-tab>
           </nb-tabset>
           </form>
