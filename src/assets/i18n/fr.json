@@ -30,5 +30,10 @@
     "porte" : "Porte",
     "activites" : "Activités",
     "activite principal" :"Activité principale",
-    "activite" : "Activité"
+    "activite" : "Activité",
+    "civilite" : "Civilité",
+    "Madame" : "Madame",
+    "Mademoiselle" : "Mademoiselle",
+    "Monsieur": "Monsieur",
+    "add" : "Ajouter"
 }

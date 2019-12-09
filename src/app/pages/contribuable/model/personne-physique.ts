@@ -1,12 +1,14 @@
 import { Contribuable } from './contribuable';
+import {Civilite} from "../../../model/referentiel/civilite";
 
 export class PersonnePhysique extends Contribuable{
-   
-    nni:string;
+
+  civilite:Civilite;
+  nni:string;
 	prenomFr:string;
 	prenomAr:string;
 	nomFr:string;
 	nomAr:string;
-    codeNationnalite:string;
+	codeNationnalite:string;
     
 }

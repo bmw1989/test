@@ -6,6 +6,14 @@
           <nb-tabset fullWidth>
             <nb-tab tabTitle="{{'Informations personnelle'|translate}}">
                 <div class="form-group row">
+                  <label for="inputemail" class="label col-sm-2 col-form-label">{{'civilite'|translate}}</label>
+                  <div class="col-sm-4">
+                    <nb-select [(ngModel)]="newContribuable.civilite" name="activiteId" fullWidth status="info">
+                      <nb-option *ngFor="let civilite of keys(civilites)" [value]="civilite"> {{ civilites[civilite] |translate}}</nb-option>
+                    </nb-select>
+                  </div>
+                </div>
+                <div class="form-group row">
                     <label for="inputprenomFr" name="label1" class="label col-sm-2 col-form-label">Prénom</label>
                     <div class="col-sm-4">
                       <input type="text" [(ngModel)]="newContribuable.prenomFr" nbInput fullWidth id="inputprenomFr" name="inputprenomFr" placeholder="Prénom">
@@ -45,40 +53,77 @@
                 </div>
             </nb-tab>
             <nb-tab id="adresseTab" tabTitle="{{'adresse'|translate}}">
-              <div class="form-group row">
-                <label for="inputadresse" class="label col-sm-1 col-form-label">{{'adresse'|translate}}</label>
-                <div class="col-sm-5">
-                  <textarea rows="4" [(ngModel)]="newContribuable.adresse" nbInput fullWidth id="inputadresse" name="inputadresse" placeholder="" ></textarea>
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="inputzone" class="label col-sm-1 col-form-label">{{'zone'|translate}}</label>
-                <div class="col-sm-2">
-                  <input type="number" [(ngModel)]="newContribuable.zone" nbInput fullWidth Onlynumber id="inputzone" name="inputzone" placeholder="" >
-                </div>
-                <label for="inputcarre" class="label col-sm-1 col-form-label">{{'carre'|translate}}</label>
-                <div class="col-sm-2">
-                  <input type="number" [(ngModel)]="newContribuable.carre" nbInput fullWidth Onlynumber id="inputcarre" name="inputcarre" placeholder="" >
-                </div>
-                <label for="inputbloc" class="label col-sm-1 col-form-label">{{'bloc'|translate}}</label>
-                <div class="col-sm-2">
-                  <input type="number" [(ngModel)]="newContribuable.bloc" nbInput fullWidth Onlynumber id="inputbloc" name="inputbloc" placeholder="" >
-                </div>
-              </div>
-              <div class="form-group row">
-                  <label for="inputbatiment" class="label col-sm-1 col-form-label">{{'batiment'|translate}}</label>
-                  <div class="col-sm-2">
-                    <input type="number" [(ngModel)]="newContribuable.batiment" nbInput fullWidth Onlynumber id="inputbatiment" name="inputbatiment" placeholder="" >
+
+                <div class="row show-grid">
+                  <div class="col-6">
+                    <div class="form-group row">
+                      <label for="inputadresse" class="label col-sm-2 col-form-label">{{'adresse'|translate}}</label>
+                      <div class="col-sm-10">
+                        <textarea rows="3" [(ngModel)]="newContribuable.adresse" nbInput fullWidth id="inputadresse" name="inputadresse" placeholder="" ></textarea>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="inputzone" class="label col-sm-2 col-form-label">{{'zone'|translate}}</label>
+                      <div class="col-sm-4">
+                        <input type="number" [(ngModel)]="newContribuable.zone" nbInput fullWidth Onlynumber id="inputzone" name="inputzone" placeholder="" >
+                      </div>
+                      <label for="inputcarre" class="label col-sm-2 col-form-label">{{'carre'|translate}}</label>
+                      <div class="col-sm-4">
+                        <input type="number" [(ngModel)]="newContribuable.carre" nbInput fullWidth Onlynumber id="inputcarre" name="inputcarre" placeholder="" >
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="inputbloc" class="label col-sm-2 col-form-label">{{'bloc'|translate}}</label>
+                      <div class="col-sm-4">
+                        <input type="number" [(ngModel)]="newContribuable.bloc" nbInput fullWidth Onlynumber id="inputbloc" name="inputbloc" placeholder="" >
+                      </div>
+                      <label for="inputbatiment" class="label col-sm-2 col-form-label">{{'batiment'|translate}}</label>
+                      <div class="col-sm-4">
+                        <input type="number" [(ngModel)]="newContribuable.batiment" nbInput fullWidth Onlynumber id="inputbatiment" name="inputbatiment" placeholder="" >
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="inputetage" class="label col-sm-2 col-form-label">{{'etage'|translate}}</label>
+                      <div class="col-sm-4">
+                        <input type="number" [(ngModel)]="newContribuable.etage" nbInput fullWidth Onlynumber id="inputetage" name="inputetage" placeholder="" >
+                      </div>
+                      <label for="inputporte" class="label col-sm-2 col-form-label">{{'porte'|translate}}</label>
+                      <div class="col-sm-4">
+                        <input type="number" [(ngModel)]="newContribuable.porte" nbInput fullWidth Onlynumber id="inputporte" name="inputporte" placeholder="" >
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="inputlartitude" class="label col-sm-2 col-form-label">{{'lartitude'|translate}}</label>
+                      <div class="col-sm-4">
+                        <input type="number" [(ngModel)]="newContribuable.lartitude" nbInput fullWidth Onlynumber id="inputlartitude" name="inputlartitude" placeholder="" >
+                      </div>
+                      <label for="inputlongitude" class="label col-sm-2 col-form-label">{{'longitude'|translate}}</label>
+                      <div class="col-sm-4">
+                        <input type="number" [(ngModel)]="newContribuable.longitude" nbInput fullWidth Onlynumber id="inputlongitude" name="inputlongitude" placeholder="" >
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="inputatitude" class="label col-sm-2 col-form-label">{{'atitude'|translate}}</label>
+                      <div class="col-sm-4">
+                        <input type="number" [(ngModel)]="newContribuable.atitude" nbInput fullWidth Onlynumber id="inputatitude" name="inputatitude" placeholder="" >
+                      </div>
+                    </div>
                   </div>
-                  <label for="inputetage" class="label col-sm-1 col-form-label">{{'etage'|translate}}</label>
-                  <div class="col-sm-2">
-                    <input type="number" [(ngModel)]="newContribuable.etage" nbInput fullWidth Onlynumber id="inputetage" name="inputetage" placeholder="" >
+
+                  <div class="col-6">
+                    <div class="col-sm-12">
+                      <nb-card>
+                        <nb-card-body>
+                          <agm-map [latitude]="newContribuable.lartitude" [longitude]="newContribuable.longitude">
+                            <agm-marker [latitude]="newContribuable.lartitude" [longitude]="newContribuable.longitude"></agm-marker>
+                          </agm-map>
+                        </nb-card-body>
+                      </nb-card>
+                    </div>
                   </div>
-                  <label for="inputporte" class="label col-sm-1 col-form-label">{{'porte'|translate}}</label>
-                  <div class="col-sm-2">
-                    <input type="number" [(ngModel)]="newContribuable.porte" nbInput fullWidth Onlynumber id="inputporte" name="inputporte" placeholder="" >
-                  </div>
+
                 </div>
+
             </nb-tab>
             <nb-tab id="activiteTab" tabTitle="{{'activites'|translate}}">
                 <div class="form-group row">
@@ -100,6 +145,21 @@
               <div class="form-group row justify-content-center" *ngIf="listActivitesChoisies.length>0">
                 <ng2-smart-table [source]="source" (deleteConfirm)="onDeleteConfirm($event)"  [settings]="settings">
                 </ng2-smart-table>
+              </div>
+            </nb-tab>
+            <nb-tab id="testtab" tabTitle="{{'test'|translate}}">
+              <div class="row show-grid">
+                <div class="col-6">
+                  <h4>...tab1, col1 information...</h4>
+                  <h4>...tab1, col1 information...</h4>
+                  <h4>...tab1, col1 information...</h4> <h4>...tab1, col1 information...</h4>
+                  <h4>...tab1, col1 information...</h4>
+                  <h4>...tab1, col1 information...</h4>
+
+                </div>
+                <div class="col-6">
+                  <h4>...tab1, col2 information...</h4>
+                </div>
               </div>
             </nb-tab>
           </nb-tabset>

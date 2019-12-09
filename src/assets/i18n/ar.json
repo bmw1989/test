@@ -2,14 +2,14 @@
     "Gestion des habilitations":"إدارة الإستخدام",
     "Gestion des utilisateurs":"إدارة المستخدمين",
     "Gestion des profiles":"إدارة البرفيل",
-    "lastname" : "النسب",
+    "lastname" : "اسم العائلة",
     "firstname": "الإ سم",
     "find" : "بحث",
     "accueil" : "إستقبال",
     "ajouter" : "إضافة",
     "Informations personnelle" : "معلومات شخصية",
     "phonefixe" : "الهاتف",
-    "phonemobile": "الهاتف المحمول",
+    "phonemobile": "رقم الجوال",
     "email" : "البريد الالكتروني",
     "Contribuables" : "دافع الضرائب",
     "Fiche Contribuables" : "المعلومات شخصية",
@@ -23,5 +23,10 @@
     "porte" : "رقم الباب",
     "activites" : "الأنشطة",
     "activite principal" :"النشاط الرئيسي",
-    "activite" : "النشاط"
+    "activite" : "النشاط",
+    "civilite" : "Civilité",
+    "Madame" : "سيدة",
+    "Mademoiselle" : "آنسة",
+    "Monsieur" : "سيد",
+    "add" : "إضافة"
 }

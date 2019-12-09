@@ -13,6 +13,9 @@ export class Contribuable{
 	batiment;
 	etage;
 	porte;
+  lartitude;
+  longitude;
+  atitude;
 	listActivite:[];
 	observations:string;
 	taxe; //????????????????

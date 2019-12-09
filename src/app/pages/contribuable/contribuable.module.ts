@@ -17,6 +17,7 @@ import { ContribuableRoutingModule } from './contribuable-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import {AgmCoreModule} from "@agm/core";
 
 @NgModule({
   declarations: [FicheContribuableComponent],
@@ -34,6 +35,10 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
     ThemeModule,
     FormsModule,
     TranslateModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCpVhQiwAllg1RAFaxMWSpQruuGARy0Y1k',
+      libraries: ['places'],
+    }),
     ContribuableRoutingModule,
   ],
 })

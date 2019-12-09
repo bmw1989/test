@@ -9,6 +9,7 @@ import {Utilisateur} from "../../../model/utilisateur/Utilisateur";
 import {ActiviteService} from "../service/activite.services";
 import {FicheActivite} from "../model/fiche-activite";
 import {LocalDataSource} from "ng2-smart-table";
+import {Civilite} from "../../../model/referentiel/civilite";
 
 
 
@@ -29,6 +30,9 @@ export class FicheContribuableComponent implements OnInit {
     source: LocalDataSource = new LocalDataSource();
     settings: any;
 
+    keys = Object.keys;
+    civilites = Civilite;
+
     constructor(private authServiceApp: AuthenticationService,
                 private activiteService:ActiviteService,
                 public translate: TranslateService) {
@@ -40,8 +44,11 @@ export class FicheContribuableComponent implements OnInit {
     }
     ngOnInit() {
       this.newContribuable = new PersonnePhysique();
+      this.newContribuable.lartitude= 51.678418;
+      this.newContribuable.longitude = 7.809007;
       this.getListTypeActivitePrincipal();
       this.listActivitesChoisies = [];
+
 	  }
 
 	  ajouterActivite(){
