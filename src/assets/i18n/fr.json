@@ -35,5 +35,10 @@
     "Madame" : "Madame",
     "Mademoiselle" : "Mademoiselle",
     "Monsieur": "Monsieur",
-    "add" : "Ajouter"
+    "add" : "Ajouter",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "taxe": "Taxe",
+    "observations": "Observations",
+    "Choose file": "Choisissez un fichier"
 }

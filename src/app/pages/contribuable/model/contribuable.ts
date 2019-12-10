@@ -1,7 +1,7 @@
 import { Utilisateur } from '../../../model/utilisateur/Utilisateur';
 
-export class Contribuable{
-   
+export  class Contribuable{
+
 	reference:string;
 	telephoneFixe:string;
 	telephoneMobile:string;
@@ -13,9 +13,8 @@ export class Contribuable{
 	batiment;
 	etage;
 	porte;
-  lartitude;
+  latitude;
   longitude;
-  atitude;
 	listActivite:[];
 	observations:string;
 	taxe; //????????????????

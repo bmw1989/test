@@ -93,19 +93,13 @@
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="inputlartitude" class="label col-sm-2 col-form-label">{{'lartitude'|translate}}</label>
+                      <label for="inputlartitude" class="label col-sm-2 col-form-label">{{'latitude'|translate}}</label>
                       <div class="col-sm-4">
-                        <input type="number" [(ngModel)]="newContribuable.lartitude" nbInput fullWidth Onlynumber id="inputlartitude" name="inputlartitude" placeholder="" >
+                        <input type="number" [(ngModel)]="newContribuable.latitude" nbInput fullWidth Onlynumber id="inputlartitude" name="inputlartitude" placeholder="" >
                       </div>
                       <label for="inputlongitude" class="label col-sm-2 col-form-label">{{'longitude'|translate}}</label>
                       <div class="col-sm-4">
                         <input type="number" [(ngModel)]="newContribuable.longitude" nbInput fullWidth Onlynumber id="inputlongitude" name="inputlongitude" placeholder="" >
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label for="inputatitude" class="label col-sm-2 col-form-label">{{'atitude'|translate}}</label>
-                      <div class="col-sm-4">
-                        <input type="number" [(ngModel)]="newContribuable.atitude" nbInput fullWidth Onlynumber id="inputatitude" name="inputatitude" placeholder="" >
                       </div>
                     </div>
                   </div>
@@ -114,8 +108,8 @@
                     <div class="col-sm-12">
                       <nb-card>
                         <nb-card-body>
-                          <agm-map [latitude]="newContribuable.lartitude" [longitude]="newContribuable.longitude">
-                            <agm-marker [latitude]="newContribuable.lartitude" [longitude]="newContribuable.longitude"></agm-marker>
+                          <agm-map [latitude]="newContribuable.latitude" [longitude]="newContribuable.longitude">
+                            <agm-marker [latitude]="newContribuable.latitude" [longitude]="newContribuable.longitude"></agm-marker>
                           </agm-map>
                         </nb-card-body>
                       </nb-card>
@@ -147,18 +141,34 @@
                 </ng2-smart-table>
               </div>
             </nb-tab>
-            <nb-tab id="testtab" tabTitle="{{'test'|translate}}">
+            <nb-tab id="validationTab" tabTitle="{{'validation'|translate}}">
               <div class="row show-grid">
                 <div class="col-6">
-                  <h4>...tab1, col1 information...</h4>
-                  <h4>...tab1, col1 information...</h4>
-                  <h4>...tab1, col1 information...</h4> <h4>...tab1, col1 information...</h4>
-                  <h4>...tab1, col1 information...</h4>
-                  <h4>...tab1, col1 information...</h4>
-
+                  <div class="form-group row">
+                    <label for="inputtaxe" class="label col-sm-2 col-form-label">{{'taxe'|translate}}</label>
+                    <div class="col-sm-4">
+                      <input type="number" [(ngModel)]="newContribuable.taxe" nbInput fullWidth Onlynumber id="inputtaxe" name="inputtaxe" placeholder="" >
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="inputobservations" class="label col-sm-2 col-form-label">{{'observations'|translate}}</label>
+                    <div class="col-sm-10">
+                      <textarea rows="3" [(ngModel)]="newContribuable.observations" nbInput fullWidth id="inputobservations" name="inputobservations" placeholder="" ></textarea>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-6">
-                  <h4>...tab1, col2 information...</h4>
+                  <div class="form-group row">
+                    <label class="image-upload-container btn btn-bwm">
+                      <span>Select Image</span>
+                      <input #imageInput
+                             type="file"
+                             (change)="processFile(imageInput)">
+                    </label>
+                    <div *ngIf="selectedFile" class="text-center">
+                      <img src="{{selectedFile}}" class="rounded mx-auto d-block img-thumbnail" width="300" height="300">
+                    </div>
+                  </div>
                 </div>
               </div>
             </nb-tab>

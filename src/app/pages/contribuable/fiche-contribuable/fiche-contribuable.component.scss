@@ -1,3 +1,7 @@
+$custom-file-text: (
+  fr: "Parcourir"
+);
+
 @import '../../../@theme/styles/themes';
 
 @include nb-install-component() {
@@ -11,6 +15,8 @@
     height: nb-theme(card-height-small);
   }
 }
+
+
 
 
 :host /deep/ ng2-smart-table thead th {

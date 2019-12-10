@@ -3,14 +3,13 @@ import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
 import { Contribuable } from '../model/contribuable';
 import { ResultVO } from '../../../model/commun/vo/ResultVO';
 import { AuthenticationService } from '../../../views/loginRoot/service/authenticationService';
-import { PersonnePhysique } from '../model/personne-physique';
 import { TypeActivite } from '../model/type-activite';
 import {Utilisateur} from "../../../model/utilisateur/Utilisateur";
 import {ActiviteService} from "../service/activite.services";
 import {FicheActivite} from "../model/fiche-activite";
 import {LocalDataSource} from "ng2-smart-table";
 import {Civilite} from "../../../model/referentiel/civilite";
-
+import PersonnePhysique from "../model/personne-physique";
 
 
 @Component({
@@ -44,7 +43,7 @@ export class FicheContribuableComponent implements OnInit {
     }
     ngOnInit() {
       this.newContribuable = new PersonnePhysique();
-      this.newContribuable.lartitude= 51.678418;
+      this.newContribuable.latitude= 51.678418;
       this.newContribuable.longitude = 7.809007;
       this.getListTypeActivitePrincipal();
       this.listActivitesChoisies = [];
@@ -81,6 +80,19 @@ export class FicheContribuableComponent implements OnInit {
       }));
     }
 
+  selectedFile ;
+  processFile(imageInput: any) {
+    const file: File = imageInput.files[0];
+    const reader = new FileReader();
+
+    reader.addEventListener('load', (event: any) => {
+
+      this.selectedFile = event.target.result;
+
+    });
+
+    reader.readAsDataURL(file);
+  }
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
       this.listActivitesChoisies = this.listActivitesChoisies.filter(obj => obj!==event.data);

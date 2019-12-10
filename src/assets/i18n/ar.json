@@ -28,5 +28,10 @@
     "Madame" : "سيدة",
     "Mademoiselle" : "آنسة",
     "Monsieur" : "سيد",
-    "add" : "إضافة"
+    "add" : "إضافة",
+    "latitude": "خط العرض",
+    "longitude": "خط الطول",
+    "taxe": "الضريبة",
+    "observations": "تعليقات",
+    "Choose file": "اختيار الملف"
 }
