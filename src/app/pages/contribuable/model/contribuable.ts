@@ -1,4 +1,5 @@
 import { Utilisateur } from '../../../model/utilisateur/Utilisateur';
+import { FicheActivite } from './fiche-activite';
 
 export  class Contribuable{
 
@@ -15,7 +16,7 @@ export  class Contribuable{
 	porte;
   latitude;
   longitude;
-	listActivite:[];
+	listActivite: FicheActivite[];
 	observations:string;
 	taxe; //????????????????
 	// Pays refPays; //????????????????

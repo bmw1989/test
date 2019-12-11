@@ -10,6 +10,7 @@ import {FicheActivite} from "../model/fiche-activite";
 import {LocalDataSource} from "ng2-smart-table";
 import {Civilite} from "../../../model/referentiel/civilite";
 import PersonnePhysique from "../model/personne-physique";
+import { ContribuableService } from '../service/contribuable.service';
 
 
 @Component({
@@ -34,6 +35,7 @@ export class FicheContribuableComponent implements OnInit {
 
     constructor(private authServiceApp: AuthenticationService,
                 private activiteService:ActiviteService,
+                private contribuableService:ContribuableService,
                 public translate: TranslateService) {
       this.initTableSettings();
       this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -48,7 +50,29 @@ export class FicheContribuableComponent implements OnInit {
       this.getListTypeActivitePrincipal();
       this.listActivitesChoisies = [];
 
-	  }
+    }
+    
+    ajouterContribuable(){
+      let listActivites : FicheActivite[]= []
+      for(let typeActv of this.listActivitesChoisies){
+        
+        let fiche:FicheActivite = new FicheActivite();
+
+        fiche.refTypeActivite = typeActv;
+        listActivites.push(fiche);
+      }
+      this.newContribuable.listActivite = listActivites;
+      this.contribuableService.ajouterNouveauPersonnePhysique(this.newContribuable).then(resultat => {
+        //morphoPere = resultat.data as MorphoPersonne;
+        this.resultVO = resultat;
+      }, (error => {
+        this.resultVO = error;
+        this.initializeResultVO();
+        if (this.resultVO.isDeconnected) {
+          this.authServiceApp.logoutWithParam();
+        }
+        }));
+    }
 
 	  ajouterActivite(){
 

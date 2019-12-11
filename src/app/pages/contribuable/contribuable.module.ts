@@ -36,7 +36,7 @@ import {AgmCoreModule} from "@agm/core";
     FormsModule,
     TranslateModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCpVhQiwAllg1RAFaxMWSpQruuGARy0Y1k',
+      apiKey: 'AIzaSyCMGihUtvX9zWMbvorK2yr7B17344_BtDs',
       libraries: ['places'],
     }),
     ContribuableRoutingModule,
