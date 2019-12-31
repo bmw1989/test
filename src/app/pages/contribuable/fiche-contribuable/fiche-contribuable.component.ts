@@ -53,10 +53,10 @@ export class FicheContribuableComponent implements OnInit {
     }
     
     ajouterContribuable(){
-      let listActivites : FicheActivite[]= []
-      for(let typeActv of this.listActivitesChoisies){
+      const listActivites : FicheActivite[]= [];
+      for(const typeActv of this.listActivitesChoisies){
         
-        let fiche:FicheActivite = new FicheActivite();
+        const fiche:FicheActivite = new FicheActivite();
 
         fiche.refTypeActivite = typeActv;
         listActivites.push(fiche);

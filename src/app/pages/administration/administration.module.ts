@@ -8,22 +8,47 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ModalModule, TabsModule } from 'ngx-bootstrap';
 import { SortablejsModule, SortablejsOptions} from "ngx-sortablejs";
 import { GestionProfilComponent } from './gestionprofil/gestion-profil.component';
+import {
+  NbButtonModule,
+  NbCardModule,
+  NbCheckboxModule,
+  NbDatepickerModule, NbIconModule,
+  NbInputModule,
+  NbRadioModule, NbSelectModule, NbTabsetModule
+} from "@nebular/theme";
+import {Ng2SmartTableModule} from "ng2-smart-table";
+import {StatutViewComponent} from "./gestionutilisateur/statut-view/statut-view.component";
 
 
 @NgModule({
   declarations: [
     GestionutilisateurComponent,
-    GestionProfilComponent
+    GestionProfilComponent,
+    StatutViewComponent,
   ],
   imports: [
     CommonModule,
 		FormsModule,
+    NbInputModule,
+    NbCardModule,
+    NbButtonModule,
+    NbCheckboxModule,
+    NbRadioModule,
+    NbDatepickerModule,
+    NbTabsetModule,
+    NbSelectModule,
+    NbIconModule,
+    Ng2SmartTableModule,
 		ReactiveFormsModule,
     TranslateModule,
     ModalModule.forRoot(),
     AdministrationRoutingModule,
     SortablejsModule,
-    TabsModule
-  ]
+    TabsModule,
+  ],
+  entryComponents :[
+    GestionutilisateurComponent,
+    StatutViewComponent,
+  ],
 })
 export class AdministrationModule { }
