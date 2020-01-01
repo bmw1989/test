@@ -8,5 +8,6 @@ export class  ResultVO {
   messagesWarning:Array<any>=[];
   isDeconnected:boolean = false;
   estModeConnecte:boolean;
+  action:string;
 
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import {Component, OnInit, Input, ViewChild} from '@angular/core';
+import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
 import { AuthenticationService } from 'app/views/loginRoot/service/authenticationService';
 import { ResultVO } from 'app/model/commun/vo/ResultVO';
 import { AdministrationService } from '../administration.service';
@@ -9,13 +9,16 @@ import { DesignService } from 'app/service/design/design.service';
 import { Menu } from 'app/model/design/menu';
 import { SortablejsOptions } from 'ngx-sortablejs';
 import {BeanRechercheProfil} from '../model/beanRechercheProfil';
+import {LocalDataSource} from "ng2-smart-table";
+import {StatutprofilViewComponent} from "./statutprofil-view/statutprofil-view.component";
+import {ModalDirective} from "ngx-bootstrap";
 
 
 
 @Component({
   selector: 'app-gestion-profil.component',
   templateUrl: './gestion-profil.component.html',
-  styleUrls: ['./gestion-profil.component.scss']
+  styleUrls: ['./gestion-profil.component.scss'],
 })
 
 export class GestionProfilComponent implements OnInit {
@@ -23,30 +26,27 @@ export class GestionProfilComponent implements OnInit {
 	checkboxes 	: any;
 	@Input() resultVO: ResultVO;
 
-	public ajouterModal;
+  @ViewChild('ajouterModal', {static: false}) ajouterModal:ModalDirective;
 
-	list1				: any[];
-	list2				: any[];
-	numbers			: any[];
 	
 	color = {
 	  "Platinum" : "primary",
 	  "Gold"     : "success",
-	  "Silver"   : "warning"
-	}
+	  "Silver"   : "warning",
+	};
 	groupOptions : SortablejsOptions = {
 		group			: 'testGroup',
 		handle		: '.drag-handle',
-		animation	: 300
+		animation	: 300,
 	};
 
 	simpleOptions : SortablejsOptions = {
-		animation : 300
+		animation : 300,
 	};
 
    @Input() newProfil: Profil;
    @Input() rechMulti: BeanRechercheProfil;
-	profilManageList : Profil[];
+	profilManageList : Profil[]=[];
 	profilList : Profil[];
 	pager: any = {};
 	pagedItems: any[''];
@@ -56,11 +56,21 @@ export class GestionProfilComponent implements OnInit {
 	menuSelected:Menu;
 	estModeAjout:Boolean;
 
+  source: LocalDataSource = new LocalDataSource();
+  settings: any;
+
 	constructor(private authServiceApp: AuthenticationService,
 			   public translate: TranslateService,
 			   public adminService: AdministrationService,
 			   private pagerService: PagerService,
-			   private designService:DesignService) { }
+			   private designService:DesignService) {
+
+    this.initTableSettings();
+    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.translate.use(event.lang);
+      this.initTableSettings();
+    });
+  }
 
 	ngOnInit() {
 
@@ -74,8 +84,7 @@ export class GestionProfilComponent implements OnInit {
 		this.adminService.getListAllProfils(this.rechMulti).then(resultat => {
 			if (resultat) {
 				this.profilManageList = resultat.data as Profil[];
-				if(this.profilManageList !=undefined)
-				this.setPage(1);
+        this.source.load(this.profilManageList);
 			}
 		}, (error => {
 			if (error) {
@@ -116,7 +125,7 @@ export class GestionProfilComponent implements OnInit {
 			this.listAllMenu = resultat.data as Menu[];
 			this.listAllMenu = this.listAllMenu.filter(m => m.children);
 			
-			for(let menu of this.listAllMenu){
+			for(const menu of this.listAllMenu){
 				menu.childrenInProfil = [];
 				menu.childrenOutProfil = [];
 				if(menu.children){
@@ -178,14 +187,14 @@ export class GestionProfilComponent implements OnInit {
 	private getListMenuDuProfil(profilSelected:Profil){
 		
 		this.listMenuProfil = new Array();
-		for(let role of profilSelected.roles){
+		for(const role of profilSelected.roles){
 			this.listMenuProfil.push(role.refFct);
 		}
 	}
 
 	enregistrerProfil(){
 		this.construireNouveauMenu();
-		let obj = {"profil":this.newProfil, "listfcts":this.listMenuProfil};
+		const obj = {"profil":this.newProfil, "listfcts":this.listMenuProfil};
 		this.adminService.enregistrerProfil(obj).then(resultat => {
 			this.resultVO = resultat;
 		}, (error => {
@@ -199,8 +208,8 @@ export class GestionProfilComponent implements OnInit {
 
 	construireNouveauMenu(){
 		this.listMenuProfil = new Array();
-		for(let menu of this.listAllMenu){
-			for(let children of menu.childrenInProfil){
+		for(const menu of this.listAllMenu){
+			for(const children of menu.childrenInProfil){
 				this.listMenuProfil.push(children);
 			}
 		}
@@ -219,7 +228,72 @@ export class GestionProfilComponent implements OnInit {
 		  }));
 	}
 
-	initializeResultVO () {
+  initTableSettings(): void {
+    this.settings = {
+      hideSubHeader: true,
+
+      actions: {
+        position: 'right', // left|right
+        add: false,
+        edit: false,
+        delete: false,
+      },
+      columns: {
+        codeProfil: {
+          title: this.translate.instant('code'),
+          type: 'string',
+          sort:true,
+        },
+        libelleFr: {
+          title: 'Libellé FR',
+          type: 'string',
+          sort:true,
+        },
+        libelleAr: {
+          title: 'Libellé AR',
+          type: 'string',
+          sort:true,
+        },
+        estActiver: {
+          title: 'Statut',
+          type: 'html',
+          valuePrepareFunction:(row)=>{
+            if(row) {
+              return `<span class="fa fa-circle online mr-2"></span> <span class="font-sm">Activer</span>`;
+            }else{
+              return `<span class="fa fa-circle offline mr-2"></span> <span class="font-sm">Désactiver</span>`;
+            }
+          },
+        },
+
+        action: {
+          title: this.translate.instant('Action'),
+          type:'custom',
+          renderComponent:StatutprofilViewComponent,
+          onComponentInitFunction: (instance: any) => {
+            instance.save.subscribe(resultat => {
+
+              if(resultat.action === "M"){
+
+                this.initModifier(resultat.data);
+
+                this.ajouterModal.show();
+
+              }
+              this.rechercherProfil();
+            });
+          },
+        },
+      },
+      pager: {
+        perPage: 10,
+      },attr: {
+        class: 'table table-bordered',
+      },
+    };
+  }
+
+  initializeResultVO () {
 		if (this.resultVO == null) {
 		  this.resultVO = new ResultVO ();
 		}
@@ -235,16 +309,5 @@ export class GestionProfilComponent implements OnInit {
 	
 	  }
 
-	 setPage(page: number) {
-		if (page < 1 || page > this.pager.totalPages) {
-		  return;
-		}
-	
-		// get pager object from service
-		this.pager = this.pagerService.getPager(this.profilManageList.length, page);
-	
-		// get current page of items
-		this.pagedItems = this.profilManageList.slice(this.pager.startIndex, this.pager.endIndex + 1);
-	  }
 
 }

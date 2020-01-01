@@ -8,19 +8,20 @@ import {LangChangeEvent, TranslateService} from "@ngx-translate/core";
 import {AdministrationService} from "../../administration.service";
 import {PagerService} from "../../../../views/pagination-example/pager.service";
 import {DatePipe} from "@angular/common";
+import {Profil} from "../../../../model/utilisateur/Profil";
 
 @Component({
   template: `
-    <ng-template [ngIf]="rowData.estActiver" [ngIfElse]="desac">
-      <a class="mr-3 text-muted" href="javascript:void(0)" (click)="desactiverUtilisateur(rowData)"> Désactiver</a>
+    <ng-template [ngIf]="rowData.estActiver==1" [ngIfElse]="desac">
+      <a class="mr-3 text-muted" href="javascript:void(0)" (click)="desactiverProfil(rowData)"> Désactiver</a>
     </ng-template>
     <ng-template #desac>
-      <a class="mr-3 text-muted" href="javascript:void(0)" (click)="activerUtilisateur(rowData)"> Activer</a>
+      <a class="mr-3 text-muted" href="javascript:void(0)" (click)="activerProfil(rowData)"> Activer</a>
     </ng-template>
     <a class="mr-3 text-muted" href="javascript:void(0)" data-toggle="modal" (click)="onModifier(rowData)"><i class="fa fa-edit" aria-hidden="true"></i></a>
   `,
 })
-export class StatutViewComponent implements ViewCell, OnInit {
+export class StatutprofilViewComponent implements ViewCell, OnInit {
 
   renderValue: string;
 
@@ -29,6 +30,7 @@ export class StatutViewComponent implements ViewCell, OnInit {
   @Input() resultVO: ResultVO;
 
   @Output() save: EventEmitter<any> = new EventEmitter();
+  @Output() action: EventEmitter<any> = new EventEmitter();
 
   constructor(private authServiceApp: AuthenticationService,
               public adminService: AdministrationService) {
@@ -39,15 +41,14 @@ export class StatutViewComponent implements ViewCell, OnInit {
 
   }
 
-  activerUtilisateur(user){
-    if(confirm("Vous-les vous vraiment activer l'utilisateur !")){
-      this.adminService.activerUtilisateur(user).then(resultat => {
+  activerProfil(prof:Profil){
+    if(confirm("Vous-les vous vraiment activer le profil !")){
+      this.adminService.activerProfil(prof).then(resultat => {
         this.resultVO = resultat;
         this.resultVO.action = "A";
         this.save.emit(this.resultVO);
       }, (error => {
         this.resultVO = error;
-        //this.initializeResultVO();
         if (this.resultVO.isDeconnected) {
           this.authServiceApp.logoutWithParam();
         }
@@ -55,15 +56,14 @@ export class StatutViewComponent implements ViewCell, OnInit {
     }
   }
 
-  desactiverUtilisateur(user){
-    if(confirm("Vous-les vous vraiment désactiver l'utilisateur !")){
-      this.adminService.desactiverUtilisateur(user).then(resultat => {
+  desactiverProfil(prof:Profil){
+    if(confirm("Vous-les vous vraiment désactiver le profil !")){
+      this.adminService.desactiverProfil(prof).then(resultat => {
         this.resultVO = resultat;
         this.resultVO.action = "D";
         this.save.emit(this.resultVO);
       }, (error => {
         this.resultVO = error;
-        //this.initializeResultVO();
         if (this.resultVO.isDeconnected) {
           this.authServiceApp.logoutWithParam();
         }
@@ -71,12 +71,12 @@ export class StatutViewComponent implements ViewCell, OnInit {
     }
   }
 
-  onModifier(user){
+  onModifier(profil){
 
     //this.estModeAjout = false;
     this.resultVO = new ResultVO();
     this.resultVO.action = "M";
-    this.resultVO.data = user;
+    this.resultVO.data = profil;
 
     this.save.emit(this.resultVO);
   }

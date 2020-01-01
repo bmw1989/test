@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, ViewChild, ElementRef} from '@angular/core';
 import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
 import { Utilisateur } from 'app/model/utilisateur/Utilisateur';
 import { AuthenticationService } from 'app/views/loginRoot/service/authenticationService';
@@ -11,20 +11,22 @@ import {LocalDataSource} from "ng2-smart-table";
 import {date} from "ng2-validation/dist/date";
 import {DatePipe} from "@angular/common";
 import {StatutViewComponent} from "./statut-view/statut-view.component";
+import {ModalDirective} from "ngx-bootstrap";
 
-
+declare let Q: any;
 @Component({
   selector: 'app-gestion-utilisateur.component',
   templateUrl: './gestion-utilisateur.component.html',
-  styleUrls: ['./gestion-utilisateur.component.css'],
+  styleUrls: ['./gestion-utilisateur.component.scss'],
 })
 
 export class GestionutilisateurComponent implements OnInit {
 
 	@Input() resultVO: ResultVO;
 
-	public ajouterModal;
+  @ViewChild('ajouterModal', {static: false}) ajouterModal:ModalDirective;
 
+	//public ajouterModal;
 
    @Input() newUser: Utilisateur;
    @Input() rechMulti: BeanRechercheUtilisateur;
@@ -81,8 +83,6 @@ export class GestionutilisateurComponent implements OnInit {
 			if (resultat) {
 				
 				this.userManageList = resultat.data as Utilisateur[];
-				//console.log("users :");
-				//console.log(this.userManageList);
         this.source.load(this.userManageList);
 
 			}
@@ -105,7 +105,8 @@ export class GestionutilisateurComponent implements OnInit {
 		this.estModeAjout = true;
 	}
 
-	initModifier(user:Utilisateur){
+	initModifier(user){
+    //const user = event.data as Utilisateur;
 		this.newUser = user;
 		this.estModeAjout = false;
 	}
@@ -154,21 +155,21 @@ export class GestionutilisateurComponent implements OnInit {
           sort:true,
         },
         nomAr: {
-          title: this.translate.instant('nomAr'),
+          title: 'النسب',
           type: 'string',
           sort:true,
         },
         prenomAr: {
-          title: this.translate.instant('prenomAr'),
+          title: 'الإ سم',
           type: 'string',
           sort:true,
         },
         nomFr: {
-          title: this.translate.instant('nomFr'),
+          title: 'Nom',
           type: 'string',
         },
         prenomFr: {
-          title: this.translate.instant('prenomFr'),
+          title: 'Prénom',
           type: 'string',
         },
         libelleFr: {
@@ -182,18 +183,24 @@ export class GestionutilisateurComponent implements OnInit {
           },
           type: Date,
         },
-        estActiver: //or something
-          {
-            title:'Statut',
-            type:'custom',
-            renderComponent:StatutViewComponent,
-            onComponentInitFunction: (instance: any) => {
-              instance.save.subscribe(row => {
-                this.rechercherUtilisateur();
-              });
-              },
+        action: {
+           title: this.translate.instant('Action'),
+           type:'custom',
+           renderComponent:StatutViewComponent,
+           onComponentInitFunction: (instance: any) => {
+             instance.save.subscribe(resultat => {
 
-          },
+               if(resultat.action === "M"){
+
+                   this.initModifier(resultat.data);
+
+                   this.ajouterModal.show();
+
+               }
+               this.rechercherUtilisateur();
+             });
+             },
+        },
       },
       pager: {
         perPage: 10,

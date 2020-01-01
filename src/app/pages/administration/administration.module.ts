@@ -18,6 +18,7 @@ import {
 } from "@nebular/theme";
 import {Ng2SmartTableModule} from "ng2-smart-table";
 import {StatutViewComponent} from "./gestionutilisateur/statut-view/statut-view.component";
+import {StatutprofilViewComponent} from "./gestionprofil/statutprofil-view/statutprofil-view.component";
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import {StatutViewComponent} from "./gestionutilisateur/statut-view/statut-view.
     GestionutilisateurComponent,
     GestionProfilComponent,
     StatutViewComponent,
+    StatutprofilViewComponent,
   ],
   imports: [
     CommonModule,
@@ -49,6 +51,7 @@ import {StatutViewComponent} from "./gestionutilisateur/statut-view/statut-view.
   entryComponents :[
     GestionutilisateurComponent,
     StatutViewComponent,
+    StatutprofilViewComponent,
   ],
 })
 export class AdministrationModule { }

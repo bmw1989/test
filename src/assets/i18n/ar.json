@@ -33,5 +33,11 @@
     "longitude": "خط الطول",
     "taxe": "الضريبة",
     "observations": "تعليقات",
-    "Choose file": "اختيار الملف"
+    "Choose file": "اختيار الملف",
+    "username": "اسم المستخدم",
+    "dateCreation": "تاريخ الإنشاء",
+    "status": "الوضع",
+    "profile": "الملف الشخصي",
+    "Liste des utilisateurs": "قائمة المستخدمين",
+    "adduser": "إضافة مستخدم جديد"
 }

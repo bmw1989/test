@@ -1,127 +1,67 @@
-<!--User Manage List-->
-<div class="user-manage-list">
-		<div>
-				<div class="card shadow-box py-5 px-4 mb-4 search-form-wrap">
-					<div class="row">
-						<div class="col-12 col-sm-8  ">
-							<div class="d-flex justify-content-between">
-								<div class="d-flex align-self-center">
-									<h3 class="text-capitalize">Gestion des profils</h3>
-								</div>
-							</div>
-							<br/>
-							<form>
-								<div>
-									<div class="form-group row">
-										<label class="col-md-2 col-form-label" for="rechMulticodeprofilId">CODE</label>
-										<div class="col-md-3" >
-										  <input type="text" id="rechMulticodeprofilId" name="rechMulticodeprofil"  class="form-control" 
-										  mdInput [(ngModel)]="rechMulti.codeProfil" />
-										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-md-2 col-form-label" for="rechMultilibelleFrId">Libellé</label>
-										<div class="col-md-3" >
-										  <input type="text" id="rechMultilibelleFrId" name="rechMultilibelleFr"  class="form-control" 
-										  mdInput [(ngModel)]="rechMulti.libelleFr" />
-										</div>
-										<div class="col-md-3" >
-										  <input type="text" id="rechMultilibelleArId" name="rechMultilibelleAr"  class="form-control" 
-										  mdInput [(ngModel)]="rechMulti.libelleAr" />
-										</div>
-										<label class="col-md-2 col-form-label" for="rechMultilibelleArId">صياغة</label>
-									</div>
-									<div class="form-group row">
-										<div class="col-12 col-sm-4 col-md-4 col-lg-3 col-xl-3">
-											<button class="btn btn-md bg-primary h-100" (click)="rechercherProfil()">{{'find'|translate}}</button>
-										</div>
-									</div>
-								</div>
-							</form>
-						</div>
-						
-					</div>
-				</div>
-			</div>
-	<div class="chk-block mb-0">
-		<div class="chk-block-title px-4">
-			<div class="d-block d-sm-flex justify-content-between align-items-center">
-				<div class="d-flex justify-content-start align-items-center">
-					<button *ngIf="!this.estModeConnecte" class="btn btn-primary" data-toggle="modal" (click)="initAjouter();ajouterModal.show()">Ajouter<i class="fa fa-plus ml-2"></i></button>
-				</div>
-			</div>
-		</div>
-		<div class="chk-block-content p-0">
-			<div class="chk-block-content">
-			<div class="table-responsive">
-				<table class="table table-striped mb-0">
-					<thead>
-						<tr class="text-muted font-sm">
-							<th scope="col">CODE</th>
-							<th scope="col">Libellé FR</th>
-							<th scope="col">Libellé AR</th>
-							<th scope="col">Statut</th>
-							<th class="text-center" scope="col">Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr *ngFor="let profilList of profilManageList;let i = index">
-							
-							<td>
-								<div class="d-flex align-items-center">
-									
-									<div>
-										<h6 class="mb-0">{{profilList.codeProfil}} </h6>
-										
-									</div>
-								</div>
-							</td>
-							<td>
-								<span class="font-sm">{{profilList.libelleFr}} </span>
-							</td>
-							<td>
-								<span class="font-sm">{{profilList.libelleAr}} </span>
-							</td>
-							<td class="text-center">
-								<div class="d-flex">
-									<ng-template [ngIf]="profilList.estActiver==1" [ngIfElse]="desactiver">
-										<span class="fa fa-circle online mr-2"></span>
-										<span class="font-sm">Activer</span>
-									</ng-template>
-									<ng-template #desactiver>
-										<span class="fa fa-circle offline mr-2"></span>
-										<span class="font-sm">Désactiver</span>
-									</ng-template>
-								</div>
-								
-							</td>
-							<td class="text-center font-sm text-nowrap">
-								<a class="mr-3 text-muted" href="javascript:void(0)" data-toggle="modal" (click)="initModifier(profilList);ajouterModal.show()"><i class="fa fa-edit" aria-hidden="true"></i></a>
-								<ng-template [ngIf]="profilList.estActiver==1" [ngIfElse]="desac">
-									<a class="mr-3 text-muted" href="javascript:void(0)" (click)="desactiverProfil(profilList)"> Désactiver</a>
-								</ng-template>
-								<ng-template #desac>
-										<a class="mr-3 text-muted" href="javascript:void(0)" (click)="activerProfil(profilList)"> Activer</a>
-								</ng-template>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			</div>
-			<!-- pager -->
-			<div class="pagination">
-				<a (click)="setPage(1)" [ngClass]="{disabled:pager.currentPage === 1}">Premier</a>
-				<a (click)="setPage(pager.currentPage - 1)" [ngClass]="{disabled:pager.currentPage === 1}">Précédent</a>
-				<span *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-				  <a (click)="setPage(page)">{{page}}</a>
-				</span>
-				<a (click)="setPage(pager.currentPage + 1)" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">Suivant</a>
-				<a (click)="setPage(pager.totalPages)" [ngClass]="{disabled:pager.currentPage === pager.totalPages}">Dernier</a>
-			  </div>
-		</div>
+
+<div class="row">
+	<div class="col-12">
+		<br/>
+    <nb-card class="inline-form-card">
+      <nb-card-header><h4 class="text-capitalize">{{ 'Gestion des profils' | translate }}</h4></nb-card-header>
+      <br/>
+      <nb-card-body>
+        <form>
+          <div>
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label" for="rechMulticodeprofilId">{{'code'|translate}}</label>
+              <div class="col-md-3" >
+                <input type="text" id="rechMulticodeprofilId" name="rechMulticodeprofil"  class="form-control"
+                mdInput [(ngModel)]="rechMulti.codeProfil" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-2 col-form-label" for="rechMultilibelleFrId">Libellé</label>
+              <div class="col-md-3" >
+                <input type="text" id="rechMultilibelleFrId" name="rechMultilibelleFr"  class="form-control"
+                mdInput [(ngModel)]="rechMulti.libelleFr" />
+              </div>
+              <div class="col-md-3" >
+                <input type="text" id="rechMultilibelleArId" name="rechMultilibelleAr"  class="form-control"
+                mdInput [(ngModel)]="rechMulti.libelleAr" />
+              </div>
+              <label class="col-md-2 col-form-label" for="rechMultilibelleArId">صياغة</label>
+            </div>
+            <div class="form-group row">
+              <div class="col-12 col-sm-4 col-md-4 col-lg-3 col-xl-3">
+                <button nbButton (click)="rechercherProfil()">{{'find'|translate}}</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
 	</div>
 
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <nb-card class="inline-form-card">
+      <nb-card-header><h4 class="text-capitalize">{{ 'Liste des profils' | translate }}
+        <button class="btn btn-default float-lg-none add-user" data-toggle="modal" (click)="initAjouter();ajouterModal.show()"></button>
+      </h4>
+
+      </nb-card-header>
+      <nb-card-body>
+
+        <div class="d-flex justify-content-start align-items-center">
+          <button *ngIf="!this.estModeConnecte" class="btn btn-primary" data-toggle="modal" (click)="initAjouter();ajouterModal.show()">Ajouter<i class="fa fa-plus ml-2"></i></button>
+        </div>
+        <div class="form-group row justify-content-center" *ngIf="profilManageList.length>0">
+          <ng2-smart-table [source]="source"  [settings]="settings">
+          </ng2-smart-table>
+        </div>
+
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
 
 	<div bsModal #ajouterModal="bs-modal"  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-info modal-xl" role="document">
@@ -206,4 +146,3 @@
 		  </div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	  </div>
-</div>
