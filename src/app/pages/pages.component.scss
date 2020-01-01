@@ -19,11 +19,21 @@
 /* headers grid color*/
 :host /deep/ ng2-smart-table thead > tr > th {
   text-align: center;
-  font-weight: bold;
   background-color:#e4e9f2;
 
 }
-:host /deep/ ng2-smart-table-title a:focus { font-weight: bold; }
 
-:host /deep/ ng2-smart-table thead > tr > th > div { font-weight: bold; }
+::ng-deep {
+  ng2-smart-table {
+    table {
+
+      /* headers */
+      tr.ng2-smart-titles th {
+        a {
+          font-weight: bold !important;
+        }
+      }
+    }
+  }
+}
 
