@@ -6,7 +6,7 @@ import { GestionutilisateurComponent } from './gestionutilisateur/gestion-utilis
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ModalModule, TabsModule } from 'ngx-bootstrap';
-import { SortablejsModule, SortablejsOptions} from "ngx-sortablejs";
+import { SortablejsModule} from "ngx-sortablejs";
 import { GestionProfilComponent } from './gestionprofil/gestion-profil.component';
 import {
   NbButtonModule,
@@ -14,7 +14,7 @@ import {
   NbCheckboxModule,
   NbDatepickerModule, NbIconModule,
   NbInputModule,
-  NbRadioModule, NbSelectModule, NbTabsetModule
+  NbRadioModule, NbSelectModule, NbTabsetModule,
 } from "@nebular/theme";
 import {Ng2SmartTableModule} from "ng2-smart-table";
 import {StatutViewComponent} from "./gestionutilisateur/statut-view/statut-view.component";

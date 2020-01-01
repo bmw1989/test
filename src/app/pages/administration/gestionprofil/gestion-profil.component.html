@@ -106,18 +106,18 @@
 						
 						<div class="list-group">
 							<div *ngFor="let parent of listAllMenu">
-								<button type="button" (click)="onChoisirModule(parent)" class="list-group-item list-group-item-action">{{parent.libelleFr}}</button>
+								<button  (click)="onChoisirModule(parent)" class="list-group-item list-group-item-action">{{parent.title}}</button>
 							</div>
 						</div>
 					</div>
 					<div class="col-lg-6 col-xl-4 mb-4 mb-lg-3">
 						<div *ngIf="menuSelected">
 							<div class="chk-ui-heading">
-								<h3 class="text-capitalize">Fonctionnalitées choisis ({{menuSelected.libelleFr}})</h3>
+								<h4 class="text-capitalize">Fonctionnalitées choisis ({{menuSelected.title}})</h4>
 							</div>
 							<div class="sortable-drag-list" [sortablejs]="menuSelected.childrenOutProfil" [sortablejsOptions]="groupOptions">
 								<div class="drag-handle mb-4" *ngFor="let menu of menuSelected.childrenOutProfil">
-									<h3 class="font-weight-normal"> <i class="fa fa-bars mr-3" aria-hidden="true"></i> {{ menu.libelleFr }} </h3>
+									<h4 class="font-weight-normal"> <i class="fa fa-bars mr-3" aria-hidden="true"></i> {{ menu.title }} </h4>
 								</div>
 							</div>
 						</div>
@@ -125,12 +125,12 @@
 					<div class="col-lg-6 col-xl-4 mb-4">
 						<div *ngIf="menuSelected">
 							<div class="chk-ui-heading">
-								<h3 class="text-capitalize">Fonctionnalitées choisis ({{menuSelected.libelleFr}})</h3>
+								<h4 class="text-capitalize">Fonctionnalitées choisis ({{menuSelected.title}})</h4>
 							</div>
 							<div class="sortable-drag-list" [sortablejs]="menuSelected.childrenInProfil" [sortablejsOptions]="groupOptions">
 								<div class="drag-handle mb-4" *ngFor="let menu of menuSelected.childrenInProfil">
-									<h3 class="font-weight-normal"> <i class="fa fa-bars mr-3" aria-hidden="true"></i> {{ menu.libelleFr }}
-									</h3>
+									<h4 class="font-weight-normal"> <i class="fa fa-bars mr-3" aria-hidden="true"></i> {{ menu.title }}
+									</h4>
 								</div>
 							</div>
 						</div>

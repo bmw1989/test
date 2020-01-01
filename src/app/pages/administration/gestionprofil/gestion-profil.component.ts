@@ -123,6 +123,7 @@ export class GestionProfilComponent implements OnInit {
 		
 		this.designService.getAllMenu().then(resultat =>{
 			this.listAllMenu = resultat.data as Menu[];
+
 			this.listAllMenu = this.listAllMenu.filter(m => m.children);
 			
 			for(const menu of this.listAllMenu){
