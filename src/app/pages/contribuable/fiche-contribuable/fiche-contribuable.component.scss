@@ -10,20 +10,16 @@ $custom-file-text: (
     padding: 0;
   }
 
-  ::ng-deep agm-map {
+  ::ng-deep .leaflet-top, ::ng-deep .leaflet-bottom {
+    z-index: 997;
+  }
+
+  ::ng-deep .leaflet-container {
     width: 100%;
-    height: nb-theme(card-height-small);
+    height: 350px;
   }
 }
 
-
-
-
-:host /deep/ ng2-smart-table thead th {
-
-  font-weight: 900;
-  text-align: center;
-}
 nb-checkbox {
     margin-bottom: 1rem;
   }
@@ -39,3 +35,5 @@ nb-checkbox {
   nb-card.inline-form-card nb-card-body {
     padding-bottom: 0;
   }
+
+

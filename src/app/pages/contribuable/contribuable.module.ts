@@ -18,6 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import {AgmCoreModule} from "@agm/core";
+import {LeafletModule} from "@asymmetrik/ngx-leaflet";
 
 @NgModule({
   declarations: [FicheContribuableComponent],
@@ -39,6 +40,7 @@ import {AgmCoreModule} from "@agm/core";
       apiKey: 'AIzaSyCMGihUtvX9zWMbvorK2yr7B17344_BtDs',
       libraries: ['places'],
     }),
+    LeafletModule.forRoot(),
     ContribuableRoutingModule,
   ],
 })

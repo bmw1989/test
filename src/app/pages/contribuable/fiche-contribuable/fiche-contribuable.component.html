@@ -7,11 +7,14 @@
           <nb-tabset fullWidth>
             <nb-tab tabTitle="{{'Informations personnelle'|translate}}">
                 <div class="form-group row">
-                  <label for="inputemail" class="label col-sm-2 col-form-label">{{'civilite'|translate}}</label>
+                  <label for="civiliteId" class="label col-sm-2 col-form-label">{{'civilite'|translate}}</label>
                   <div class="col-sm-4">
-                    <nb-select [(ngModel)]="newContribuable.civilite" name="activiteId" fullWidth status="info">
+                    <nb-select [(ngModel)]="newContribuable.civilite" name="civiliteId" id="civiliteId" fullWidth status="info">
                       <nb-option *ngFor="let civilite of keys(civilites)" [value]="civilite"> {{ civilites[civilite] |translate}}</nb-option>
                     </nb-select>
+                  </div>
+                  <div class="col-sm-4">
+                    <input type="text" [(ngModel)]="newContribuable.nni" nbInput fullWidth id="inputnni" name="inputnni" placeholder="NNI">
                   </div>
                 </div>
                 <div class="form-group row">
@@ -106,15 +109,12 @@
                   </div>
 
                   <div class="col-6">
-                    <div class="col-sm-12">
-                      <nb-card>
-                        <nb-card-body>
-                          <agm-map [latitude]="newContribuable.latitude" [longitude]="newContribuable.longitude">
-                            <agm-marker [latitude]="newContribuable.latitude" [longitude]="newContribuable.longitude"></agm-marker>
-                          </agm-map>
-                        </nb-card-body>
-                      </nb-card>
-                    </div>
+                    <nb-card>
+                      <nb-card-body >
+                        <div leaflet [leafletOptions]="options" (leafletMapReady)="mapReady($event)"
+                             [leafletLayersControl]="layersControl"></div>
+                      </nb-card-body>
+                    </nb-card>
                   </div>
 
                 </div>
@@ -173,6 +173,7 @@
                 </div>
               </div>
             </nb-tab>
+
           </nb-tabset>
           
         </nb-card>

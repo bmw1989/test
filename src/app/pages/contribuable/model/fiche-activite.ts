@@ -4,7 +4,7 @@ import {Utilisateur} from "../../../model/utilisateur/Utilisateur";
 
 export class FicheActivite {
 
-  refTypeActivite: TypeActivite;
+  refActivite: TypeActivite;
   refContribuable: Contribuable;
   refUserCreation: Utilisateur;
   dateCreation;
