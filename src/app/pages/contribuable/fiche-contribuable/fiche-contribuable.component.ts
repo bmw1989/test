@@ -170,6 +170,8 @@ export class FicheContribuableComponent implements OnInit {
         listActivites.push(fiche);
       }
       this.newContribuable.listActivite = listActivites;
+      console.log("Contri");
+      console.log(this.newContribuable);
       this.contribuableService.ajouterNouveauPersonnePhysique(this.newContribuable).then(resultat => {
         //morphoPere = resultat.data as MorphoPersonne;
         this.resultVO = resultat;
@@ -194,6 +196,10 @@ export class FicheContribuableComponent implements OnInit {
     }
 
 
+    isValidContribuable(){
+
+    }
+
     validationActivite(){
 
       for(let i = 0; i<this.listActivitesChoisies.length; i++){
@@ -201,7 +207,7 @@ export class FicheContribuableComponent implements OnInit {
 
           const val = this.translate.currentLang === 'fr'? this.listActivitesChoisies[i].libelleFr:this.listActivitesChoisies[i].libelleAr;
 
-          const message =this.translate.instant('MSG_ERR.CONTRIBUABLE.MSG_ERR_CONT_001', {value: val});
+          const message = this.getMessageErreur('MSG_ERR.CONTRIBUABLE.MSG_ERR_CONT_001', val);
           this.resultVO.messagesErrors = [message];
           this.initializeResultVO();
           return false;
@@ -209,6 +215,10 @@ export class FicheContribuableComponent implements OnInit {
       }
       return true;
 
+    }
+
+    getMessageErreur(message, val){
+      return this.translate.instant(message, {value: val});
     }
 
     changeActivitePrincipal(typeActPrincipale){
