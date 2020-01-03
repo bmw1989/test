@@ -6,12 +6,14 @@ import { PagesComponent } from './pages.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { AdministrationService } from './administration/administration.service';
+import {CustomFormsModule} from "ng2-validation";
 @NgModule({
   imports: [
     PagesRoutingModule,
     ThemeModule,
     NbMenuModule,
     DashboardModule,
+    CustomFormsModule,
   ],
   declarations: [
     PagesComponent,

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import {
   NbAuthComponent,
 } from '@nebular/auth';
-import { LoginComponent } from './views/loginRoot/login.component';
+import { LoginComponent } from './pages/loginRoot/login.component';
 
 
 const routes: Routes = [
@@ -35,7 +35,7 @@ const routes: Routes = [
         component: LoginComponent,
       },
       { path: 'notifications', loadChildren : () => import('./views/notifications/notifications.module').then(m => m.NotificationsModule)},
-      { path: 'grc-components', loadChildren : () => import('./views/grc-components/grc-components.module').then(m => m.GRCComponentsModule)}
+      { path: 'grc-components', loadChildren : () => import('./pages/grc-components/grc-components.module').then(m => m.GRCComponentsModule)}
     ],
   },
   { path: '', redirectTo: 'login', pathMatch: 'full' },

@@ -1,14 +1,13 @@
 import {Component, OnInit, Input, ViewChild, ElementRef} from '@angular/core';
 import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
 import { Utilisateur } from 'app/model/utilisateur/Utilisateur';
-import { AuthenticationService } from 'app/views/loginRoot/service/authenticationService';
+import { AuthenticationService } from 'app/pages/loginRoot/service/authenticationService';
 import { ResultVO } from 'app/model/commun/vo/ResultVO';
 import { AdministrationService } from '../administration.service';
 import { Profil } from 'app/model/utilisateur/Profil';
 import { PagerService } from 'app/views/pagination-example/pager.service';
 import {BeanRechercheUtilisateur} from '../model/beanRechercheUtilisateur';
 import {LocalDataSource} from "ng2-smart-table";
-import {date} from "ng2-validation/dist/date";
 import {DatePipe} from "@angular/common";
 import {StatutViewComponent} from "./statut-view/statut-view.component";
 import {ModalDirective} from "ngx-bootstrap";

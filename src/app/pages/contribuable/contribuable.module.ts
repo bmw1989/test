@@ -19,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import {AgmCoreModule} from "@agm/core";
 import {LeafletModule} from "@asymmetrik/ngx-leaflet";
+import {GRCComponentsModule} from "../grc-components/grc-components.module";
 
 @NgModule({
   declarations: [FicheContribuableComponent],
@@ -42,6 +43,7 @@ import {LeafletModule} from "@asymmetrik/ngx-leaflet";
     }),
     LeafletModule.forRoot(),
     ContribuableRoutingModule,
+    GRCComponentsModule,
   ],
 })
 export class ContribuableModule { }

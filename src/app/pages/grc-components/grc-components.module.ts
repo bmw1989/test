@@ -9,18 +9,17 @@ import { PrisePhotoComponentComponent } from './prise-photo-component/prise-phot
 
 @NgModule({
   declarations: [ OnlyNumber, ScanComponentMentionComponent
-      , AlertmessagesComponent, PrisePhotoComponentComponent
-  ],
+      , AlertmessagesComponent, PrisePhotoComponentComponent],
   imports: [
     CommonModule,
     FormsModule,
     TabsModule,
     ReactiveFormsModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
   ],
   exports: [
      OnlyNumber,  
-     ScanComponentMentionComponent, AlertmessagesComponent, PrisePhotoComponentComponent
-  ]
+     ScanComponentMentionComponent, AlertmessagesComponent, PrisePhotoComponentComponent,
+  ],
 })
 export class GRCComponentsModule { }

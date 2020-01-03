@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, ViewChild} from '@angular/core';
 import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
-import { AuthenticationService } from 'app/views/loginRoot/service/authenticationService';
+import { AuthenticationService } from 'app/pages/loginRoot/service/authenticationService';
 import { ResultVO } from 'app/model/commun/vo/ResultVO';
 import { AdministrationService } from '../administration.service';
 import { Profil } from 'app/model/utilisateur/Profil';

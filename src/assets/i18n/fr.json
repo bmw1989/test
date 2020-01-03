@@ -46,6 +46,6 @@
     "status": "Statut",
     "profile": "Profile",
     "Liste des utilisateurs": "Liste des utilisateurs",
-    "adduser": "Ajout d'un nouveau utilisateur"
-
+    "adduser": "Ajout d'un nouveau utilisateur",
+    "chosephoto" : "Choisir une photo"
 }

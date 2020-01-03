@@ -35,5 +35,19 @@ nb-checkbox {
   nb-card.inline-form-card nb-card-body {
     padding-bottom: 0;
   }
+.form-group.required .control-label:after {
+  color: #d00;
+  content: "*";
 
+  margin-left: 10px;
+  top:7px;
+}
+
+.form-group.required .control-label-left:after {
+  color: #d00;
+  content: "*";
+
+  margin-left: -35px;
+  top:7px;
+}
 

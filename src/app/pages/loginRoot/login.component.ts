@@ -6,8 +6,7 @@ import {ResultVO} from "../../model/commun/vo/ResultVO";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
-})
+  styleUrls: ['./login.component.css']})
 export class LoginComponent implements OnInit {
 
   mode:number=0;
@@ -18,8 +17,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      let param = params["param"];
-      if (param != null && param != '') {
+      const param = params["param"];
+      if (param != null && param !== '') {
         this.resultVO.messagesErrors = [params["param"]];
       }
     });
@@ -28,11 +27,11 @@ export class LoginComponent implements OnInit {
   onLogin (user) {
     this.authService.estUserAlreadyConnected(user.username).then(resultat=>{
       this.resultVO = resultat;
-      let isUserAlreadyConnected:Boolean = this.resultVO.data as Boolean
+      const isUserAlreadyConnected:Boolean = this.resultVO.data as Boolean;
       if(!isUserAlreadyConnected.valueOf() || this.confirmedConnection) {
         this.authService.login(user)
           .then(resp=>{
-            let jwtToken = resp.headers.get('authorization');
+            const jwtToken = resp.headers.get('authorization');
             this.authService.saveToken(jwtToken);
             
             this.router.navigateByUrl('/pages');
@@ -40,7 +39,7 @@ export class LoginComponent implements OnInit {
             // console.log(err);
             this.mode=1;
             this.resultVO.messagesErrors = ['Invalide Utilisateur ou Mot de passe!'];
-          })
+          });
       }
       else {
       //  if (confirm("Un autre utilisateur est déja connecté avec ce login, voulez-vous le déconnecter ?")) {
@@ -49,7 +48,6 @@ export class LoginComponent implements OnInit {
       //  }
       }
     }, error=>{
-       console.log(error);
       this.mode=1;
       this.resultVO.messagesErrors = ['Problème de connexion avec le serveur!'];
     });

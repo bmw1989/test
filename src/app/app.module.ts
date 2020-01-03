@@ -23,14 +23,14 @@ import {
   NbWindowModule,
 } from '@nebular/theme';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { GRCComponentsModule } from './views/grc-components/grc-components.module';
+import { GRCComponentsModule } from './pages/grc-components/grc-components.module';
 import { ReferentielService } from './service/referentiel.service';
 import { UtilService } from './util/util.service';
 
 import { PagerService } from './views/pagination-example/pager.service';
 
 import { PaginationExampleComponent } from './views/pagination-example/pagination-example.component';
-import { LoginComponent } from './views/loginRoot/login.component';
+import { LoginComponent } from './pages/loginRoot/login.component';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');

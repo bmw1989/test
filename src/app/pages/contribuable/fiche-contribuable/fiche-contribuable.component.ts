@@ -1,20 +1,18 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
-import { Contribuable } from '../model/contribuable';
-import { ResultVO } from '../../../model/commun/vo/ResultVO';
-import { AuthenticationService } from '../../../views/loginRoot/service/authenticationService';
-import { TypeActivite } from '../model/type-activite';
-import {Utilisateur} from "../../../model/utilisateur/Utilisateur";
+import {ResultVO} from '../../../model/commun/vo/ResultVO';
+import {AuthenticationService} from '../../loginRoot/service/authenticationService';
+import {TypeActivite} from '../model/type-activite';
 import {ActiviteService} from "../service/activite.services";
 import {FicheActivite} from "../model/fiche-activite";
 import {LocalDataSource} from "ng2-smart-table";
 import {Civilite} from "../../../model/referentiel/civilite";
 import PersonnePhysique from "../model/personne-physique";
-import { ContribuableService } from '../service/contribuable.service';
+import {ContribuableService} from '../service/contribuable.service';
 
 import * as L from 'leaflet';
 import 'style-loader!leaflet/dist/leaflet.css';
-import {Map} from "leaflet";
+import {IPaging} from "../../../model/design/IPaging";
 
 @Component({
   selector: 'app-fiche-contribuable.component',
@@ -24,12 +22,13 @@ import {Map} from "leaflet";
 
 export class FicheContribuableComponent implements OnInit {
 
-    @Input() resultVO: ResultVO;
+    @Input() resultVO = new ResultVO();
     @Input() newContribuable: PersonnePhysique;
     activitePrincipalSelected:TypeActivite;
     activiteSelected:TypeActivite;
     listTypeActPrincipale: TypeActivite[];
     listActivitesChoisies: TypeActivite[];
+    selectedFile ;
     source: LocalDataSource = new LocalDataSource();
     settings: any;
 
@@ -44,11 +43,20 @@ export class FicheContribuableComponent implements OnInit {
 
     keys = Object.keys;
     civilites = Civilite;
+    civiliteSelected= "Mr";
 
     constructor(private authServiceApp: AuthenticationService,
                 private activiteService:ActiviteService,
                 private contribuableService:ContribuableService,
                 public translate: TranslateService) {
+
+
+      this.newContribuable = new PersonnePhysique();
+
+      //this.newContribuable.civilite = 'Mr';
+      this.newContribuable.latitude= 46.879966;
+      this.newContribuable.longitude = -121.726909;
+      this.getListTypeActivitePrincipal();
 
       this.initTableSettings();
       this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -56,17 +64,13 @@ export class FicheContribuableComponent implements OnInit {
         this.initTableSettings();
       });
     }
+
     ngOnInit() {
 
-      this.newContribuable = new PersonnePhysique();
-      this.newContribuable.latitude= 46.879966;
-      this.newContribuable.longitude = -121.726909;
-
-
-      this.getListTypeActivitePrincipal();
       this.listActivitesChoisies = [];
 
-      this.initMaps();
+      this.selectedFile ='assets/img/contribuable/default-img.gif';
+        this.initMaps();
     }
 
     initMaps(){
@@ -154,7 +158,7 @@ export class FicheContribuableComponent implements OnInit {
     // fix the map fully displaying, existing leaflet bag
     setTimeout(() => {
       map.invalidateSize();
-    }, 7000);
+    }, 10000);
   }
     ajouterContribuable(){
       const listActivites : FicheActivite[]= [];
@@ -179,13 +183,31 @@ export class FicheContribuableComponent implements OnInit {
     }
 
 	  ajouterActivite(){
+      if(this.validationActivite()){
 
-      this.activiteSelected.refTypeActivite = this.activitePrincipalSelected.libelleFr;
-      this.listActivitesChoisies.push(this.activiteSelected);
-      this.source.load(this.listActivitesChoisies);
+        this.activiteSelected.refTypeActivite = this.activitePrincipalSelected.libelleFr;
+        this.listActivitesChoisies.push(this.activiteSelected);
+        this.source.load(this.listActivitesChoisies);
 
+      }
 
     }
+
+
+    validationActivite(){
+
+      for(let i = 0; i<this.listActivitesChoisies.length; i++){
+        if(this.listActivitesChoisies[i].code === this.activiteSelected.code){
+          const message ="l'activité "+ this.listActivitesChoisies[i].libelleFr + " existe déjà";
+          this.resultVO.messagesErrors = [message];
+          this.initializeResultVO();
+          return false;
+        }
+      }
+      return true;
+
+    }
+
     changeActivitePrincipal(typeActPrincipale){
       this.activitePrincipalSelected = typeActPrincipale;
     }
@@ -194,6 +216,7 @@ export class FicheContribuableComponent implements OnInit {
       this.activiteService.getAllMenu().then(resultat => {
         if (resultat) {
           this.listTypeActPrincipale = resultat.data as TypeActivite[];
+          //this.civiliteSelected= Civilite.Mme;
         }
       }, (error => {
         if (error) {
@@ -208,7 +231,7 @@ export class FicheContribuableComponent implements OnInit {
       }));
     }
 
-  selectedFile ;
+
   processFile(imageInput: any) {
     const file: File = imageInput.files[0];
     const reader = new FileReader();
@@ -238,6 +261,16 @@ export class FicheContribuableComponent implements OnInit {
         edit: false,
       },
       columns: {
+        code: {
+          title : this.translate.instant('numero'),
+          type : "string",
+          filter:false,
+          valuePrepareFunction:(value,row,cell) =>{
+            const paging:IPaging = this.source.getPaging();
+            const ret = (paging.page-1) * paging.perPage + cell.row.index+1;
+            return ret;
+          },
+        },
         refTypeActivite: {
           title: this.translate.instant('activite principal'),
           type: 'string',

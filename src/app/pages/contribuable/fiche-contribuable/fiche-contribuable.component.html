@@ -1,56 +1,63 @@
 <div class="row">
-  
+
     <div class="col-12">
         <form>
+          <app-alert-messages [resultVO]="resultVO"></app-alert-messages>
         <nb-card size="medium">
-          
+
           <nb-tabset fullWidth>
             <nb-tab tabTitle="{{'Informations personnelle'|translate}}">
-                <div class="form-group row">
-                  <label for="civiliteId" class="label col-sm-2 col-form-label">{{'civilite'|translate}}</label>
+                <div class="form-group row required">
+
+                  <label for="civiliteId" class="label col-sm-2 col-form-label control-label">{{'civilite'|translate}}</label>
                   <div class="col-sm-4">
-                    <nb-select [(ngModel)]="newContribuable.civilite" name="civiliteId" id="civiliteId" fullWidth status="info">
+                    <nb-select [(ngModel)]="newContribuable.civilite" [selected]="civiliteSelected" name="civiliteId" id="civiliteId" fullWidth status="primary">
                       <nb-option *ngFor="let civilite of keys(civilites)" [value]="civilite"> {{ civilites[civilite] |translate}}</nb-option>
                     </nb-select>
                   </div>
                   <div class="col-sm-4">
-                    <input type="text" [(ngModel)]="newContribuable.nni" nbInput fullWidth id="inputnni" name="inputnni" placeholder="NNI">
+                    <input type="text" [(ngModel)]="newContribuable.nni" nbInput fullWidth id="inputnni" name="inputnni" placeholder="NNI"
+                    required>
                   </div>
                 </div>
-                <div class="form-group row">
-                    <label for="inputprenomFr" name="label1" class="label col-sm-2 col-form-label">Prénom</label>
+                <div class="form-group row required">
+                    <label for="inputprenomFr" name="label1" class="label col-sm-2 col-form-label control-label">Prénom</label>
                     <div class="col-sm-4">
-                      <input type="text" [(ngModel)]="newContribuable.prenomFr" nbInput fullWidth id="inputprenomFr" name="inputprenomFr" placeholder="Prénom">
+                      <input type="text" required [(ngModel)]="newContribuable.prenomFr" nbInput fullWidth id="inputprenomFr" name="inputprenomFr" placeholder="Prénom">
                     </div>
                     <div class="col-sm-4">
-                      <input type="text" [(ngModel)]="newContribuable.prenomAr" nbInput fullWidth id="inputprenomAr" name="inputprenomAr" placeholder="الإ سم">
+                      <input type="text" required [(ngModel)]="newContribuable.prenomAr" nbInput fullWidth id="inputprenomAr" name="inputprenomAr" placeholder="الإ سم">
                     </div>
-                    <label for="inputprenomAr" class="label col-sm-2 col-form-label">الإ سم</label>
+                    <label for="inputprenomAr" class="label col-sm-2 col-form-label control-label-left">الإسم</label>
                   </div>
-                <div class="form-group row">
-                  <label for="inputNomFr" class="label col-sm-2 col-form-label">Nom</label>
+                <div class="form-group row required">
+                  <label for="inputNomFr" class="label col-sm-2 col-form-label control-label">Nom</label>
                   <div class="col-sm-4">
                     <input type="text" [(ngModel)]="newContribuable.nomFr" nbInput fullWidth id="inputNomFr" name="inputNomFr" placeholder="Nom">
                   </div>
+
                   <div class="col-sm-4">
                     <input type="text" [(ngModel)]="newContribuable.nomAr" nbInput fullWidth id="inputnomAr" name="inputnomAr" placeholder="النسب">
                   </div>
-                  <label for="inputnomAr" class="label col-sm-2 col-form-label">النسب</label>
+                  <label for="inputnomAr" class="label col-sm-2 col-form-label control-label-left">النسب</label>
                 </div>
-                <div class="form-group row">
-                  <label for="inputPhoneFix" class="label col-sm-2 col-form-label">{{'phonefixe'|translate}}</label>
+                <div class="form-group required row ">
+
+                    <label for="inputPhoneFix" class="label col-sm-2 col-form-label control-label">{{'phonefixe'|translate}}</label>
+
                   <div class="col-sm-4">
                     <input type="text" [(ngModel)]="newContribuable.telephoneFixe" nbInput fullWidth id="inputPhoneFix" name="inputPhoneFix" placeholder="">
                   </div>
                 </div>
-                <div class="form-group row">
-                  <label for="inputPhoneMobile" class="label col-sm-2 col-form-label">{{'phonemobile'|translate}}</label>
+                <div class="form-group required row">
+                  <label for="inputPhoneMobile" class="label col-sm-2 col-form-label control-label">{{'phonemobile'|translate}}</label>
+
                   <div class="col-sm-4">
                     <input type="text" [(ngModel)]="newContribuable.telephoneMobile" nbInput fullWidth id="inputPhoneMobile" name="inputPhoneMobile" placeholder="">
                   </div>
                 </div>
-                <div class="form-group row">
-                  <label for="inputemail" class="label col-sm-2 col-form-label">{{'email'|translate}}</label>
+                <div class="form-group row required">
+                  <label for="inputemail" class="label col-sm-2 col-form-label control-label">{{'email'|translate}}</label>
                   <div class="col-sm-4">
                     <input type="text" [(ngModel)]="newContribuable.email" nbInput fullWidth id="inputemail" name="inputemail" placeholder="">
                   </div>
@@ -61,47 +68,65 @@
                 <div class="row show-grid">
                   <div class="col-6">
                     <div class="form-group row">
-                      <label for="inputadresse" class="label col-sm-2 col-form-label">{{'adresse'|translate}}</label>
+                      <div class="col-sm-2 form-group required">
+                        <label for="inputadresse" class="label col-sm-2 col-form-label">{{'adresse'|translate}}</label>
+                      </div>
                       <div class="col-sm-10">
                         <textarea rows="3" [(ngModel)]="newContribuable.adresse" nbInput fullWidth id="inputadresse" name="inputadresse" placeholder="" ></textarea>
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="inputzone" class="label col-sm-2 col-form-label">{{'zone'|translate}}</label>
+                      <div class="col-sm-2 form-group">
+                        <label for="inputzone" class="label col-sm-2 col-form-label">{{'zone'|translate}}</label>
+                      </div>
                       <div class="col-sm-4">
                         <input type="number" [(ngModel)]="newContribuable.zone" nbInput fullWidth Onlynumber id="inputzone" name="inputzone" placeholder="" >
                       </div>
-                      <label for="inputcarre" class="label col-sm-2 col-form-label">{{'carre'|translate}}</label>
+                      <div class="col-sm-2 form-group">
+                        <label for="inputcarre" class="label col-sm-2 col-form-label">{{'carre'|translate}}</label>
+                      </div>
                       <div class="col-sm-4">
                         <input type="number" [(ngModel)]="newContribuable.carre" nbInput fullWidth Onlynumber id="inputcarre" name="inputcarre" placeholder="" >
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="inputbloc" class="label col-sm-2 col-form-label">{{'bloc'|translate}}</label>
+                      <div class="col-sm-2 form-group">
+                        <label for="inputbloc" class="label col-sm-2 col-form-label">{{'bloc'|translate}}</label>
+                      </div>
                       <div class="col-sm-4">
                         <input type="number" [(ngModel)]="newContribuable.bloc" nbInput fullWidth Onlynumber id="inputbloc" name="inputbloc" placeholder="" >
                       </div>
-                      <label for="inputbatiment" class="label col-sm-2 col-form-label">{{'batiment'|translate}}</label>
+                      <div class="col-sm-2 form-group">
+                        <label for="inputbatiment" class="label col-sm-2 col-form-label">{{'batiment'|translate}}</label>
+                      </div>
                       <div class="col-sm-4">
                         <input type="number" [(ngModel)]="newContribuable.batiment" nbInput fullWidth Onlynumber id="inputbatiment" name="inputbatiment" placeholder="" >
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="inputetage" class="label col-sm-2 col-form-label">{{'etage'|translate}}</label>
+                      <div class="col-sm-2 form-group">
+                        <label for="inputetage" class="label col-sm-2 col-form-label">{{'etage'|translate}}</label>
+                      </div>
                       <div class="col-sm-4">
                         <input type="number" [(ngModel)]="newContribuable.etage" nbInput fullWidth Onlynumber id="inputetage" name="inputetage" placeholder="" >
                       </div>
-                      <label for="inputporte" class="label col-sm-2 col-form-label">{{'porte'|translate}}</label>
+                      <div class="col-sm-2 form-group">
+                        <label for="inputporte" class="label col-sm-2 col-form-label">{{'porte'|translate}}</label>
+                      </div>
                       <div class="col-sm-4">
                         <input type="number" [(ngModel)]="newContribuable.porte" nbInput fullWidth Onlynumber id="inputporte" name="inputporte" placeholder="" >
                       </div>
                     </div>
                     <div class="form-group row">
-                      <label for="inputlartitude" class="label col-sm-2 col-form-label">{{'latitude'|translate}}</label>
+                      <div class="col-sm-2 form-group">
+                        <label for="inputlartitude" class="label col-sm-2 col-form-label">{{'latitude'|translate}}</label>
+                      </div>
                       <div class="col-sm-4">
                         <input type="number" [(ngModel)]="newContribuable.latitude" nbInput fullWidth Onlynumber id="inputlartitude" name="inputlartitude" placeholder="" >
                       </div>
-                      <label for="inputlongitude" class="label col-sm-2 col-form-label">{{'longitude'|translate}}</label>
+                      <div class="col-sm-2 form-group">
+                        <label for="inputlongitude" class="label col-sm-2 col-form-label">{{'longitude'|translate}}</label>
+                      </div>
                       <div class="col-sm-4">
                         <input type="number" [(ngModel)]="newContribuable.longitude" nbInput fullWidth Onlynumber id="inputlongitude" name="inputlongitude" placeholder="" >
                       </div>
@@ -146,13 +171,17 @@
               <div class="row show-grid">
                 <div class="col-6">
                   <div class="form-group row">
-                    <label for="inputtaxe" class="label col-sm-2 col-form-label">{{'taxe'|translate}}</label>
+                    <div class="col-sm-2 form-group required">
+                      <label for="inputtaxe" class="label col-sm-2 col-form-label control-label">{{'taxe'|translate}}</label>
+                    </div>
                     <div class="col-sm-4">
                       <input type="number" [(ngModel)]="newContribuable.taxe" nbInput fullWidth Onlynumber id="inputtaxe" name="inputtaxe" placeholder="" >
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label for="inputobservations" class="label col-sm-2 col-form-label">{{'observations'|translate}}</label>
+                    <div class="col-sm-2 form-group required">
+                      <label for="inputobservations" class="label col-sm-2 col-form-label control-label">{{'observations'|translate}}</label>
+                    </div>
                     <div class="col-sm-10">
                       <textarea rows="3" [(ngModel)]="newContribuable.observations" nbInput fullWidth id="inputobservations" name="inputobservations" placeholder="" ></textarea>
                     </div>
@@ -160,14 +189,14 @@
                 </div>
                 <div class="col-6">
                   <div class="form-group row">
-                    <label class="image-upload-container btn btn-bwm">
-                      <span>Select Image</span>
-                      <input #imageInput
-                             type="file"
-                             (change)="processFile(imageInput)">
-                    </label>
-                    <div *ngIf="selectedFile" class="text-center">
+                    <div  class="text-center">
                       <img src="{{selectedFile}}" class="rounded mx-auto d-block img-thumbnail" width="300" height="300">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="custom-file">
+                      <input #imageInput type="file" (change)="processFile(imageInput)" class="custom-file-input" id="customFileLang" lang="fr">
+                      <label class="custom-file-label" for="customFileLang">{{'chosephoto' |translate}} </label>
                     </div>
                   </div>
                 </div>

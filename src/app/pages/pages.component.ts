@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { MENU_ITEMS , navItems} from './pages-menu';
 import { NbMenuItem } from '@nebular/theme';
-import { AuthenticationService } from '../views/loginRoot/service/authenticationService';
+import { AuthenticationService } from './loginRoot/service/authenticationService';
 import { DesignService } from '../service/design/design.service';
 import { Router } from '@angular/router';
 import { PagesMenuTranslator } from './pages-menu-translator';

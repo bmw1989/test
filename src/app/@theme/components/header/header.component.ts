@@ -5,7 +5,7 @@ import { UserData } from '../../../@core/data/users';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthenticationService } from '../../../views/loginRoot/service/authenticationService';
+import { AuthenticationService } from '../../../pages/loginRoot/service/authenticationService';
 
 @Component({
   selector: 'ngx-header',

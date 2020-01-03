@@ -5,7 +5,7 @@ import { Headers } from '@angular/http';
 import {Observable} from 'rxjs';
 
 import { Menu } from '../../model/design/menu';
-import { AuthenticationService } from '../../views/loginRoot/service/authenticationService';
+import { AuthenticationService } from '../../pages/loginRoot/service/authenticationService';
 import { host } from '../../util/constantes-app';
 import { ResultVO } from 'app/model/commun/vo/ResultVO';
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AbstractServiceService } from '../../../service/AbstractService';
-import { AuthenticationService } from '../../../views/loginRoot/service/authenticationService';
+import { AuthenticationService } from '../../loginRoot/service/authenticationService';
 import PersonnePhysique from '../model/personne-physique';
 import { host } from '../../../util/constantes-app';
 import { ResultVO } from '../../../model/commun/vo/ResultVO';

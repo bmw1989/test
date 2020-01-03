@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ResultVO } from '../model/commun/vo/ResultVO';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { host } from '../util/constantes-app';
-import { AuthenticationService } from '../views/loginRoot/service/authenticationService';
+import { AuthenticationService } from '../pages/loginRoot/service/authenticationService';
 
 
 @Injectable({

@@ -10,7 +10,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Profil } from 'app/model/utilisateur/Profil';
 import {BeanRechercheUtilisateur} from './model/beanRechercheUtilisateur';
 import {BeanRechercheProfil} from './model/beanRechercheProfil';
-import { AuthenticationService } from '../../views/loginRoot/service/authenticationService';
+import { AuthenticationService } from '../loginRoot/service/authenticationService';
 
 
 @Injectable({
