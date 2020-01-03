@@ -158,7 +158,7 @@ export class FicheContribuableComponent implements OnInit {
     // fix the map fully displaying, existing leaflet bag
     setTimeout(() => {
       map.invalidateSize();
-    }, 10000);
+    }, 12000);
   }
     ajouterContribuable(){
       const listActivites : FicheActivite[]= [];
@@ -198,7 +198,10 @@ export class FicheContribuableComponent implements OnInit {
 
       for(let i = 0; i<this.listActivitesChoisies.length; i++){
         if(this.listActivitesChoisies[i].code === this.activiteSelected.code){
-          const message ="l'activité "+ this.listActivitesChoisies[i].libelleFr + " existe déjà";
+
+          const val = this.translate.currentLang === 'fr'? this.listActivitesChoisies[i].libelleFr:this.listActivitesChoisies[i].libelleAr;
+
+          const message =this.translate.instant('MSG_ERR.CONTRIBUABLE.MSG_ERR_CONT_001', {value: val});
           this.resultVO.messagesErrors = [message];
           this.initializeResultVO();
           return false;

@@ -40,5 +40,10 @@
     "profile": "الملف الشخصي",
     "Liste des utilisateurs": "قائمة المستخدمين",
     "adduser": "إضافة مستخدم جديد",
-    "chosephoto" : "اختر الصورة"
+    "chosephoto" : "اختر الصورة",
+    "MSG_ERR": {
+      "CONTRIBUABLE": {
+        "MSG_ERR_CONT_001": "النشاط {{value}} موجود بالفعل"
+      }
+    }
 }

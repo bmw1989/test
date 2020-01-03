@@ -99,7 +99,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   changeLang(value){
     this.translate.use(value);
    
-    if (value=='ar') {
+    if (value==='ar') {
       this.directionService.setDirection(this.directions.RTL);
 		} else {
       this.directionService.setDirection(this.directions.LTR);
