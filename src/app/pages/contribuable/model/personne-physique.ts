@@ -3,7 +3,7 @@ import {Civilite} from "../../../model/referentiel/civilite";
 
 export default class PersonnePhysique extends Contribuable{
 
-  civilite:Civilite;
+  civilite;
   nni:string;
 	prenomFr:string;
 	prenomAr:string;

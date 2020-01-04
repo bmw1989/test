@@ -29,6 +29,13 @@ export class FicheContribuableComponent implements OnInit {
     listTypeActPrincipale: TypeActivite[];
     listActivitesChoisies: TypeActivite[];
     selectedFile ;
+
+    @Input() mode:string = 'CREATION';
+    @Input() modeConsultation: boolean = false;
+    modeAjout: boolean = true;
+    modeModification: boolean = false;
+    modeValidation: boolean = false;
+
     source: LocalDataSource = new LocalDataSource();
     settings: any;
 
@@ -53,7 +60,7 @@ export class FicheContribuableComponent implements OnInit {
 
       this.newContribuable = new PersonnePhysique();
 
-      //this.newContribuable.civilite = 'Mr';
+      this.newContribuable.civilite = 'Mr';
       this.newContribuable.latitude= 46.879966;
       this.newContribuable.longitude = -121.726909;
       this.getListTypeActivitePrincipal();
@@ -67,10 +74,33 @@ export class FicheContribuableComponent implements OnInit {
 
     ngOnInit() {
 
+      if (this.mode === 'CREATION') {
+        this.modeConsultation = false;
+        this.modeModification = false;
+        this.modeValidation = false;
+        this.modeAjout = true;
+      }
+      else {
+        if (this.mode === 'MODIF') {
+          this.modeConsultation = false;
+          this.modeModification = true;
+          this.modeValidation = false;
+          this.modeAjout = false;
+        }
+        else if (this.mode === 'VALIDATION') {
+          this.modeConsultation = true;
+          this.modeModification = false;
+          this.modeValidation = true;
+          this.modeAjout = false;
+        }
+        if (this.newContribuable != null) {
+          this.newContribuable = this.newContribuable;
+          //this.formaterActeNaissancePourConsultation();
+        }
+      }
       this.listActivitesChoisies = [];
-
       this.selectedFile ='assets/img/contribuable/default-img.gif';
-        this.initMaps();
+      this.initMaps();
     }
 
     initMaps(){
@@ -170,8 +200,7 @@ export class FicheContribuableComponent implements OnInit {
         listActivites.push(fiche);
       }
       this.newContribuable.listActivite = listActivites;
-      console.log("Contri");
-      console.log(this.newContribuable);
+
       this.contribuableService.ajouterNouveauPersonnePhysique(this.newContribuable).then(resultat => {
         //morphoPere = resultat.data as MorphoPersonne;
         this.resultVO = resultat;
@@ -207,7 +236,7 @@ export class FicheContribuableComponent implements OnInit {
 
           const val = this.translate.currentLang === 'fr'? this.listActivitesChoisies[i].libelleFr:this.listActivitesChoisies[i].libelleAr;
 
-          const message = this.getMessageErreur('MSG_ERR.CONTRIBUABLE.MSG_ERR_CONT_001', val);
+          const message = this.getMessage('MSG_ERR.CONTRIBUABLE.MSG_ERR_CONT_001', val);
           this.resultVO.messagesErrors = [message];
           this.initializeResultVO();
           return false;
@@ -217,7 +246,7 @@ export class FicheContribuableComponent implements OnInit {
 
     }
 
-    getMessageErreur(message, val){
+    getMessage(message, val){
       return this.translate.instant(message, {value: val});
     }
 
