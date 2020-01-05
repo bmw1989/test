@@ -18,7 +18,7 @@ export class ActiviteService extends  AbstractServiceService{
         super();
     }
 
-    getAllMenu(): Promise<ResultVO>{
+    getAllParentActivite(): Promise<ResultVO>{
         return this.http.get(host+"/typeactiviteprincipales", {headers:new HttpHeaders({'authorization':this.authService.getJwtToken()})})
         .toPromise().then(response => response as ResultVO[])
         .catch(this.handleError);

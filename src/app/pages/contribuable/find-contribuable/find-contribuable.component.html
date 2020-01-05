@@ -1,0 +1,56 @@
+<div class="row">
+
+  <div class="col-12">
+    <form>
+      <app-alert-messages [resultVO]="resultVO"></app-alert-messages>
+      <nb-card size="small">
+
+        <nb-tabset fullWidth>
+          <nb-tab tabTitle="{{'personnephysique'|translate}}">
+            <div class="form-group row ">
+              <label for="civiliteId" class="label col-sm-2 col-form-label ">{{'civilite'|translate}}</label>
+              <div class="col-sm-4">
+                <nb-select [(ngModel)]="personnePhy.civilite" [selected]="civiliteSelected" name="civiliteId" id="civiliteId" fullWidth status="primary">
+                  <nb-option *ngFor="let civilite of keys(civilites)" [value]="civilite"> {{ civilites[civilite] |translate}}</nb-option>
+                </nb-select>
+              </div>
+            </div>
+            <div class="form-group row ">
+              <label for="civiliteId" class="label col-sm-2 col-form-label ">{{'NNI'|translate}}</label>
+              <div class="col-sm-4">
+                <input  type="text"  [(ngModel)]="personnePhy.nni" nbInput fullWidth id="inputnni" name="inputnni" placeholder="NNI"
+                >
+              </div>
+            </div>
+            <div class="form-group row ">
+              <label for="inputprenomFr" name="label1" class="label col-sm-2 col-form-label ">Prénom</label>
+              <div class="col-sm-4">
+                <input   type="text"  [(ngModel)]="personnePhy.prenomFr" nbInput fullWidth id="inputprenomFr" name="inputprenomFr" placeholder="Prénom">
+              </div>
+              <div class="col-sm-4">
+                <input   type="text"  [(ngModel)]="personnePhy.prenomAr" nbInput fullWidth id="inputprenomAr" name="inputprenomAr" placeholder="الإ سم">
+              </div>
+              <label for="inputprenomAr" class="label col-sm-2 col-form-label ">الإسم</label>
+            </div>
+            <div class="form-group row ">
+              <label for="inputNomFr" class="label col-sm-2 col-form-label ">Nom</label>
+              <div class="col-sm-4">
+                <input   type="text" [(ngModel)]="personnePhy.nomFr" nbInput fullWidth id="inputNomFr" name="inputNomFr" placeholder="Nom">
+              </div>
+
+              <div class="col-sm-4">
+                <input   type="text" [(ngModel)]="personnePhy.nomAr" nbInput fullWidth id="inputnomAr" name="inputnomAr" placeholder="النسب">
+              </div>
+              <label for="inputnomAr" class="label col-sm-2 col-form-label ">النسب</label>
+            </div>
+            <div class="col-md-10 text-center">
+              <button nbButton (click)="rechercherPersonnePhy()" status="primary">{{'find'|translate}}</button>
+            </div>
+          </nb-tab>
+          <nb-tab tabTitle="{{'personnemorale'|translate}}">
+          </nb-tab>
+        </nb-tabset>
+      </nb-card>
+    </form>
+  </div>
+</div>

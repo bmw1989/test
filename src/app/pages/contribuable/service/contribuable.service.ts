@@ -5,6 +5,7 @@ import { AuthenticationService } from '../../loginRoot/service/authenticationSer
 import PersonnePhysique from '../model/personne-physique';
 import { host } from '../../../util/constantes-app';
 import { ResultVO } from '../../../model/commun/vo/ResultVO';
+import {BeanRecherchePersonnePhy} from "../model/criteria/beanRecherchePersonnePhy";
 
 @Injectable({
     providedIn: 'root',
@@ -24,6 +25,13 @@ export class ContribuableService extends  AbstractServiceService{
           .toPromise()
           .then(res => res as ResultVO)
           .catch(this.handleError);
+    }
+
+    getListPersonnePhy(rechMulti:BeanRecherchePersonnePhy): Promise<ResultVO>{
+      return this.http.post(host + '/personnesphy', JSON.stringify(rechMulti) ,{headers:new HttpHeaders({'authorization':this.authService.getJwtToken(),
+        'Content-Type': 'application/json'})})
+      .toPromise().then(response => response as ResultVO)
+      .catch(this.handleError);
   }
 
 }

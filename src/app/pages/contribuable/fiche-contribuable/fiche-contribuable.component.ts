@@ -13,6 +13,8 @@ import {ContribuableService} from '../service/contribuable.service';
 import * as L from 'leaflet';
 import 'style-loader!leaflet/dist/leaflet.css';
 import {IPaging} from "../../../model/design/IPaging";
+import {Utilisateur} from "../../../model/utilisateur/Utilisateur";
+import {BeanRecherchePersonnePhy} from "../model/criteria/beanRecherchePersonnePhy";
 
 @Component({
   selector: 'app-fiche-contribuable.component',
@@ -167,7 +169,7 @@ export class FicheContribuableComponent implements OnInit {
     // fix the map fully displaying, existing leaflet bag
     setTimeout(() => {
       map.invalidateSize();
-    }, 8000);
+    }, 10000);
   }
 
     ajouterContribuable():void {
@@ -211,6 +213,9 @@ export class FicheContribuableComponent implements OnInit {
 
     private isValidContribuable():boolean{
 
+      if(!this.rechercherPersonnePhy()) {
+        return false;
+      }
       if(this.newContribuable.nni == null || this.newContribuable.nni === ''){
         this.resultVO.messagesErrors.push(this.getMessage('MSG_ERR.CONTRIBUABLE.MSG_ERR_CONT_002'));
       }
@@ -258,10 +263,9 @@ export class FicheContribuableComponent implements OnInit {
     }
 
 	  private getListTypeActivitePrincipal(){
-      this.activiteService.getAllMenu().then(resultat => {
+      this.activiteService.getAllParentActivite().then(resultat => {
         if (resultat) {
           this.listTypeActPrincipale = resultat.data as TypeActivite[];
-          //this.civiliteSelected= Civilite.Mme;
         }
       }, (error => {
         if (error) {
@@ -333,6 +337,38 @@ export class FicheContribuableComponent implements OnInit {
         perPage: 3,
       },
     };
+  }
+
+  rechercherPersonnePhy(): boolean{
+      const rechMulti:BeanRecherchePersonnePhy = new BeanRecherchePersonnePhy();
+      rechMulti.nni = this.newContribuable.nni;
+      this.contribuableService.getListPersonnePhy(rechMulti).then(resultat => {
+      if (resultat) {
+
+        const listPers = resultat.data as PersonnePhysique[];
+        if(listPers != null && listPers.length>0){
+
+          const message = this.getMessage('MSG_ERR.CONTRIBUABLE.MSG_ERR_CONT_005', this.newContribuable.nni);
+          this.resultVO.messagesErrors = [message];
+          this.initializeResultVO();
+          return false;
+        }
+
+      }
+        return true;
+    }, (error => {
+      if (error) {
+        this.resultVO.data = error.data;
+        this.resultVO.messagesErrors = error.messagesErrors;
+        this.resultVO.messagesInfo = error.messagesInfo;
+      }
+      this.initializeResultVO();
+      if (this.resultVO.isDeconnected) {
+        this.authServiceApp.logoutWithParam();
+      }
+
+    }));
+    return false;
   }
 
   initializeResultVO () {

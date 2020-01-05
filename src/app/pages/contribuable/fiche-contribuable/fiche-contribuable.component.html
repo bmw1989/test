@@ -16,7 +16,7 @@
                     </nb-select>
                   </div>
                   <div class="col-sm-4">
-                    <input [readonly]="modeConsultation"  type="text" required [(ngModel)]="newContribuable.nni" nbInput fullWidth id="inputnni" name="inputnni" placeholder="NNI"
+                    <input [readonly]="modeConsultation" (change)="rechercherPersonnePhy()"  type="text" required [(ngModel)]="newContribuable.nni" nbInput fullWidth id="inputnni" name="inputnni" placeholder="NNI"
                     required>
                   </div>
                 </div>

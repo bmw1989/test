@@ -20,9 +20,10 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import {AgmCoreModule} from "@agm/core";
 import {LeafletModule} from "@asymmetrik/ngx-leaflet";
 import {GRCComponentsModule} from "../grc-components/grc-components.module";
+import {FindContribuableComponent} from "./find-contribuable/find-contribuable.component";
 
 @NgModule({
-  declarations: [FicheContribuableComponent],
+  declarations: [FicheContribuableComponent, FindContribuableComponent],
   imports: [
     CommonModule,
     NbInputModule,
