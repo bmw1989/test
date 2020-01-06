@@ -91,7 +91,7 @@ export class GestionutilisateurComponent implements OnInit {
 			  this.resultVO.messagesErrors = error.messagesErrors;
 			  this.resultVO.messagesInfo = error.messagesInfo;
 			}
-			//this.initializeResultVO();
+			this.initializeResultVO();
 			if (this.resultVO.isDeconnected) {
 			  this.authServiceApp.logoutWithParam();
 			}

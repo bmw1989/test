@@ -4,7 +4,7 @@ import {ResultVO} from "../../../model/commun/vo/ResultVO";
 @Component({
   selector: 'app-alert-messages',
   templateUrl: './alertmessages.component.html',
-  styleUrls: ['./alertmessages.component.scss']
+  styleUrls: ['./alertmessages.component.scss'],
 })
 export class AlertmessagesComponent implements OnInit {
 
@@ -13,6 +13,19 @@ export class AlertmessagesComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
+  }
+
+  hideAlertDanger(){
+    this.resultVO.messagesErrors = [];
+  }
+
+  hideAlertInfo(){
+    this.resultVO.messagesInfo = [];
+  }
+
+  hideAlertWarning(){
+    this.resultVO.messagesWarning = [];
   }
 
 }

@@ -48,13 +48,24 @@
     "Liste des utilisateurs": "Liste des utilisateurs",
     "adduser": "Ajout d'un nouveau utilisateur",
     "chosephoto" : "Choisir une photo",
-    "MSG_ERR": {
-      "CONTRIBUABLE": {
-        "MSG_ERR_CONT_001": "l'activité {{value}} existe déjà",
-        "MSG_ERR_CONT_002": "Le NNI du contribuable est obligatoire!",
-        "MSG_ERR_CONT_003": "Nom du contribuable est obligatoire!",
-        "MSG_ERR_CONT_004": "Prénom du contribuable est obligatoire!",
-        "MSG_ERR_CONT_005": "Le contribiable du NNI {{value}} existe déjà!"
-      }
+    "resultatrech": "RÉSULTATS DE RECHERCHE",
+    "criteresrecherche" : "CRITÈRES DE RECHERCHE",
+
+    "MSG": {
+
+        "CONTRIBUABLE": {
+          "ERR": {
+            "MSG_ERR_CONT_001": "l'activité {{value}} existe déjà",
+            "MSG_ERR_CONT_002": "Le NNI du contribuable est obligatoire!",
+            "MSG_ERR_CONT_003": "Nom du contribuable est obligatoire!",
+            "MSG_ERR_CONT_004": "Prénom du contribuable est obligatoire!",
+            "MSG_ERR_CONT_005": "Le contribiable du NNI {{value}} existe déjà!"
+          },
+          "INFO": {
+            "MSG_INFO_CONT_001": "Aucune résultat!"
+          }
+
+        }
+
     }
 }

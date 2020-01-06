@@ -1,19 +1,23 @@
-<div class="alert alert-danger alert-dismissible" role="alert" *ngIf="resultVO.messagesErrors?.length > 0">
-  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+<div class="alert alert-danger " role="alert" *ngIf="resultVO.messagesErrors?.length > 0">
+  <button type="button" class="close" (click)="hideAlertDanger()" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
   <strong>Message d'erreur</strong>
   <ul class="list-group">
     <li *ngFor="let err of resultVO.messagesErrors" class="list-group list-group-accent">{{err}}</li>
   </ul>
 </div>
 
-<div class="alert alert-info" *ngIf="resultVO.messagesInfo?.length > 0">
+<div class="alert alert-info alert-dismissible" *ngIf="resultVO.messagesInfo?.length > 0">
+  <a href="#" class="close" (click)="hideAlertInfo()" aria-label="close">&times;</a>
   <strong>Messages Info!</strong>
   <ul>
     <li *ngFor="let info of resultVO.messagesInfo">{{info}}</li>
   </ul>
 </div>
 
-<div class="alert alert-warning" *ngIf="resultVO.messagesWarning?.length > 0">
+<div class="alert alert-warning alert-dismissible" *ngIf="resultVO.messagesWarning?.length > 0">
+  <a href="#" class="close" (click)="hideAlertWarning()" aria-label="close">&times;</a>
   <strong>Messages Warning!</strong>
   <ul>
     <li *ngFor="let warning of resultVO.messagesWarning">{{warning}}</li>

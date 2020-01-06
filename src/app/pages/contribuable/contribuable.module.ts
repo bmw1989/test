@@ -10,7 +10,7 @@ import {
   NbRadioModule,
   NbDatepickerModule,
   NbTabsetModule,
-  NbSelectModule,
+  NbSelectModule, NbAccordionModule,
 } from '@nebular/theme';
 import { ThemeModule } from '../../@theme/theme.module';
 import { ContribuableRoutingModule } from './contribuable-routing.module';
@@ -45,6 +45,7 @@ import {FindContribuableComponent} from "./find-contribuable/find-contribuable.c
     LeafletModule.forRoot(),
     ContribuableRoutingModule,
     GRCComponentsModule,
+    NbAccordionModule,
   ],
 })
 export class ContribuableModule { }

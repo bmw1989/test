@@ -21,17 +21,19 @@ declare let Q: any;
 export class FindContribuableComponent implements OnInit {
 
   @Input() resultVO = new ResultVO();
+  @ViewChild('criteresrech', { static: true }) accordion;
 
-   source: LocalDataSource = new LocalDataSource();
+  sourcePersPhy: LocalDataSource = new LocalDataSource();
+  sourcePersMo: LocalDataSource = new LocalDataSource();
    settings: any;
 
-  keys = Object.keys;
-  civilites = Civilite;
-  civiliteSelected= "Mr";
+   keys = Object.keys;
+   civilites = Civilite;
+   civiliteSelected= "Mr";
 
    personnePhy:BeanRecherchePersonnePhy = new BeanRecherchePersonnePhy();
-
-
+   listePersonnesPhy:PersonnePhysique[];
+   personnePhySelected:PersonnePhysique;
 
 	constructor(private authServiceApp: AuthenticationService,
 			   public translate: TranslateService,
@@ -47,13 +49,42 @@ export class FindContribuableComponent implements OnInit {
 
 
 	ngOnInit() {
-
-
-
+    this.personnePhySelected = null;
+    this.accordion.toggle();
 	}
 
   rechercherPersonnePhy(){
 
+    this.personnePhySelected = null;
+    this.contribuableService.getListPersonnePhy(this.personnePhy).then(resultat => {
+      if (resultat) {
+        this.resultVO = new ResultVO();
+        this.listePersonnesPhy = resultat.data as PersonnePhysique[];
+        if(this.listePersonnesPhy  == null || this.listePersonnesPhy .length === 0){
+
+          const message = this.translate.instant('MSG.CONTRIBUABLE.INFO.MSG_INFO_CONT_001');
+          this.resultVO.messagesInfo = [message];
+          this.initializeResultVO();
+        }else{
+          this.accordion.close();
+        }
+
+        this.sourcePersPhy.load(this.listePersonnesPhy );
+
+
+      }
+    }, (error => {
+      if (error) {
+        this.resultVO.data = error.data;
+        this.resultVO.messagesErrors = error.messagesErrors;
+        this.resultVO.messagesInfo = error.messagesInfo;
+      }
+      this.initializeResultVO();
+      if (this.resultVO.isDeconnected) {
+        this.authServiceApp.logoutWithParam();
+      }
+
+    }));
   }
 
   initTableSettings(): void {
@@ -67,8 +98,8 @@ export class FindContribuableComponent implements OnInit {
         delete: false,
       },
       columns: {
-        username: {
-          title: this.translate.instant('username'),
+        nni: {
+          title: this.translate.instant('NNI'),
           type: 'string',
           sort:true,
         },
@@ -90,29 +121,32 @@ export class FindContribuableComponent implements OnInit {
           title: 'Prénom',
           type: 'string',
         },
-        libelleFr: {
-          title: this.translate.instant('libelleFr'),
+        adresse: {
+          title: this.translate.instant('adresse'),
           type: 'string',
-        },
-        dateCreation: {
-          title: this.translate.instant('dateCreation'),
-          valuePrepareFunction: (dateCreation) => {
-            return this.datePipe.transform(new Date(dateCreation), 'dd/MM/yyyy');
-          },
-          type: Date,
-        },
-        action: {
-           title: this.translate.instant('Action'),
-           type:'custom',
 
+        },
+        taxe: {
+          title: this.translate.instant('taxe'),
+          type: 'number',
         },
       },
       pager: {
-        perPage: 10,
+        perPage: 5,
       },attr: {
         class: 'table table-bordered',
       },
     };
+  }
+
+  onUserRowSelect(event){
+
+	  this.personnePhySelected = event.data;
+
+    this.listePersonnesPhy = [];
+    this.sourcePersPhy.load(this.listePersonnesPhy );
+
+    this.accordion.close();
   }
 
 	initializeResultVO () {
@@ -125,11 +159,10 @@ export class FindContribuableComponent implements OnInit {
 		if (this.resultVO.messagesInfo == null) {
 		  this.resultVO.messagesInfo = [];
 		}
-		if (this.resultVO.messagesInfo.length > 0 || this.resultVO.messagesErrors.length > 0) {
-		  window.scroll(0,0);
-		}
-	
-	  }
+    if (this.resultVO.messagesInfo.length > 0 || this.resultVO.messagesErrors.length > 0) {
+      window.scroll(0, 0);
+    }
+	}
 
 
 }

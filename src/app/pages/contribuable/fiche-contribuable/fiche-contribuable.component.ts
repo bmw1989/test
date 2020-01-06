@@ -12,12 +12,12 @@ import {ContribuableService} from '../service/contribuable.service';
 
 import * as L from 'leaflet';
 import 'style-loader!leaflet/dist/leaflet.css';
+import 'leaflet/dist/leaflet.css';
 import {IPaging} from "../../../model/design/IPaging";
-import {Utilisateur} from "../../../model/utilisateur/Utilisateur";
 import {BeanRecherchePersonnePhy} from "../model/criteria/beanRecherchePersonnePhy";
 
 @Component({
-  selector: 'app-fiche-contribuable.component',
+  selector: 'app-fiche-contribuable',
   templateUrl: './fiche-contribuable.component.html',
   styleUrls: ['./fiche-contribuable.component.scss'],
 })
@@ -62,17 +62,6 @@ export class FicheContribuableComponent implements OnInit {
                 private contribuableService:ContribuableService,
                 public translate: TranslateService) {
 
-
-      this.newContribuable = new PersonnePhysique();
-
-      this.newContribuable.civilite = 'Mr';
-
-      this.latitude= 18.088423;
-      this.longitude= -15.976214;
-
-
-      this.getListTypeActivitePrincipal();
-
       this.initTableSettings();
       this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
         this.translate.use(event.lang);
@@ -82,7 +71,13 @@ export class FicheContribuableComponent implements OnInit {
 
     ngOnInit() {
 
+      this.getListTypeActivitePrincipal();
       if (this.mode === 'CREATION') {
+        this.newContribuable = new PersonnePhysique();
+        this.newContribuable.civilite = 'Mr';
+        this.latitude= 18.088423;
+        this.longitude= -15.976214;
+
         this.modeConsultation = false;
         this.modeModification = false;
         this.modeValidation = false;
@@ -92,6 +87,12 @@ export class FicheContribuableComponent implements OnInit {
         if (this.mode === 'MODIF') {
           this.modeConsultation = false;
           this.modeModification = true;
+          this.modeValidation = false;
+          this.modeAjout = false;
+        }
+        else if (this.mode === 'CONSULTATION') {
+          this.modeConsultation = true;
+          this.modeModification = false;
           this.modeValidation = false;
           this.modeAjout = false;
         }
@@ -107,7 +108,11 @@ export class FicheContribuableComponent implements OnInit {
         }
       }
       this.listActivitesChoisies = [];
-      this.selectedFile ='assets/img/contribuable/default-img.gif';
+
+      if(this.newContribuable.photo == null){
+        this.newContribuable.photo ='assets/img/contribuable/default-img.gif';
+      }
+
       this.initMaps();
     }
 
@@ -173,7 +178,11 @@ export class FicheContribuableComponent implements OnInit {
   }
 
     ajouterContribuable():void {
+
+      this.resultVO = new ResultVO();
+
       if (this.isValidContribuable()) {
+
         const listActivites: FicheActivite[] = [];
         for (const typeActv of this.listActivitesChoisies) {
 
@@ -213,25 +222,28 @@ export class FicheContribuableComponent implements OnInit {
 
     private isValidContribuable():boolean{
 
-      if(!this.rechercherPersonnePhy()) {
-        return false;
-      }
+      this.rechercherPersonnePhy()
+        //return false;
+
+
       if(this.newContribuable.nni == null || this.newContribuable.nni === ''){
-        this.resultVO.messagesErrors.push(this.getMessage('MSG_ERR.CONTRIBUABLE.MSG_ERR_CONT_002'));
+        this.resultVO.messagesErrors.push(this.getMessage('MSG.CONTRIBUABLE.ERR.MSG_ERR_CONT_002'));
       }
       if(this.newContribuable.nomFr == null || this.newContribuable.nomFr === ''){
-        this.resultVO.messagesErrors.push(this.getMessage('MSG_ERR.CONTRIBUABLE.MSG_ERR_CONT_003'));
+        this.resultVO.messagesErrors.push(this.getMessage('MSG.CONTRIBUABLE.ERR.MSG_ERR_CONT_003'));
       }
       if(this.newContribuable.prenomFr == null || this.newContribuable.prenomFr === ''){
-        this.resultVO.messagesErrors.push(this.getMessage('MSG_ERR.CONTRIBUABLE.MSG_ERR_CONT_004'));
+        this.resultVO.messagesErrors.push(this.getMessage('MSG.CONTRIBUABLE.ERR.MSG_ERR_CONT_004'));
       }
 
       if( this.resultVO.messagesErrors.length>0){
         this.initializeResultVO();
         return false;
+      }else{
+        return true;
       }
 
-      return true;
+
     }
 
     validationActivite(){
@@ -258,27 +270,27 @@ export class FicheContribuableComponent implements OnInit {
     }
 
 
-    changeActivitePrincipal(typeActPrincipale){
-      this.activitePrincipalSelected = typeActPrincipale;
-    }
+   changeActivitePrincipal(typeActPrincipale){
+     this.activitePrincipalSelected = typeActPrincipale;
+   }
 
-	  private getListTypeActivitePrincipal(){
-      this.activiteService.getAllParentActivite().then(resultat => {
-        if (resultat) {
-          this.listTypeActPrincipale = resultat.data as TypeActivite[];
-        }
-      }, (error => {
-        if (error) {
-          this.resultVO.data = error.data;
-          this.resultVO.messagesErrors = error.messagesErrors;
-          this.resultVO.messagesInfo = error.messagesInfo;
-        }
-        //this.initializeResultVO();
-        if (this.resultVO.isDeconnected) {
-          this.authServiceApp.logoutWithParam();
-        }
-      }));
-    }
+	 private getListTypeActivitePrincipal(){
+     this.activiteService.getAllParentActivite().then(resultat => {
+       if (resultat) {
+         this.listTypeActPrincipale = resultat.data as TypeActivite[];
+       }
+     }, (error => {
+       if (error) {
+         this.resultVO.data = error.data;
+         this.resultVO.messagesErrors = error.messagesErrors;
+         this.resultVO.messagesInfo = error.messagesInfo;
+       }
+       this.initializeResultVO();
+       if (this.resultVO.isDeconnected) {
+         this.authServiceApp.logoutWithParam();
+       }
+     }));
+   }
 
 
   processFile(imageInput: any) {
@@ -287,7 +299,7 @@ export class FicheContribuableComponent implements OnInit {
 
     reader.addEventListener('load', (event: any) => {
 
-      this.selectedFile = event.target.result;
+      this.newContribuable.photo = event.target.result;
 
     });
 
@@ -339,7 +351,7 @@ export class FicheContribuableComponent implements OnInit {
     };
   }
 
-  rechercherPersonnePhy(): boolean{
+  rechercherPersonnePhy(){
       const rechMulti:BeanRecherchePersonnePhy = new BeanRecherchePersonnePhy();
       rechMulti.nni = this.newContribuable.nni;
       this.contribuableService.getListPersonnePhy(rechMulti).then(resultat => {
@@ -348,14 +360,18 @@ export class FicheContribuableComponent implements OnInit {
         const listPers = resultat.data as PersonnePhysique[];
         if(listPers != null && listPers.length>0){
 
-          const message = this.getMessage('MSG_ERR.CONTRIBUABLE.MSG_ERR_CONT_005', this.newContribuable.nni);
-          this.resultVO.messagesErrors = [message];
+          const message = this.getMessage('MSG.CONTRIBUABLE.ERR.MSG_ERR_CONT_005', this.newContribuable.nni);
+
+          if (this.resultVO.messagesErrors == null){
+            this.resultVO.messagesErrors = [message];
+          }
+
           this.initializeResultVO();
-          return false;
+
         }
 
       }
-        return true;
+
     }, (error => {
       if (error) {
         this.resultVO.data = error.data;
@@ -368,7 +384,7 @@ export class FicheContribuableComponent implements OnInit {
       }
 
     }));
-    return false;
+
   }
 
   initializeResultVO () {
