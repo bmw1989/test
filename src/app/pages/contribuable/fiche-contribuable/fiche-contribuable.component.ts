@@ -222,9 +222,7 @@ export class FicheContribuableComponent implements OnInit {
 
     private isValidContribuable():boolean{
 
-      this.rechercherPersonnePhy()
-        //return false;
-
+      this.rechercherPersonnePhy();
 
       if(this.newContribuable.nni == null || this.newContribuable.nni === ''){
         this.resultVO.messagesErrors.push(this.getMessage('MSG.CONTRIBUABLE.ERR.MSG_ERR_CONT_002'));
