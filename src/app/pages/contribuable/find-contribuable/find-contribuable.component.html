@@ -66,7 +66,7 @@
       <nb-card-body>
 
         <div class="smart-table-container">
-          <ng2-smart-table  [source]="sourcePersPhy"  [settings]="settings" (userRowSelect)="onUserRowSelect($event)"
+          <ng2-smart-table  [source]="sourcePersPhy"  [settings]="settings" (userRowSelect)="onRowSelect($event)"
                             (custom)="onCustomAction($event)">
           </ng2-smart-table>
         </div>
@@ -76,5 +76,5 @@
   </div>
 </div>
 
-<app-fiche-contribuable *ngIf="personnePhySelected" [newContribuable]="personnePhySelected" [mode]="'CONSULTATION'"></app-fiche-contribuable>
+<app-fiche-contribuable *ngIf="personnePhySelected" [newContribuable]="personnePhySelected" [mode]="modeFicheContribuable"></app-fiche-contribuable>
 

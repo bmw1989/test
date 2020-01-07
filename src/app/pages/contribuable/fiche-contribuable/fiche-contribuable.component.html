@@ -210,7 +210,7 @@
         <div class="col-md-6">
           <nb-card>
             <nb-card-body>
-              <button *ngIf="mode=='CREATION'" type="button" on nbButton (click)="ajouterContribuable()">{{'save'|translate}}</button>
+              <button *ngIf="!modeConsultation" type="button" on nbButton (click)="enregistrerContribuable()">{{'save'|translate}}</button>
             </nb-card-body>
           </nb-card>
         </div>

@@ -36,6 +36,7 @@ export class FindContribuableComponent implements OnInit {
    personnePhy:BeanRecherchePersonnePhy = new BeanRecherchePersonnePhy();
    listePersonnesPhy:PersonnePhysique[];
    personnePhySelected:PersonnePhysique;
+   modeFicheContribuable;
 
 	constructor(private authServiceApp: AuthenticationService,
 			   public translate: TranslateService,
@@ -89,7 +90,9 @@ export class FindContribuableComponent implements OnInit {
   }
 
   onCustomAction(event){
-    this.router.navigate(['/pages/contribuable/editcontribuable', event.data.nni ]);
+    this.openComponentContribuable(event.data);
+
+    this.modeFicheContribuable = 'MODIF';
   }
 
   initTableSettings(): void {
@@ -149,14 +152,21 @@ export class FindContribuableComponent implements OnInit {
     };
   }
 
-  onUserRowSelect(event){
+  onRowSelect(event){
 
-	  this.personnePhySelected = event.data;
+	  this.openComponentContribuable(event.data);
+	  this.modeFicheContribuable = 'CONSULTATION';
+  }
+
+  openComponentContribuable(contribuable){
+
+    this.personnePhySelected = contribuable;
 
     this.listePersonnesPhy = [];
     this.sourcePersPhy.load(this.listePersonnesPhy );
 
     this.accordion.close();
+
   }
 
 	initializeResultVO () {

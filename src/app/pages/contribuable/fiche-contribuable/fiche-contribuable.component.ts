@@ -43,8 +43,8 @@ export class FicheContribuableComponent implements OnInit {
     settings: any;
 
     //Maps attributes
-    latitude= 18.088423;
-    longitude= -15.976214;
+    latitude;
+    longitude;
     options;
     streetMaps;
     wMaps;
@@ -64,6 +64,25 @@ export class FicheContribuableComponent implements OnInit {
                 public translate: TranslateService,
                 private router: ActivatedRoute) {
 
+
+     /* if((this.newContribuable==null || this.newContribuable === undefined) && this.mode !== 'CONSULTATION'){
+
+        this.router.params.subscribe(params => {
+          const nni = params['nni'];
+
+          if(nni!=null) {
+
+            this.initialisePersonnePhyByNNI(nni);
+
+            if (this.newContribuable != null) {
+              this.modeConsultation = false;
+              this.mode = 'MODIF';
+            }
+          }
+
+        });
+      }*/
+
       this.initTableSettings();
       this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
         this.translate.use(event.lang);
@@ -72,25 +91,6 @@ export class FicheContribuableComponent implements OnInit {
     }
 
     ngOnInit() {
-
-
-      if((this.newContribuable==null || this.newContribuable === undefined) && this.mode !== 'CONSULTATION'){
-
-        this.router.params.subscribe(params => {
-          const nni = params['nni'];
-
-          if(nni!=null) {
-
-            this.newContribuable = this.recherchePersonnePhyByNNI(nni);
-            if (this.newContribuable != null) {
-              this.modeConsultation = false;
-              this.mode = 'MODIF';
-            }
-          }
-
-        });
-      }
-
 
       this.getListTypeActivitePrincipal();
       if (this.mode === 'CREATION') {
@@ -105,6 +105,7 @@ export class FicheContribuableComponent implements OnInit {
         this.modeAjout = true;
       }
       else {
+
         if (this.mode === 'MODIF') {
           this.modeConsultation = false;
           this.modeModification = true;
@@ -124,6 +125,9 @@ export class FicheContribuableComponent implements OnInit {
           this.modeAjout = false;
         }
         if (this.newContribuable != null) {
+
+          this.latitude= this.newContribuable.latitude;
+          this.longitude= this.newContribuable.longitude;
           //this.newContribuable = this.newContribuable;
           //this.formaterActeNaissancePourConsultation();
         }
@@ -198,13 +202,16 @@ export class FicheContribuableComponent implements OnInit {
     }, 10000);
   }
 
-    ajouterContribuable():void {
+    enregistrerContribuable():void {
 
       this.resultVO = new ResultVO();
 
       if (this.isValidContribuable()) {
 
         const listActivites: FicheActivite[] = [];
+        /**
+         * a revoir
+         */
         for (const typeActv of this.listActivitesChoisies) {
 
           const fiche: FicheActivite = new FicheActivite();
@@ -216,6 +223,7 @@ export class FicheContribuableComponent implements OnInit {
 
         this.newContribuable.latitude= this.latitude;
         this.newContribuable.longitude = this.longitude;
+        this.newContribuable.photo = null; //For test
         this.contribuableService.ajouterNouveauPersonnePhysique(this.newContribuable).then(resultat => {
           //morphoPere = resultat.data as MorphoPersonne;
           this.resultVO = resultat;
@@ -243,7 +251,9 @@ export class FicheContribuableComponent implements OnInit {
 
     private isValidContribuable():boolean{
 
-      this.rechercherPersonnePhy();
+      if(this.mode==='CREATION'){
+        this.rechercherPersonnePhy();
+      }
 
       if(this.newContribuable.nni == null || this.newContribuable.nni === ''){
         this.resultVO.messagesErrors.push(this.getMessage('MSG.CONTRIBUABLE.ERR.MSG_ERR_CONT_002'));
@@ -370,7 +380,7 @@ export class FicheContribuableComponent implements OnInit {
     };
   }
 
-  recherchePersonnePhyByNNI(nni):PersonnePhysique{
+  initialisePersonnePhyByNNI(nni){
     const rechMulti:BeanRecherchePersonnePhy = new BeanRecherchePersonnePhy();
     rechMulti.nni = nni;
     this.contribuableService.getListPersonnePhy(rechMulti).then(resultat => {
@@ -380,7 +390,7 @@ export class FicheContribuableComponent implements OnInit {
         if(listPers != null && listPers.length>0){
 
           const pers:PersonnePhysique = listPers[0];
-          return pers;
+          this.newContribuable = pers;
 
         }else {
           const message = this.getMessage('MSG.CONTRIBUABLE.ERR.MSG_ERR_CONT_005', this.newContribuable.nni);
@@ -406,7 +416,8 @@ export class FicheContribuableComponent implements OnInit {
       }
 
     }));
-    return null;
+
+
   }
   rechercherPersonnePhy(){
       const rechMulti:BeanRecherchePersonnePhy = new BeanRecherchePersonnePhy();
