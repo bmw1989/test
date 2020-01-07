@@ -15,6 +15,7 @@ import 'style-loader!leaflet/dist/leaflet.css';
 import 'leaflet/dist/leaflet.css';
 import {IPaging} from "../../../model/design/IPaging";
 import {BeanRecherchePersonnePhy} from "../model/criteria/beanRecherchePersonnePhy";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-fiche-contribuable',
@@ -60,7 +61,8 @@ export class FicheContribuableComponent implements OnInit {
     constructor(private authServiceApp: AuthenticationService,
                 private activiteService:ActiviteService,
                 private contribuableService:ContribuableService,
-                public translate: TranslateService) {
+                public translate: TranslateService,
+                private router: ActivatedRoute) {
 
       this.initTableSettings();
       this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -70,6 +72,25 @@ export class FicheContribuableComponent implements OnInit {
     }
 
     ngOnInit() {
+
+
+      if((this.newContribuable==null || this.newContribuable === undefined) && this.mode !== 'CONSULTATION'){
+
+        this.router.params.subscribe(params => {
+          const nni = params['nni'];
+
+          if(nni!=null) {
+
+            this.newContribuable = this.recherchePersonnePhyByNNI(nni);
+            if (this.newContribuable != null) {
+              this.modeConsultation = false;
+              this.mode = 'MODIF';
+            }
+          }
+
+        });
+      }
+
 
       this.getListTypeActivitePrincipal();
       if (this.mode === 'CREATION') {
@@ -103,7 +124,7 @@ export class FicheContribuableComponent implements OnInit {
           this.modeAjout = false;
         }
         if (this.newContribuable != null) {
-          this.newContribuable = this.newContribuable;
+          //this.newContribuable = this.newContribuable;
           //this.formaterActeNaissancePourConsultation();
         }
       }
@@ -349,6 +370,44 @@ export class FicheContribuableComponent implements OnInit {
     };
   }
 
+  recherchePersonnePhyByNNI(nni):PersonnePhysique{
+    const rechMulti:BeanRecherchePersonnePhy = new BeanRecherchePersonnePhy();
+    rechMulti.nni = nni;
+    this.contribuableService.getListPersonnePhy(rechMulti).then(resultat => {
+      if (resultat) {
+
+        const listPers = resultat.data as PersonnePhysique[];
+        if(listPers != null && listPers.length>0){
+
+          const pers:PersonnePhysique = listPers[0];
+          return pers;
+
+        }else {
+          const message = this.getMessage('MSG.CONTRIBUABLE.ERR.MSG_ERR_CONT_005', this.newContribuable.nni);
+
+          if (this.resultVO.messagesErrors == null){
+            this.resultVO.messagesErrors = [message];
+          }
+
+          this.initializeResultVO();
+        }
+
+      }
+
+    }, (error => {
+      if (error) {
+        this.resultVO.data = error.data;
+        this.resultVO.messagesErrors = error.messagesErrors;
+        this.resultVO.messagesInfo = error.messagesInfo;
+      }
+      this.initializeResultVO();
+      if (this.resultVO.isDeconnected) {
+        this.authServiceApp.logoutWithParam();
+      }
+
+    }));
+    return null;
+  }
   rechercherPersonnePhy(){
       const rechMulti:BeanRecherchePersonnePhy = new BeanRecherchePersonnePhy();
       rechMulti.nni = this.newContribuable.nni;

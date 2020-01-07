@@ -21,9 +21,10 @@ import {AgmCoreModule} from "@agm/core";
 import {LeafletModule} from "@asymmetrik/ngx-leaflet";
 import {GRCComponentsModule} from "../grc-components/grc-components.module";
 import {FindContribuableComponent} from "./find-contribuable/find-contribuable.component";
+import {LinkeditViewComponent} from "./find-contribuable/linkedit-view/linkedit-view.component";
 
 @NgModule({
-  declarations: [FicheContribuableComponent, FindContribuableComponent],
+  declarations: [FicheContribuableComponent, FindContribuableComponent, LinkeditViewComponent],
   imports: [
     CommonModule,
     NbInputModule,
@@ -47,5 +48,6 @@ import {FindContribuableComponent} from "./find-contribuable/find-contribuable.c
     GRCComponentsModule,
     NbAccordionModule,
   ],
+  entryComponents :[LinkeditViewComponent],
 })
 export class ContribuableModule { }

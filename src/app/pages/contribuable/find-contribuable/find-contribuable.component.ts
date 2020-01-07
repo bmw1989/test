@@ -10,6 +10,8 @@ import {BeanRecherchePersonnePhy} from "../model/criteria/beanRecherchePersonneP
 import PersonnePhysique from "../model/personne-physique";
 import {ContribuableService} from "../service/contribuable.service";
 import {Civilite} from "../../../model/referentiel/civilite";
+import {LinkeditViewComponent} from "./linkedit-view/linkedit-view.component";
+import {Router} from "@angular/router";
 
 declare let Q: any;
 @Component({
@@ -38,8 +40,7 @@ export class FindContribuableComponent implements OnInit {
 	constructor(private authServiceApp: AuthenticationService,
 			   public translate: TranslateService,
          private contribuableService:ContribuableService,
-			   private pagerService: PagerService,
-              private datePipe: DatePipe) {
+              private router: Router  ) {
     this.initTableSettings();
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.translate.use(event.lang);
@@ -87,6 +88,10 @@ export class FindContribuableComponent implements OnInit {
     }));
   }
 
+  onCustomAction(event){
+    this.router.navigate(['/pages/contribuable/editcontribuable', event.data.nni ]);
+  }
+
   initTableSettings(): void {
     this.settings = {
       hideSubHeader: true,
@@ -96,6 +101,7 @@ export class FindContribuableComponent implements OnInit {
         add: false,
         edit: false,
         delete: false,
+        custom: [{ name: 'ourCustomAction', title: '<i class="ion-edit"></i>' }],
       },
       columns: {
         nni: {
@@ -116,20 +122,24 @@ export class FindContribuableComponent implements OnInit {
         nomFr: {
           title: 'Nom',
           type: 'string',
+          sort:true,
         },
         prenomFr: {
           title: 'Prénom',
           type: 'string',
+          sort:true,
         },
         adresse: {
           title: this.translate.instant('adresse'),
           type: 'string',
-
+          sort:true,
         },
         taxe: {
           title: this.translate.instant('taxe'),
           type: 'number',
+          sort:true,
         },
+
       },
       pager: {
         perPage: 5,

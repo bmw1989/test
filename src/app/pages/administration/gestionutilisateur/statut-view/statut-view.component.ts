@@ -1,13 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 import { ViewCell } from 'ng2-smart-table';
-import {Utilisateur} from "../../../../model/utilisateur/Utilisateur";
 import {ResultVO} from "../../../../model/commun/vo/ResultVO";
 import {AuthenticationService} from "../../../loginRoot/service/authenticationService";
-import {LangChangeEvent, TranslateService} from "@ngx-translate/core";
 import {AdministrationService} from "../../administration.service";
-import {PagerService} from "../../../../views/pagination-example/pager.service";
-import {DatePipe} from "@angular/common";
+
 
 @Component({
   template: `

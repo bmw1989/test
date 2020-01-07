@@ -29,6 +29,13 @@ const routes: Routes = [
             title: 'Find contribuable',
           },
         },
+        {
+          path: 'editcontribuable/:nni',
+          component: FicheContribuableComponent,
+          data: {
+            title: 'Edit contribuable',
+          },
+        },
       ],
     }];
 
