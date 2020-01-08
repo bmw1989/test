@@ -104,7 +104,7 @@ export class FindContribuableComponent implements OnInit {
         add: false,
         edit: false,
         delete: false,
-        custom: [{ name: 'ourCustomAction', title: '<i class="ion-edit"></i>' }],
+        custom: [{ name: 'ourCustomAction', title: '<i style="margin-top: 10%;font-size: 0.73em; "  class="nb-compose" ></i>' }],
       },
       columns: {
         nni: {

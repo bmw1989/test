@@ -228,6 +228,9 @@ export class FicheContribuableComponent implements OnInit {
         this.newContribuable.latitude= this.latitude;
         this.newContribuable.longitude = this.longitude;
         this.newContribuable.photo = null; //For test
+
+        //il faut supprimer les activites principal
+        this.deleteActivitePrincipalForSave();
         this.contribuableService.ajouterNouveauPersonnePhysique(this.newContribuable).then(resultat => {
           //morphoPere = resultat.data as MorphoPersonne;
           this.resultVO = resultat;
@@ -241,6 +244,12 @@ export class FicheContribuableComponent implements OnInit {
       }
     }
 
+    private deleteActivitePrincipalForSave(){
+      for(let i=0; i<this.newContribuable.listActivite.length;i++){
+        this.newContribuable.listActivite[i].refActivite.refTypeActivite = null;
+
+      }
+    }
 	  ajouterActivite(){
       if(this.validationActivite()){
 
