@@ -41,9 +41,21 @@
     "Liste des utilisateurs": "قائمة المستخدمين",
     "adduser": "إضافة مستخدم جديد",
     "chosephoto" : "اختر الصورة",
-    "MSG_ERR": {
+    "resultatrech": "نتائج البحث",
+    "criteresrecherche" : "معايير البحث",
+    "MSG": {
       "CONTRIBUABLE": {
-        "MSG_ERR_CONT_001": "النشاط {{value}} موجود بالفعل"
+        "ERR": {
+          "MSG_ERR_CONT_001": "النشاط {{value}} موجود بالفعل",
+          "MSG_ERR_CONT_002": "NNI دافعي الضرائب إلزامي!",
+          "MSG_ERR_CONT_003": "اسم دافع الضرائب إلزامي!",
+          "MSG_ERR_CONT_004": "الاسم الأول لدافعي الضرائب إلزامي!",
+          "MSG_ERR_CONT_005": "دافع ضرائب NNI {{value}} موجود بالفعل!"
+        },
+        "INFO": {
+          "MSG_INFO_CONT_001": "لا توجد نتائج!"
+        }
+
       }
     }
 }
