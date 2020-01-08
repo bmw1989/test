@@ -30,7 +30,7 @@ export class FicheContribuableComponent implements OnInit {
     activitePrincipalSelected:TypeActivite;
     activiteSelected:TypeActivite;
     listTypeActPrincipale: TypeActivite[];
-    listActivitesChoisies: TypeActivite[];
+    //listFichesActivites: FicheActivite[];
     selectedFile ;
 
     @Input() mode:string = 'CREATION';
@@ -95,6 +95,7 @@ export class FicheContribuableComponent implements OnInit {
       this.getListTypeActivitePrincipal();
       if (this.mode === 'CREATION') {
         this.newContribuable = new PersonnePhysique();
+        this.newContribuable.listActivite = [];
         this.newContribuable.civilite = 'Mr';
         this.latitude= 18.088423;
         this.longitude= -15.976214;
@@ -128,11 +129,14 @@ export class FicheContribuableComponent implements OnInit {
 
           this.latitude= this.newContribuable.latitude;
           this.longitude= this.newContribuable.longitude;
+
+          //this.alimenterFicheActivitePrincipal();
+
           //this.newContribuable = this.newContribuable;
           //this.formaterActeNaissancePourConsultation();
         }
       }
-      this.listActivitesChoisies = [];
+      //this.listFichesActivites = [];
 
       if(this.newContribuable.photo == null){
         this.newContribuable.photo ='assets/img/contribuable/default-img.gif';
@@ -212,14 +216,14 @@ export class FicheContribuableComponent implements OnInit {
         /**
          * a revoir
          */
-        for (const typeActv of this.listActivitesChoisies) {
+        /*for (const typeActv of this.listActivitesChoisies) {
 
           const fiche: FicheActivite = new FicheActivite();
 
           fiche.refActivite = typeActv;
           listActivites.push(fiche);
-        }
-        this.newContribuable.listActivite = listActivites;
+        }*/
+        //this.newContribuable.listActivite = this.listFichesActivites;
 
         this.newContribuable.latitude= this.latitude;
         this.newContribuable.longitude = this.longitude;
@@ -240,9 +244,15 @@ export class FicheContribuableComponent implements OnInit {
 	  ajouterActivite(){
       if(this.validationActivite()){
 
-        this.activiteSelected.refTypeActivite = this.activitePrincipalSelected.libelleFr;
-        this.listActivitesChoisies.push(this.activiteSelected);
-        this.source.load(this.listActivitesChoisies);
+       // this.activiteSelected.refTypeActivite = this.activitePrincipalSelected.libelleFr;
+
+        const fiche: FicheActivite = new FicheActivite();
+
+        this.activiteSelected.refTypeActivite = this.activitePrincipalSelected;
+        fiche.refActivite = this.activiteSelected;
+        fiche.dateCreation = new Date();
+        this.newContribuable.listActivite.push(fiche);
+        this.source.load(this.newContribuable.listActivite);
 
       }
 
@@ -277,10 +287,10 @@ export class FicheContribuableComponent implements OnInit {
 
     validationActivite(){
 
-      for(let i = 0; i<this.listActivitesChoisies.length; i++){
-        if(this.listActivitesChoisies[i].code === this.activiteSelected.code){
+      for(let i = 0; i<this.newContribuable.listActivite.length; i++){
+        if(this.newContribuable.listActivite[i].refActivite.code === this.activiteSelected.code){
 
-          const val = this.translate.currentLang === 'fr'? this.listActivitesChoisies[i].libelleFr:this.listActivitesChoisies[i].libelleAr;
+          const val = this.translate.currentLang === 'fr'? this.newContribuable.listActivite[i].refActivite.libelleFr:this.newContribuable.listActivite[i].refActivite.libelleAr;
 
           const message = this.getMessage('MSG_ERR.CONTRIBUABLE.MSG_ERR_CONT_001', val);
           this.resultVO.messagesErrors = [message];
@@ -307,6 +317,12 @@ export class FicheContribuableComponent implements OnInit {
      this.activiteService.getAllParentActivite().then(resultat => {
        if (resultat) {
          this.listTypeActPrincipale = resultat.data as TypeActivite[];
+
+         if(this.mode !== 'CREATION') {
+           this.alimenterFicheActivitePrincipal();
+           this.source.load(this.newContribuable.listActivite);
+
+         }
        }
      }, (error => {
        if (error) {
@@ -336,7 +352,7 @@ export class FicheContribuableComponent implements OnInit {
   }
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
-      this.listActivitesChoisies = this.listActivitesChoisies.filter(obj => obj!==event.data);
+      this.newContribuable.listActivite = this.newContribuable.listActivite.filter(obj => obj!==event.data);
       event.confirm.resolve();
     } else {
       event.confirm.reject();
@@ -361,13 +377,21 @@ export class FicheContribuableComponent implements OnInit {
             return ret;
           },
         },
-        refTypeActivite: {
+        activitePrincipal: {
           title: this.translate.instant('activite principal'),
           type: 'string',
+          valuePrepareFunction:(value,row) =>{
+
+            return row.refActivite.refTypeActivite.libelleFr;
+          },
         },
-        libelleFr: {
+        refActivite: {
           title: this.translate.instant('activite'),
           type: 'string',
+          valuePrepareFunction:(value) =>{
+
+            return value.libelleFr;
+          },
         },
       },
       delete: {
@@ -380,45 +404,6 @@ export class FicheContribuableComponent implements OnInit {
     };
   }
 
-  initialisePersonnePhyByNNI(nni){
-    const rechMulti:BeanRecherchePersonnePhy = new BeanRecherchePersonnePhy();
-    rechMulti.nni = nni;
-    this.contribuableService.getListPersonnePhy(rechMulti).then(resultat => {
-      if (resultat) {
-
-        const listPers = resultat.data as PersonnePhysique[];
-        if(listPers != null && listPers.length>0){
-
-          const pers:PersonnePhysique = listPers[0];
-          this.newContribuable = pers;
-
-        }else {
-          const message = this.getMessage('MSG.CONTRIBUABLE.ERR.MSG_ERR_CONT_005', this.newContribuable.nni);
-
-          if (this.resultVO.messagesErrors == null){
-            this.resultVO.messagesErrors = [message];
-          }
-
-          this.initializeResultVO();
-        }
-
-      }
-
-    }, (error => {
-      if (error) {
-        this.resultVO.data = error.data;
-        this.resultVO.messagesErrors = error.messagesErrors;
-        this.resultVO.messagesInfo = error.messagesInfo;
-      }
-      this.initializeResultVO();
-      if (this.resultVO.isDeconnected) {
-        this.authServiceApp.logoutWithParam();
-      }
-
-    }));
-
-
-  }
   rechercherPersonnePhy(){
       const rechMulti:BeanRecherchePersonnePhy = new BeanRecherchePersonnePhy();
       rechMulti.nni = this.newContribuable.nni;
@@ -471,6 +456,21 @@ export class FicheContribuableComponent implements OnInit {
 	
 	  }
 
+	  private alimenterFicheActivitePrincipal(){
+      this.newContribuable.listActivite.forEach(fiche =>{
+        this.listTypeActPrincipale.forEach(actPrin =>{
+
+          if(actPrin.children != null && actPrin.children !== undefined && actPrin.children.length>0) {
+            actPrin.children.forEach(child => {
+              if (fiche.refActivite.code === child.code) {
+                fiche.refActivite.refTypeActivite = actPrin;
+
+              }
+            });
+          }
+        });
+      });
+    }
 
 
 

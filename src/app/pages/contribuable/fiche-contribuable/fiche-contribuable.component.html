@@ -163,7 +163,7 @@
                   </div>
                   <button (click)="ajouterActivite()" nbButton>{{'add'|translate}}</button>
                 </div>
-              <div class="form-group row justify-content-center" *ngIf="listActivitesChoisies.length>0">
+              <div class="form-group row justify-content-center" *ngIf="newContribuable.listActivite.length>0">
                 <ng2-smart-table [source]="source" (deleteConfirm)="onDeleteConfirm($event)"  [settings]="settings">
                 </ng2-smart-table>
               </div>
