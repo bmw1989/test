@@ -12,6 +12,8 @@ import {ContribuableService} from "../service/contribuable.service";
 import {Civilite} from "../../../model/referentiel/civilite";
 import {LinkeditViewComponent} from "./linkedit-view/linkedit-view.component";
 import {Router} from "@angular/router";
+import {BeanRecherchePersonneMorale} from "../model/criteria/beanRecherchePersonneMorale";
+import {PersonneMorale} from "../model/personne-morale";
 
 declare let Q: any;
 @Component({
@@ -25,25 +27,29 @@ export class FindContribuableComponent implements OnInit {
   @Input() resultVO = new ResultVO();
   @ViewChild('criteresrech', { static: true }) accordion;
 
-  sourcePersPhy: LocalDataSource = new LocalDataSource();
-  sourcePersMo: LocalDataSource = new LocalDataSource();
+  sourcePers: LocalDataSource = new LocalDataSource();
    settings: any;
+   settingsMo:any;
 
    keys = Object.keys;
    civilites = Civilite;
-   civiliteSelected= "Mr";
 
    personnePhy:BeanRecherchePersonnePhy = new BeanRecherchePersonnePhy();
-   listePersonnesPhy:PersonnePhysique[];
-   personnePhySelected:PersonnePhysique;
+   personneMorale:BeanRecherchePersonneMorale = new BeanRecherchePersonneMorale();
+
+   listePersonnes;
+
+   personneSelected;
+
    modeFicheContribuable;
 
 	constructor(private authServiceApp: AuthenticationService,
 			   public translate: TranslateService,
          private contribuableService:ContribuableService,
-              private router: Router  ) {
-    this.initTableSettings();
-    this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+              private router: Router,
+              private datePipe: DatePipe) {
+      this.initTableSettings();
+      this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
       this.translate.use(event.lang);
       this.initTableSettings();
     });
@@ -51,18 +57,21 @@ export class FindContribuableComponent implements OnInit {
 
 
 	ngOnInit() {
-    this.personnePhySelected = null;
+
+    this.personneSelected = null;
+
     this.accordion.toggle();
 	}
 
-  rechercherPersonnePhy(){
 
-    this.personnePhySelected = null;
-    this.contribuableService.getListPersonnePhy(this.personnePhy).then(resultat => {
+  rechercherPersonneMorale(){
+
+    this.personneSelected = null;
+    this.contribuableService.getListPersonneMorale(this.personneMorale).then(resultat => {
       if (resultat) {
         this.resultVO = new ResultVO();
-        this.listePersonnesPhy = resultat.data as PersonnePhysique[];
-        if(this.listePersonnesPhy  == null || this.listePersonnesPhy .length === 0){
+        this.listePersonnes = resultat.data as PersonneMorale[];
+        if(this.listePersonnes == null || this.listePersonnes.length === 0){
 
           const message = this.translate.instant('MSG.CONTRIBUABLE.INFO.MSG_INFO_CONT_001');
           this.resultVO.messagesInfo = [message];
@@ -71,8 +80,40 @@ export class FindContribuableComponent implements OnInit {
           this.accordion.close();
         }
 
-        this.sourcePersPhy.load(this.listePersonnesPhy );
+        this.sourcePers.load(this.listePersonnes );
 
+      }
+    }, (error => {
+      if (error) {
+        this.resultVO.data = error.data;
+        this.resultVO.messagesErrors = error.messagesErrors;
+        this.resultVO.messagesInfo = error.messagesInfo;
+      }
+      this.initializeResultVO();
+      if (this.resultVO.isDeconnected) {
+        this.authServiceApp.logoutWithParam();
+      }
+
+    }));
+  }
+
+  rechercherPersonnePhy(){
+
+    this.personneSelected = null;
+    this.contribuableService.getListPersonnePhy(this.personnePhy).then(resultat => {
+      if (resultat) {
+        this.resultVO = new ResultVO();
+        this.listePersonnes = resultat.data as PersonnePhysique[];
+        if(this.listePersonnes  == null || this.listePersonnes.length === 0){
+
+          const message = this.translate.instant('MSG.CONTRIBUABLE.INFO.MSG_INFO_CONT_001');
+          this.resultVO.messagesInfo = [message];
+          this.initializeResultVO();
+        }else{
+          this.accordion.close();
+        }
+
+        this.sourcePers.load(this.listePersonnes );
 
       }
     }, (error => {
@@ -150,6 +191,55 @@ export class FindContribuableComponent implements OnInit {
         class: 'table table-bordered',
       },
     };
+
+
+    this.settingsMo = {
+      hideSubHeader: true,
+
+      actions: {
+        position: 'right', // left|right
+        add: false,
+        edit: false,
+        delete: false,
+        custom: [{ name: 'ourCustomAction', title: '<i style="margin-top: 10%;font-size: 0.73em; "  class="nb-compose" ></i>' }],
+      },
+      columns: {
+        nomSociete: {
+          title: this.translate.instant('societe'),
+          type: 'string',
+          sort:true,
+        },
+        numRegistreCommerce: {
+          title: this.translate.instant('numRegistreCommerce'),
+          type: 'string',
+          sort:true,
+        },
+        dateCreationSociete: {
+          title: this.translate.instant('dateCreation'),
+          valuePrepareFunction: (dateCreationSociete) => {
+            return this.datePipe.transform(new Date(dateCreationSociete), 'dd/MM/yyyy');
+          },
+          type: Date,
+          sort:true,
+        },
+        adresse: {
+          title: this.translate.instant('adresse'),
+          type: 'string',
+          sort:true,
+        },
+        taxe: {
+          title: this.translate.instant('taxe'),
+          type: 'number',
+          sort:true,
+        },
+
+      },
+      pager: {
+        perPage: 5,
+      },attr: {
+        class: 'table table-bordered',
+      },
+    };
   }
 
   onRowSelect(event){
@@ -160,10 +250,10 @@ export class FindContribuableComponent implements OnInit {
 
   openComponentContribuable(contribuable){
 
-    this.personnePhySelected = contribuable;
+    this.personneSelected = contribuable;
 
-    this.listePersonnesPhy = [];
-    this.sourcePersPhy.load(this.listePersonnesPhy );
+    this.listePersonnes = [];
+    this.sourcePers.load(this.listePersonnes );
 
     this.accordion.close();
 

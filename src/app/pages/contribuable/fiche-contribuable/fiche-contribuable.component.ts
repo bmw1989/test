@@ -15,7 +15,8 @@ import 'style-loader!leaflet/dist/leaflet.css';
 import 'leaflet/dist/leaflet.css';
 import {IPaging} from "../../../model/design/IPaging";
 import {BeanRecherchePersonnePhy} from "../model/criteria/beanRecherchePersonnePhy";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {PersonneMorale} from "../model/personne-morale";
 
 @Component({
   selector: 'app-fiche-contribuable',
@@ -26,7 +27,8 @@ import {ActivatedRoute} from "@angular/router";
 export class FicheContribuableComponent implements OnInit {
 
     @Input() resultVO = new ResultVO();
-    @Input() newContribuable: PersonnePhysique;
+    @Input() newContribuable;
+    @Input() typePersonne:string;
     activitePrincipalSelected:TypeActivite;
     activiteSelected:TypeActivite;
     listTypeActPrincipale: TypeActivite[];
@@ -47,11 +49,8 @@ export class FicheContribuableComponent implements OnInit {
     longitude;
     options;
     streetMaps;
-    wMaps;
     summit;
-    paradise;
-    route;
-    layersControl;
+
 
     keys = Object.keys;
     civilites = Civilite;
@@ -62,39 +61,42 @@ export class FicheContribuableComponent implements OnInit {
                 private activiteService:ActiviteService,
                 private contribuableService:ContribuableService,
                 public translate: TranslateService,
-                private router: ActivatedRoute) {
+                private activatedRoute: ActivatedRoute,
+                private router:Router) {
 
 
-     /* if((this.newContribuable==null || this.newContribuable === undefined) && this.mode !== 'CONSULTATION'){
 
-        this.router.params.subscribe(params => {
-          const nni = params['nni'];
-
-          if(nni!=null) {
-
-            this.initialisePersonnePhyByNNI(nni);
-
-            if (this.newContribuable != null) {
-              this.modeConsultation = false;
-              this.mode = 'MODIF';
-            }
-          }
-
-        });
-      }*/
-
+  /*      const url = this.activatedRoute.snapshot.pathFromRoot.pop().url.map(u => u.path).join('/');
+        console.log(url);
+        this.router.navigateByUrl("/pages/contribuable/" + url);
+  */
       this.initTableSettings();
       this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
         this.translate.use(event.lang);
         this.initTableSettings();
       });
+
+
+
+      const type = this.activatedRoute.snapshot.paramMap.get("type");
+      if(type!=null && type!==undefined){
+        this.typePersonne = type;
+        console.log(this.typePersonne);
+      }
     }
 
     ngOnInit() {
 
+
+
       this.getListTypeActivitePrincipal();
       if (this.mode === 'CREATION') {
-        this.newContribuable = new PersonnePhysique();
+        if(this.typePersonne==='P'){
+          this.newContribuable = new PersonnePhysique();
+        }else{
+          this.newContribuable = new PersonneMorale();
+        }
+
         this.newContribuable.listActivite = [];
         this.newContribuable.civilite = 'Mr';
         this.latitude= 18.088423;
@@ -130,14 +132,9 @@ export class FicheContribuableComponent implements OnInit {
           this.latitude= this.newContribuable.latitude;
           this.longitude= this.newContribuable.longitude;
 
-          //this.alimenterFicheActivitePrincipal();
-
-          //this.newContribuable = this.newContribuable;
           //this.formaterActeNaissancePourConsultation();
         }
       }
-      //this.listFichesActivites = [];
-
       if(this.newContribuable.photo == null){
         this.newContribuable.photo ='assets/img/contribuable/default-img.gif';
       }
@@ -187,11 +184,7 @@ export class FicheContribuableComponent implements OnInit {
       };
     }
 
-    private updateLatLng(e){
-      this.latitude = e.latlng.lat;
-      this.longitude = e.latlng.lng;
-    }
-  mapReady(map: L.Map) {
+    mapReady(map: L.Map) {
    /* map.addControl(L.control.zoom({position: 'bottomright'}));
 
     map.fitBounds(this.route.getBounds(), {
@@ -212,35 +205,36 @@ export class FicheContribuableComponent implements OnInit {
 
       if (this.isValidContribuable()) {
 
-        const listActivites: FicheActivite[] = [];
-        /**
-         * a revoir
-         */
-        /*for (const typeActv of this.listActivitesChoisies) {
-
-          const fiche: FicheActivite = new FicheActivite();
-
-          fiche.refActivite = typeActv;
-          listActivites.push(fiche);
-        }*/
-        //this.newContribuable.listActivite = this.listFichesActivites;
-
         this.newContribuable.latitude= this.latitude;
         this.newContribuable.longitude = this.longitude;
         this.newContribuable.photo = null; //For test
 
         //il faut supprimer les activites principal
         this.deleteActivitePrincipalForSave();
-        this.contribuableService.ajouterNouveauPersonnePhysique(this.newContribuable).then(resultat => {
-          //morphoPere = resultat.data as MorphoPersonne;
-          this.resultVO = resultat;
-        }, (error => {
-          this.resultVO = error;
-          this.initializeResultVO();
-          if (this.resultVO.isDeconnected) {
-            this.authServiceApp.logoutWithParam();
-          }
-        }));
+        if(this.typePersonne === "P"){
+          this.contribuableService.savePersonnePhysique(this.newContribuable).then(resultat => {
+            //morphoPere = resultat.data as MorphoPersonne;
+            this.resultVO = resultat;
+          }, (error => {
+            this.resultVO = error;
+            this.initializeResultVO();
+            if (this.resultVO.isDeconnected) {
+              this.authServiceApp.logoutWithParam();
+            }
+          }));
+        }else{
+          this.contribuableService.savePersonneMorale(this.newContribuable).then(resultat => {
+            //morphoPere = resultat.data as MorphoPersonne;
+            this.resultVO = resultat;
+          }, (error => {
+            this.resultVO = error;
+            this.initializeResultVO();
+            if (this.resultVO.isDeconnected) {
+              this.authServiceApp.logoutWithParam();
+            }
+          }));
+        }
+
       }
     }
 
@@ -252,8 +246,6 @@ export class FicheContribuableComponent implements OnInit {
     }
 	  ajouterActivite(){
       if(this.validationActivite()){
-
-       // this.activiteSelected.refTypeActivite = this.activitePrincipalSelected.libelleFr;
 
         const fiche: FicheActivite = new FicheActivite();
 
@@ -270,18 +262,20 @@ export class FicheContribuableComponent implements OnInit {
 
     private isValidContribuable():boolean{
 
-      if(this.mode==='CREATION'){
+      if(this.mode==='CREATION' && this.typePersonne==='P'){
         this.rechercherPersonnePhy();
       }
 
-      if(this.newContribuable.nni == null || this.newContribuable.nni === ''){
-        this.resultVO.messagesErrors.push(this.getMessage('MSG.CONTRIBUABLE.ERR.MSG_ERR_CONT_002'));
-      }
-      if(this.newContribuable.nomFr == null || this.newContribuable.nomFr === ''){
-        this.resultVO.messagesErrors.push(this.getMessage('MSG.CONTRIBUABLE.ERR.MSG_ERR_CONT_003'));
-      }
-      if(this.newContribuable.prenomFr == null || this.newContribuable.prenomFr === ''){
-        this.resultVO.messagesErrors.push(this.getMessage('MSG.CONTRIBUABLE.ERR.MSG_ERR_CONT_004'));
+      if(this.typePersonne==='P') {
+        if (this.newContribuable.nni == null || this.newContribuable.nni === '') {
+          this.resultVO.messagesErrors.push(this.getMessage('MSG.CONTRIBUABLE.ERR.MSG_ERR_CONT_002'));
+        }
+        if (this.newContribuable.nomFr == null || this.newContribuable.nomFr === '') {
+          this.resultVO.messagesErrors.push(this.getMessage('MSG.CONTRIBUABLE.ERR.MSG_ERR_CONT_003'));
+        }
+        if (this.newContribuable.prenomFr == null || this.newContribuable.prenomFr === '') {
+          this.resultVO.messagesErrors.push(this.getMessage('MSG.CONTRIBUABLE.ERR.MSG_ERR_CONT_004'));
+        }
       }
 
       if( this.resultVO.messagesErrors.length>0){

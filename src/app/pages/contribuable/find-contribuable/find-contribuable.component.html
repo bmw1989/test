@@ -45,6 +45,7 @@
                   </div>
                 </nb-tab>
                 <nb-tab tabTitle="{{'personnemorale'|translate}}">
+
                 </nb-tab>
               </nb-tabset>
           </form>
@@ -66,7 +67,7 @@
       <nb-card-body>
 
         <div class="smart-table-container">
-          <ng2-smart-table  [source]="sourcePersPhy"  [settings]="settings" (userRowSelect)="onRowSelect($event)"
+          <ng2-smart-table  [source]="sourcePers"  [settings]="settings" (userRowSelect)="onRowSelect($event)"
                             (custom)="onCustomAction($event)">
           </ng2-smart-table>
         </div>
@@ -76,5 +77,5 @@
   </div>
 </div>
 
-<app-fiche-contribuable *ngIf="personnePhySelected" [newContribuable]="personnePhySelected" [mode]="modeFicheContribuable"></app-fiche-contribuable>
+<app-fiche-contribuable *ngIf="personneSelected" [newContribuable]="personneSelected" [mode]="modeFicheContribuable" [typePersonne]="'P'"></app-fiche-contribuable>
 

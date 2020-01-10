@@ -7,6 +7,7 @@
 
           <nb-tabset fullWidth>
             <nb-tab tabTitle="{{'Informations personnelle'|translate}}">
+              <div *ngIf="typePersonne=='P'">
                 <div class="form-group row required">
 
                   <label for="civiliteId" class="label col-sm-2 col-form-label control-label">{{'civilite'|translate}}</label>
@@ -17,19 +18,19 @@
                   </div>
                   <div class="col-sm-4">
                     <input [readonly]="modeConsultation"   (change)="rechercherPersonnePhy()"  type="text" required [(ngModel)]="newContribuable.nni" nbInput fullWidth id="inputnni" name="inputnni" placeholder="NNI"
-                    required>
+                           required>
                   </div>
                 </div>
                 <div class="form-group row required">
-                    <label for="inputprenomFr" name="label1" class="label col-sm-2 col-form-label control-label">Prénom</label>
-                    <div class="col-sm-4">
-                      <input [readonly]="modeConsultation"    type="text" required [(ngModel)]="newContribuable.prenomFr" nbInput fullWidth id="inputprenomFr" name="inputprenomFr" placeholder="Prénom">
-                    </div>
-                    <div class="col-sm-4">
-                      <input [readonly]="modeConsultation"    type="text" required [(ngModel)]="newContribuable.prenomAr" nbInput fullWidth id="inputprenomAr" name="inputprenomAr" placeholder="الإ سم">
-                    </div>
-                    <label for="inputprenomAr" class="label col-sm-2 col-form-label control-label-left">الإسم</label>
+                  <label for="inputprenomFr" name="label1" class="label col-sm-2 col-form-label control-label">Prénom</label>
+                  <div class="col-sm-4">
+                    <input [readonly]="modeConsultation"    type="text" required [(ngModel)]="newContribuable.prenomFr" nbInput fullWidth id="inputprenomFr" name="inputprenomFr" placeholder="Prénom">
                   </div>
+                  <div class="col-sm-4">
+                    <input [readonly]="modeConsultation"    type="text" required [(ngModel)]="newContribuable.prenomAr" nbInput fullWidth id="inputprenomAr" name="inputprenomAr" placeholder="الإ سم">
+                  </div>
+                  <label for="inputprenomAr" class="label col-sm-2 col-form-label control-label-left">الإسم</label>
+                </div>
                 <div class="form-group row required">
                   <label for="inputNomFr" class="label col-sm-2 col-form-label control-label">Nom</label>
                   <div class="col-sm-4">
@@ -41,6 +42,27 @@
                   </div>
                   <label for="inputnomAr" class="label col-sm-2 col-form-label control-label-left">النسب</label>
                 </div>
+              </div>
+
+              <div *ngIf="typePersonne=='M'">
+                <div class="form-group row required">
+                  <label for="inputnomSociete" name="label1" class="label col-sm-2 col-form-label control-label">{{'InomSociete'|translate}}</label>
+                  <div class="col-sm-4">
+                    <input [readonly]="modeConsultation"    type="text"  [(ngModel)]="newContribuable.nomSociete" nbInput fullWidth id="inputnomSociete" name="inputnomSociete" placeholder="Societe">
+                  </div>
+
+                  <label for="inputnumRegistreCommerce" name="label1" class="label col-sm-2 col-form-label control-label">{{'numRegistreCommerce'|translate}}</label>
+                  <div class="col-sm-4">
+                    <input [readonly]="modeConsultation"    type="text"  [(ngModel)]="newContribuable.numRegistreCommerce" nbInput fullWidth id="inputnumRegistreCommerce" name="inputnumRegistreCommerce" placeholder="Registre Commerce">
+                  </div>
+                </div>
+                <div class="form-group row required">
+                  <label for="inputdateCreationSociete" name="label1" class="label col-sm-2 col-form-label control-label">{{'dateCreationSociete'|translate}}</label>
+                  <div class="col-sm-4">
+                    <input [readonly]="modeConsultation"    type="text"  [(ngModel)]="newContribuable.dateCreationSociete" nbInput fullWidth id="inputdateCreationSociete" name="inputdateCreationSociete" >
+                  </div>
+                </div>
+              </div>
                 <div class="form-group required row ">
 
                     <label for="inputPhoneFix" class="label col-sm-2 col-form-label control-label">{{'phonefixe'|translate}}</label>

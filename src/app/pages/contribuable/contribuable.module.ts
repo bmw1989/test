@@ -17,14 +17,17 @@ import { ContribuableRoutingModule } from './contribuable-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-import {AgmCoreModule} from "@agm/core";
 import {LeafletModule} from "@asymmetrik/ngx-leaflet";
 import {GRCComponentsModule} from "../grc-components/grc-components.module";
 import {FindContribuableComponent} from "./find-contribuable/find-contribuable.component";
 import {LinkeditViewComponent} from "./find-contribuable/linkedit-view/linkedit-view.component";
+import {FicheContribuableMComponent} from "./fiche-contribuable-m/fiche-contribuable-m.component";
 
 @NgModule({
-  declarations: [FicheContribuableComponent, FindContribuableComponent, LinkeditViewComponent],
+  declarations: [FicheContribuableComponent,
+    FindContribuableComponent,
+    FicheContribuableMComponent,
+    LinkeditViewComponent],
   imports: [
     CommonModule,
     NbInputModule,
@@ -39,10 +42,6 @@ import {LinkeditViewComponent} from "./find-contribuable/linkedit-view/linkedit-
     ThemeModule,
     FormsModule,
     TranslateModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCMGihUtvX9zWMbvorK2yr7B17344_BtDs',
-      libraries: ['places'],
-    }),
     LeafletModule.forRoot(),
     ContribuableRoutingModule,
     GRCComponentsModule,

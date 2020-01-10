@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FicheContribuableComponent } from './fiche-contribuable/fiche-contribuable.component';
 import {FindContribuableComponent} from "./find-contribuable/find-contribuable.component";
+import {FicheContribuableMComponent} from "./fiche-contribuable-m/fiche-contribuable-m.component";
 
 
 const routes: Routes = [
@@ -16,10 +17,17 @@ const routes: Routes = [
           redirectTo: 'fichecontribuable',
         },
         {
-          path: 'fichecontribuable',
+          path: 'ajoutcontribuable/:type',
           component: FicheContribuableComponent,
           data: {
             title: 'Fiche contribuable',
+          },
+        },
+        {
+          path: 'persmorale',
+          component: FicheContribuableMComponent,
+          data: {
+            title: 'Personne Morale',
           },
         },
         {
