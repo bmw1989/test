@@ -5,13 +5,13 @@
  */
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { CoreModule } from './@core/core.module';
 import { ThemeModule } from './@theme/theme.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import {TranslateModule, TranslateLoader, TranslateService} from '@ngx-translate/core';
 import { TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {
   NbChatModule,
@@ -31,6 +31,10 @@ import { PagerService } from './views/pagination-example/pager.service';
 
 import { PaginationExampleComponent } from './views/pagination-example/pagination-example.component';
 import { LoginComponent } from './pages/loginRoot/login.component';
+
+import {DynamicLocaleId} from "./service/DynamicLocaleId";
+
+
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -61,17 +65,23 @@ export function createTranslateLoader(http: HttpClient) {
       loader: {
         provide: TranslateLoader,
         useFactory: createTranslateLoader,
-        deps: [HttpClient]
-      }
-      })
-      ,GRCComponentsModule
+        deps: [HttpClient],
+      }}),
+    GRCComponentsModule,
   ],
   bootstrap: [AppComponent],
   providers:[
     ReferentielService,
     PagerService,
     UtilService,
+    { provide: LOCALE_ID, useClass: DynamicLocaleId, deps: [TranslateService] },
     ],
 })
 export class AppModule {
+
+
+  constructor() {
+
+
+  }
 }

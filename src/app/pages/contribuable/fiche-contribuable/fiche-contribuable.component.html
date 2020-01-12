@@ -59,7 +59,10 @@
                 <div class="form-group row required">
                   <label for="inputdateCreationSociete" name="label1" class="label col-sm-2 col-form-label control-label">{{'dateCreationSociete'|translate}}</label>
                   <div class="col-sm-4">
-                    <input [readonly]="modeConsultation"    type="text"  [(ngModel)]="newContribuable.dateCreationSociete" nbInput fullWidth id="inputdateCreationSociete" name="inputdateCreationSociete" >
+                    <input [readonly]="modeConsultation"  placeholder="Form Picker" [nbDatepicker]="formpicker"
+                           [(ngModel)]="newContribuable.dateCreationSociete" nbInput fullWidth id="inputdateCreationSociete"
+                           name="inputdateCreationSociete" >
+                    <nb-datepicker #formpicker format="dd/MM/yyyy"></nb-datepicker>
                   </div>
                 </div>
               </div>

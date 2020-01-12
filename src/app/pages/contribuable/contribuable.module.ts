@@ -22,6 +22,7 @@ import {GRCComponentsModule} from "../grc-components/grc-components.module";
 import {FindContribuableComponent} from "./find-contribuable/find-contribuable.component";
 import {LinkeditViewComponent} from "./find-contribuable/linkedit-view/linkedit-view.component";
 import {FicheContribuableMComponent} from "./fiche-contribuable-m/fiche-contribuable-m.component";
+import {NbMomentDateModule} from "@nebular/moment";
 
 @NgModule({
   declarations: [FicheContribuableComponent,
@@ -46,6 +47,7 @@ import {FicheContribuableMComponent} from "./fiche-contribuable-m/fiche-contribu
     ContribuableRoutingModule,
     GRCComponentsModule,
     NbAccordionModule,
+    NbMomentDateModule,
   ],
   entryComponents :[LinkeditViewComponent],
 })
