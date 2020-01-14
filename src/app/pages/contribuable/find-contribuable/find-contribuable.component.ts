@@ -38,9 +38,8 @@ export class FindContribuableComponent implements OnInit {
    personneMorale:BeanRecherchePersonneMorale = new BeanRecherchePersonneMorale();
 
    listePersonnes;
-
    personneSelected;
-
+   typePersonne:string;
    modeFicheContribuable;
 
 	constructor(private authServiceApp: AuthenticationService,
@@ -60,6 +59,7 @@ export class FindContribuableComponent implements OnInit {
 
     this.personneSelected = null;
 
+
     this.accordion.toggle();
 	}
 
@@ -67,6 +67,7 @@ export class FindContribuableComponent implements OnInit {
   rechercherPersonneMorale(){
 
     this.personneSelected = null;
+    this.typePersonne = 'M';
     this.contribuableService.getListPersonneMorale(this.personneMorale).then(resultat => {
       if (resultat) {
         this.resultVO = new ResultVO();
@@ -100,6 +101,7 @@ export class FindContribuableComponent implements OnInit {
   rechercherPersonnePhy(){
 
     this.personneSelected = null;
+    this.typePersonne = 'P';
     this.contribuableService.getListPersonnePhy(this.personnePhy).then(resultat => {
       if (resultat) {
         this.resultVO = new ResultVO();

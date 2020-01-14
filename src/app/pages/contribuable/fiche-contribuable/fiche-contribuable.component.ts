@@ -17,6 +17,7 @@ import {IPaging} from "../../../model/design/IPaging";
 import {BeanRecherchePersonnePhy} from "../model/criteria/beanRecherchePersonnePhy";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PersonneMorale} from "../model/personne-morale";
+import {host} from "../../../util/constantes-app";
 
 @Component({
   selector: 'app-fiche-contribuable',
@@ -62,6 +63,7 @@ export class FicheContribuableComponent implements OnInit {
                 private contribuableService:ContribuableService,
                 public translate: TranslateService,
                 private activatedRoute: ActivatedRoute,
+                private authService:AuthenticationService,
                 private router:Router) {
 
 
@@ -213,8 +215,15 @@ export class FicheContribuableComponent implements OnInit {
         this.deleteActivitePrincipalForSave();
         if(this.typePersonne === "P"){
           this.contribuableService.savePersonnePhysique(this.newContribuable).then(resultat => {
-            //morphoPere = resultat.data as MorphoPersonne;
             this.resultVO = resultat;
+            this.newContribuable = resultat.data as PersonnePhysique;
+
+            console.log(JSON.stringify(this.newContribuable));
+
+            const url = host + '/imprimerFSPersonnePhy?username='+btoa(this.authService.getUserConnected())
+              +'&acte='+ encodeURIComponent(JSON.stringify(this.newContribuable)) ;
+            console.log(url);
+            window.open(url);
           }, (error => {
             this.resultVO = error;
             this.initializeResultVO();

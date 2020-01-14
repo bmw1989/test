@@ -45,7 +45,40 @@
                   </div>
                 </nb-tab>
                 <nb-tab tabTitle="{{'personnemorale'|translate}}">
+                  <div class="form-group row required">
+                    <label for="inputnomSociete" name="label1" class="label col-sm-2 col-form-label control-label">{{'InomSociete'|translate}}</label>
+                    <div class="col-sm-4">
+                      <input     type="text"  [(ngModel)]="personneMorale.nomSociete" nbInput fullWidth id="inputnomSociete" name="inputnomSociete" placeholder="Societe">
+                    </div>
 
+                    <label for="inputnumRegistreCommerce" name="label1" class="label col-sm-2 col-form-label control-label">{{'numRegistreCommerce'|translate}}</label>
+                    <div class="col-sm-4">
+                      <input     type="text"  [(ngModel)]="personneMorale.numRegistreCommerce" nbInput fullWidth id="inputnumRegistreCommerce" name="inputnumRegistreCommerce" placeholder="Registre Commerce">
+                    </div>
+                  </div>
+                  <div class="form-group row required">
+                    <label for="inputdateDebut" name="label1" class="label col-sm-2 col-form-label control-label">{{'dateDebut'|translate}}</label>
+                    <div class="col-sm-4">
+                      <input   placeholder="Form Picker" [nbDatepicker]="formpicker"
+                             [(ngModel)]="personneMorale.dateDebutCreation" nbInput fullWidth id="inputdateDebut"
+                             name="inputdateDebut" >
+                      <nb-datepicker #formpicker format="dd/MM/yyyy"></nb-datepicker>
+                    </div>
+
+                    <label for="inputdateFin" name="label1" class="label col-sm-2 col-form-label control-label">{{'dateFin'|translate}}</label>
+                    <div class="col-sm-4">
+                      <input   placeholder="Form Picker" [nbDatepicker]="formdateFin"
+                               [(ngModel)]="personneMorale.dateFinCreation" nbInput fullWidth id="inputdateFin"
+                               name="inputdateFin" >
+                      <nb-datepicker #formdateFin format="dd/MM/yyyy"></nb-datepicker>
+                    </div>
+
+                  </div>
+                  <div class="form-group row ">
+                    <div class="col-md-10 text-center">
+                      <button nbButton (click)="rechercherPersonneMorale()" status="primary">{{'find'|translate}}</button>
+                    </div>
+                  </div>
                 </nb-tab>
               </nb-tabset>
           </form>
@@ -77,5 +110,5 @@
   </div>
 </div>
 
-<app-fiche-contribuable *ngIf="personneSelected" [newContribuable]="personneSelected" [mode]="modeFicheContribuable" [typePersonne]="'P'"></app-fiche-contribuable>
+<app-fiche-contribuable *ngIf="personneSelected" [newContribuable]="personneSelected" [mode]="modeFicheContribuable" [typePersonne]="typePersonne"></app-fiche-contribuable>
 

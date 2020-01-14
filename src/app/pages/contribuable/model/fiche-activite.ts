@@ -8,5 +8,7 @@ export class FicheActivite {
   refContribuable: Contribuable;
   refUserCreation: Utilisateur;
   dateCreation;
+  dateDebutActivite;
+  dateFinActivite;
 
 }
