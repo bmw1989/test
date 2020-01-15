@@ -64,6 +64,11 @@
                            name="inputdateCreationSociete" >
                     <nb-datepicker #formpicker format="dd/MM/yyyy"></nb-datepicker>
                   </div>
+
+                  <label for="inputcapitalSocial" name="label1" class="label col-sm-2 col-form-label control-label">{{'capitalSocial'|translate}}</label>
+                  <div class="col-sm-4">
+                    <input [readonly]="modeConsultation"    type="text"  [(ngModel)]="newContribuable.capitalSocial" nbInput fullWidth id="inputcapitalSocial" name="inputcapitalSocial" placeholder="Registre Commerce">
+                  </div>
                 </div>
               </div>
                 <div class="form-group required row ">

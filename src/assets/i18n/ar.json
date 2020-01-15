@@ -43,6 +43,10 @@
     "chosephoto" : "اختر الصورة",
     "resultatrech": "نتائج البحث",
     "criteresrecherche" : "معايير البحث",
+    "numRegistreCommerce": "السجل التجاري",
+    "capitalSocial" : "الرأس المال الاجتماعي",
+    "nomSociete" : "إسم الشركة",
+    "dateCreationSociete": "تاريخ الإنشاء",
     "MSG": {
       "CONTRIBUABLE": {
         "ERR": {
