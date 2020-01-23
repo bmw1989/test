@@ -33,8 +33,6 @@ export class FicheContribuableComponent implements OnInit {
     activitePrincipalSelected:TypeActivite;
     activiteSelected:TypeActivite;
     listTypeActPrincipale: TypeActivite[];
-    //listFichesActivites: FicheActivite[];
-    selectedFile ;
 
     @Input() mode:string = 'CREATION';
     @Input() modeConsultation: boolean = false;
@@ -52,44 +50,30 @@ export class FicheContribuableComponent implements OnInit {
     streetMaps;
     summit;
 
-
     keys = Object.keys;
     civilites = Civilite;
     civiliteSelected= "Mr";
-
 
     constructor(private authServiceApp: AuthenticationService,
                 private activiteService:ActiviteService,
                 private contribuableService:ContribuableService,
                 public translate: TranslateService,
                 private activatedRoute: ActivatedRoute,
-                private authService:AuthenticationService,
-                private router:Router) {
+                private authService:AuthenticationService) {
 
-
-
-  /*      const url = this.activatedRoute.snapshot.pathFromRoot.pop().url.map(u => u.path).join('/');
-        console.log(url);
-        this.router.navigateByUrl("/pages/contribuable/" + url);
-  */
       this.initTableSettings();
       this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
         this.translate.use(event.lang);
         this.initTableSettings();
       });
 
-
-
       const type = this.activatedRoute.snapshot.paramMap.get("type");
       if(type!=null && type!==undefined){
         this.typePersonne = type;
-        console.log(this.typePersonne);
       }
     }
 
     ngOnInit() {
-
-
 
       this.getListTypeActivitePrincipal();
       if (this.mode === 'CREATION') {
@@ -187,18 +171,11 @@ export class FicheContribuableComponent implements OnInit {
     }
 
     mapReady(map: L.Map) {
-   /* map.addControl(L.control.zoom({position: 'bottomright'}));
-
-    map.fitBounds(this.route.getBounds(), {
-      padding: L.point(24, 24),
-      maxZoom: 12,
-      animate: true,
-    });*/
 
     // fix the map fully displaying, existing leaflet bag
     setTimeout(() => {
       map.invalidateSize();
-    }, 10000);
+    }, 11500);
   }
 
     enregistrerContribuable():void {
@@ -218,11 +195,8 @@ export class FicheContribuableComponent implements OnInit {
             this.resultVO = resultat;
             this.newContribuable = resultat.data as PersonnePhysique;
 
-            console.log(JSON.stringify(this.newContribuable));
-
             const url = host + '/imprimerFSPersonnePhy?username='+btoa(this.authService.getUserConnected())
               +'&acte='+ encodeURIComponent(JSON.stringify(this.newContribuable)) ;
-            console.log(url);
             window.open(url);
           }, (error => {
             this.resultVO = error;
@@ -268,7 +242,6 @@ export class FicheContribuableComponent implements OnInit {
 
     }
 
-
     private isValidContribuable():boolean{
 
       if(this.mode==='CREATION' && this.typePersonne==='P'){
@@ -294,7 +267,6 @@ export class FicheContribuableComponent implements OnInit {
         return true;
       }
 
-
     }
 
     validationActivite(){
@@ -319,7 +291,6 @@ export class FicheContribuableComponent implements OnInit {
         return this.translate.instant(message);
       return this.translate.instant(message, {value: val});
     }
-
 
    changeActivitePrincipal(typeActPrincipale){
      this.activitePrincipalSelected = typeActPrincipale;
@@ -348,7 +319,6 @@ export class FicheContribuableComponent implements OnInit {
        }
      }));
    }
-
 
   processFile(imageInput: any) {
     const file: File = imageInput.files[0];
@@ -483,7 +453,5 @@ export class FicheContribuableComponent implements OnInit {
         });
       });
     }
-
-
 
 }

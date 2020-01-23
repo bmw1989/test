@@ -1,255 +1,284 @@
-<div class="row">
+<div class="steppers-container row">
 
-    <div class="col-12">
-        <form>
-          <app-alert-messages [resultVO]="resultVO"></app-alert-messages>
-        <nb-card size="medium">
+  <div class="col-md-12 col-lg-12 col-xxxl-12" >
+    <app-alert-messages [resultVO]="resultVO"></app-alert-messages>
+  <nb-card style="height: 530px;">
+   <nb-card-body>
+     <form>
 
-          <nb-tabset fullWidth>
-            <nb-tab tabTitle="{{'Informations personnelle'|translate}}">
-              <div *ngIf="typePersonne=='P'">
-                <div class="form-group row required">
+       <nb-stepper orientation="horizontal">
+     <nb-step label="{{'Informations personnelle'|translate}}">
 
-                  <label for="civiliteId" class="label col-sm-2 col-form-label control-label">{{'civilite'|translate}}</label>
-                  <div class="col-sm-4">
-                    <nb-select [disabled]="modeConsultation" [(ngModel)]="newContribuable.civilite" [selected]="civiliteSelected" name="civiliteId" id="civiliteId" fullWidth status="primary">
-                      <nb-option *ngFor="let civilite of keys(civilites)" [value]="civilite"> {{ civilites[civilite] |translate}}</nb-option>
-                    </nb-select>
-                  </div>
-                  <div class="col-sm-4">
-                    <input [readonly]="modeConsultation"   (change)="rechercherPersonnePhy()"  type="text" required [(ngModel)]="newContribuable.nni" nbInput fullWidth id="inputnni" name="inputnni" placeholder="NNI"
-                           required>
-                  </div>
-                </div>
-                <div class="form-group row required">
-                  <label for="inputprenomFr" name="label1" class="label col-sm-2 col-form-label control-label">Prénom</label>
-                  <div class="col-sm-4">
-                    <input [readonly]="modeConsultation"    type="text" required [(ngModel)]="newContribuable.prenomFr" nbInput fullWidth id="inputprenomFr" name="inputprenomFr" placeholder="Prénom">
-                  </div>
-                  <div class="col-sm-4">
-                    <input [readonly]="modeConsultation"    type="text" required [(ngModel)]="newContribuable.prenomAr" nbInput fullWidth id="inputprenomAr" name="inputprenomAr" placeholder="الإ سم">
-                  </div>
-                  <label for="inputprenomAr" class="label col-sm-2 col-form-label control-label-left">الإسم</label>
-                </div>
-                <div class="form-group row required">
-                  <label for="inputNomFr" class="label col-sm-2 col-form-label control-label">Nom</label>
-                  <div class="col-sm-4">
-                    <input [readonly]="modeConsultation"    type="text" [(ngModel)]="newContribuable.nomFr" nbInput fullWidth id="inputNomFr" name="inputNomFr" placeholder="Nom">
-                  </div>
+       <div *ngIf="typePersonne=='P'">
+         <div class="form-group row required">
 
-                  <div class="col-sm-4">
-                    <input [readonly]="modeConsultation"    type="text" [(ngModel)]="newContribuable.nomAr" nbInput fullWidth id="inputnomAr" name="inputnomAr" placeholder="النسب">
-                  </div>
-                  <label for="inputnomAr" class="label col-sm-2 col-form-label control-label-left">النسب</label>
-                </div>
-              </div>
+           <label for="civiliteId" class="label col-sm-2 col-form-label control-label">{{'civilite'|translate}}</label>
+           <div class="col-sm-4">
+             <nb-select [disabled]="modeConsultation" [(ngModel)]="newContribuable.civilite" [selected]="civiliteSelected" name="civiliteId" id="civiliteId" fullWidth status="primary">
+               <nb-option *ngFor="let civilite of keys(civilites)" [value]="civilite"> {{ civilites[civilite] |translate}}</nb-option>
+             </nb-select>
+           </div>
+           <div class="col-sm-4">
+             <input [readonly]="modeConsultation"   (change)="rechercherPersonnePhy()"  type="text" required [(ngModel)]="newContribuable.nni" nbInput fullWidth id="inputnni" name="inputnni" placeholder="NNI"
+                    required>
+           </div>
+         </div>
+         <div class="form-group row required">
+           <label for="inputprenomFr" name="label1" class="label col-sm-2 col-form-label control-label">Prénom</label>
+           <div class="col-sm-4">
+             <input [readonly]="modeConsultation"    type="text" required [(ngModel)]="newContribuable.prenomFr" nbInput fullWidth id="inputprenomFr" name="inputprenomFr" placeholder="Prénom">
+           </div>
+           <div class="col-sm-4">
+             <input [readonly]="modeConsultation"    type="text" required [(ngModel)]="newContribuable.prenomAr" nbInput fullWidth id="inputprenomAr" name="inputprenomAr" placeholder="الإ سم">
+           </div>
+           <label for="inputprenomAr" class="label col-sm-2 col-form-label control-label-left">الإسم</label>
+         </div>
+         <div class="form-group row required">
+           <label for="inputNomFr" class="label col-sm-2 col-form-label control-label">Nom</label>
+           <div class="col-sm-4">
+             <input [readonly]="modeConsultation"    type="text" [(ngModel)]="newContribuable.nomFr" nbInput fullWidth id="inputNomFr" name="inputNomFr" placeholder="Nom">
+           </div>
 
-              <div *ngIf="typePersonne=='M'">
-                <div class="form-group row required">
-                  <label for="inputnomSociete" name="label1" class="label col-sm-2 col-form-label control-label">{{'InomSociete'|translate}}</label>
-                  <div class="col-sm-4">
-                    <input [readonly]="modeConsultation"    type="text"  [(ngModel)]="newContribuable.nomSociete" nbInput fullWidth id="inputnomSociete" name="inputnomSociete" placeholder="Societe">
-                  </div>
+           <div class="col-sm-4">
+             <input [readonly]="modeConsultation"    type="text" [(ngModel)]="newContribuable.nomAr" nbInput fullWidth id="inputnomAr" name="inputnomAr" placeholder="النسب">
+           </div>
+           <label for="inputnomAr" class="label col-sm-2 col-form-label control-label-left">النسب</label>
+         </div>
+       </div>
 
-                  <label for="inputnumRegistreCommerce" name="label1" class="label col-sm-2 col-form-label control-label">{{'numRegistreCommerce'|translate}}</label>
-                  <div class="col-sm-4">
-                    <input [readonly]="modeConsultation"    type="text"  [(ngModel)]="newContribuable.numRegistreCommerce" nbInput fullWidth id="inputnumRegistreCommerce" name="inputnumRegistreCommerce" placeholder="Registre Commerce">
-                  </div>
-                </div>
-                <div class="form-group row required">
-                  <label for="inputdateCreationSociete" name="label1" class="label col-sm-2 col-form-label control-label">{{'dateCreationSociete'|translate}}</label>
-                  <div class="col-sm-4">
-                    <input [readonly]="modeConsultation"  placeholder="Form Picker" [nbDatepicker]="formpicker"
-                           [(ngModel)]="newContribuable.dateCreationSociete" nbInput fullWidth id="inputdateCreationSociete"
-                           name="inputdateCreationSociete" >
-                    <nb-datepicker #formpicker format="dd/MM/yyyy"></nb-datepicker>
-                  </div>
+       <div *ngIf="typePersonne=='M'">
+         <div class="form-group row required">
+           <label for="inputnomSociete" name="label1" class="label col-sm-2 col-form-label control-label">{{'nomSociete'|translate}}</label>
+           <div class="col-sm-4">
+             <input [readonly]="modeConsultation"    type="text"  [(ngModel)]="newContribuable.nomSociete" nbInput fullWidth id="inputnomSociete" name="inputnomSociete" placeholder="Societe">
+           </div>
 
-                  <label for="inputcapitalSocial" name="label1" class="label col-sm-2 col-form-label control-label">{{'capitalSocial'|translate}}</label>
-                  <div class="col-sm-4">
-                    <input [readonly]="modeConsultation"    type="text"  [(ngModel)]="newContribuable.capitalSocial" nbInput fullWidth id="inputcapitalSocial" name="inputcapitalSocial" placeholder="Registre Commerce">
-                  </div>
-                </div>
-              </div>
-                <div class="form-group required row ">
+           <label for="inputnumRegistreCommerce" name="label1" class="label col-sm-2 col-form-label control-label">{{'numRegistreCommerce'|translate}}</label>
+           <div class="col-sm-4">
+             <input [readonly]="modeConsultation"    type="text"  [(ngModel)]="newContribuable.numRegistreCommerce" nbInput fullWidth id="inputnumRegistreCommerce" name="inputnumRegistreCommerce" placeholder="Registre Commerce">
+           </div>
+         </div>
+         <div class="form-group row required">
+           <label for="inputdateCreationSociete" name="label1" class="label col-sm-2 col-form-label control-label">{{'dateCreationSociete'|translate}}</label>
+           <div class="col-sm-4">
+             <input [readonly]="modeConsultation"  placeholder="Form Picker" [nbDatepicker]="formpicker"
+                    [(ngModel)]="newContribuable.dateCreationSociete" nbInput fullWidth id="inputdateCreationSociete"
+                    name="inputdateCreationSociete" >
+             <nb-datepicker #formpicker format="dd/MM/yyyy"></nb-datepicker>
+           </div>
 
-                    <label for="inputPhoneFix" class="label col-sm-2 col-form-label control-label">{{'phonefixe'|translate}}</label>
+           <label for="inputcapitalSocial" name="label1" class="label col-sm-2 col-form-label control-label">{{'capitalSocial'|translate}}</label>
+           <div class="col-sm-4">
+             <input [readonly]="modeConsultation"    type="text"  [(ngModel)]="newContribuable.capitalSocial" nbInput fullWidth id="inputcapitalSocial" name="inputcapitalSocial" placeholder="Registre Commerce">
+           </div>
+         </div>
+       </div>
+         <div class="form-group required row ">
 
-                  <div class="col-sm-4">
-                    <input [readonly]="modeConsultation"    type="text" [(ngModel)]="newContribuable.telephoneFixe" nbInput fullWidth id="inputPhoneFix" name="inputPhoneFix" placeholder="">
-                  </div>
-                </div>
-                <div class="form-group required row">
-                  <label for="inputPhoneMobile" class="label col-sm-2 col-form-label control-label">{{'phonemobile'|translate}}</label>
+             <label for="inputPhoneFix" class="label col-sm-2 col-form-label control-label">{{'phonefixe'|translate}}</label>
 
-                  <div class="col-sm-4">
-                    <input [readonly]="modeConsultation"    type="text" [(ngModel)]="newContribuable.telephoneMobile" nbInput fullWidth id="inputPhoneMobile" name="inputPhoneMobile" placeholder="">
-                  </div>
-                </div>
-                <div class="form-group row required">
-                  <label for="inputemail" class="label col-sm-2 col-form-label control-label">{{'email'|translate}}</label>
-                  <div class="col-sm-4">
-                    <input [readonly]="modeConsultation"    type="text" [(ngModel)]="newContribuable.email" nbInput fullWidth id="inputemail" name="inputemail" placeholder="">
-                  </div>
-                </div>
-            </nb-tab>
-            <nb-tab id="adresseTab" tabTitle="{{'adresse'|translate}}">
+           <div class="col-sm-4">
+             <input [readonly]="modeConsultation"    type="text" [(ngModel)]="newContribuable.telephoneFixe" nbInput fullWidth id="inputPhoneFix" name="inputPhoneFix" placeholder="">
+           </div>
+         </div>
+         <div class="form-group required row">
+           <label for="inputPhoneMobile" class="label col-sm-2 col-form-label control-label">{{'phonemobile'|translate}}</label>
 
-                <div class="row show-grid">
-                  <div class="col-6">
-                    <div class="form-group row">
-                      <div class="col-sm-2 form-group required">
-                        <label for="inputadresse" class="label col-sm-2 col-form-label">{{'adresse'|translate}}</label>
-                      </div>
-                      <div class="col-sm-10">
-                        <textarea rows="3" [(ngModel)]="newContribuable.adresse" nbInput fullWidth id="inputadresse" name="inputadresse" placeholder="" ></textarea>
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <div class="col-sm-2 form-group">
-                        <label for="inputzone" class="label col-sm-2 col-form-label">{{'zone'|translate}}</label>
-                      </div>
-                      <div class="col-sm-4">
-                        <input [readonly]="modeConsultation"    type="number" [(ngModel)]="newContribuable.zone" nbInput fullWidth Onlynumber id="inputzone" name="inputzone" placeholder="" >
-                      </div>
-                      <div class="col-sm-2 form-group">
-                        <label for="inputcarre" class="label col-sm-2 col-form-label">{{'carre'|translate}}</label>
-                      </div>
-                      <div class="col-sm-4">
-                        <input [readonly]="modeConsultation"    type="number" [(ngModel)]="newContribuable.carre" nbInput fullWidth Onlynumber id="inputcarre" name="inputcarre" placeholder="" >
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <div class="col-sm-2 form-group">
-                        <label for="inputbloc" class="label col-sm-2 col-form-label">{{'bloc'|translate}}</label>
-                      </div>
-                      <div class="col-sm-4">
-                        <input [readonly]="modeConsultation"    type="number" [(ngModel)]="newContribuable.bloc" nbInput fullWidth Onlynumber id="inputbloc" name="inputbloc" placeholder="" >
-                      </div>
-                      <div class="col-sm-2 form-group">
-                        <label for="inputbatiment" class="label col-sm-2 col-form-label">{{'batiment'|translate}}</label>
-                      </div>
-                      <div class="col-sm-4">
-                        <input [readonly]="modeConsultation"    type="number" [(ngModel)]="newContribuable.batiment" nbInput fullWidth Onlynumber id="inputbatiment" name="inputbatiment" placeholder="" >
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <div class="col-sm-2 form-group">
-                        <label for="inputetage" class="label col-sm-2 col-form-label">{{'etage'|translate}}</label>
-                      </div>
-                      <div class="col-sm-4">
-                        <input [readonly]="modeConsultation"    type="number" [(ngModel)]="newContribuable.etage" nbInput fullWidth Onlynumber id="inputetage" name="inputetage" placeholder="" >
-                      </div>
-                      <div class="col-sm-2 form-group">
-                        <label for="inputporte" class="label col-sm-2 col-form-label">{{'porte'|translate}}</label>
-                      </div>
-                      <div class="col-sm-4">
-                        <input [readonly]="modeConsultation"    type="number" [(ngModel)]="newContribuable.porte" nbInput fullWidth Onlynumber id="inputporte" name="inputporte" placeholder="" >
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <div class="col-sm-2 form-group">
-                        <label for="inputlartitude" class="label col-sm-2 col-form-label">{{'latitude'|translate}}</label>
-                      </div>
-                      <div class="col-sm-4">
-                        <input [readonly]="modeConsultation"   (change)="initMaps()" type="text" [(ngModel)]="latitude" nbInput fullWidth Onlynumber id="inputlartitude" name="inputlartitude" placeholder="" >
-                      </div>
-                      <div class="col-sm-2 form-group">
-                        <label for="inputlongitude" class="label col-sm-2 col-form-label">{{'longitude'|translate}}</label>
-                      </div>
-                      <div class="col-sm-4">
-                        <input [readonly]="modeConsultation"   (change)="initMaps()" type="text" [(ngModel)]="longitude" nbInput fullWidth Onlynumber id="inputlongitude" name="inputlongitude" placeholder="" >
-                      </div>
-                    </div>
-                  </div>
+           <div class="col-sm-4">
+             <input [readonly]="modeConsultation"    type="text" [(ngModel)]="newContribuable.telephoneMobile" nbInput fullWidth id="inputPhoneMobile" name="inputPhoneMobile" placeholder="">
+           </div>
+         </div>
+         <div class="form-group row required">
+           <label for="inputemail" class="label col-sm-2 col-form-label control-label">{{'email'|translate}}</label>
+           <div class="col-sm-4">
+             <input [readonly]="modeConsultation"    type="text" [(ngModel)]="newContribuable.email" nbInput fullWidth id="inputemail" name="inputemail" placeholder="">
+           </div>
+         </div>
+       <div class="form-group row justify-content-center ">
+         <div class="col-md-1">
+           <button  nbButton disabled nbStepperNext>prev</button>
+         </div>
+         <div class="col-md-2">
+            <button class="waves-effect waves-dark" nbButton nbStepperNext>next</button>
+         </div>
+       </div>
 
-                  <div class="col-6">
-                    <nb-card>
-                      <nb-card-body >
-                        <div leaflet [leafletOptions]="options" (leafletMapReady)="mapReady($event)"
-                             ></div>
+     </nb-step>
+     <nb-step  label="{{'adresse'|translate}}">
+         <div class="row show-grid">
+           <div class="col-6">
+             <div class="form-group row">
+               <div class="col-sm-2 form-group required">
+                 <label for="inputadresse" class="label col-sm-2 col-form-label">{{'adresse'|translate}}</label>
+               </div>
+               <div class="col-sm-10">
+                 <textarea rows="3" [(ngModel)]="newContribuable.adresse" nbInput fullWidth id="inputadresse" name="inputadresse" placeholder="" ></textarea>
+               </div>
+             </div>
+             <div class="form-group row">
+               <div class="col-sm-2 form-group">
+                 <label for="inputzone" class="label col-sm-2 col-form-label">{{'zone'|translate}}</label>
+               </div>
+               <div class="col-sm-4">
+                 <input [readonly]="modeConsultation"    type="number" [(ngModel)]="newContribuable.zone" nbInput fullWidth Onlynumber id="inputzone" name="inputzone" placeholder="" >
+               </div>
+               <div class="col-sm-2 form-group">
+                 <label for="inputcarre" class="label col-sm-2 col-form-label">{{'carre'|translate}}</label>
+               </div>
+               <div class="col-sm-4">
+                 <input [readonly]="modeConsultation"    type="number" [(ngModel)]="newContribuable.carre" nbInput fullWidth Onlynumber id="inputcarre" name="inputcarre" placeholder="" >
+               </div>
+             </div>
+             <div class="form-group row">
+               <div class="col-sm-2 form-group">
+                 <label for="inputbloc" class="label col-sm-2 col-form-label">{{'bloc'|translate}}</label>
+               </div>
+               <div class="col-sm-4">
+                 <input [readonly]="modeConsultation"    type="number" [(ngModel)]="newContribuable.bloc" nbInput fullWidth Onlynumber id="inputbloc" name="inputbloc" placeholder="" >
+               </div>
+               <div class="col-sm-2 form-group">
+                 <label for="inputbatiment" class="label col-sm-2 col-form-label">{{'batiment'|translate}}</label>
+               </div>
+               <div class="col-sm-4">
+                 <input [readonly]="modeConsultation"    type="number" [(ngModel)]="newContribuable.batiment" nbInput fullWidth Onlynumber id="inputbatiment" name="inputbatiment" placeholder="" >
+               </div>
+             </div>
+             <div class="form-group row">
+               <div class="col-sm-2 form-group">
+                 <label for="inputetage" class="label col-sm-2 col-form-label">{{'etage'|translate}}</label>
+               </div>
+               <div class="col-sm-4">
+                 <input [readonly]="modeConsultation"    type="number" [(ngModel)]="newContribuable.etage" nbInput fullWidth Onlynumber id="inputetage" name="inputetage" placeholder="" >
+               </div>
+               <div class="col-sm-2 form-group">
+                 <label for="inputporte" class="label col-sm-2 col-form-label">{{'porte'|translate}}</label>
+               </div>
+               <div class="col-sm-4">
+                 <input [readonly]="modeConsultation"    type="number" [(ngModel)]="newContribuable.porte" nbInput fullWidth Onlynumber id="inputporte" name="inputporte" placeholder="" >
+               </div>
+             </div>
+             <div class="form-group row">
+               <div class="col-sm-2 form-group">
+                 <label for="inputlartitude" class="label col-sm-2 col-form-label">{{'latitude'|translate}}</label>
+               </div>
+               <div class="col-sm-4">
+                 <input [readonly]="modeConsultation"   (change)="initMaps()" type="text" [(ngModel)]="latitude" nbInput fullWidth Onlynumber id="inputlartitude" name="inputlartitude" placeholder="" >
+               </div>
+               <div class="col-sm-2 form-group">
+                 <label for="inputlongitude" class="label col-sm-2 col-form-label">{{'longitude'|translate}}</label>
+               </div>
+               <div class="col-sm-4">
+                 <input [readonly]="modeConsultation"   (change)="initMaps()" type="text" [(ngModel)]="longitude" nbInput fullWidth Onlynumber id="inputlongitude" name="inputlongitude" placeholder="" >
+               </div>
+             </div>
+           </div>
 
-                      </nb-card-body>
-                    </nb-card>
-                  </div>
+           <div class="col-6">
+             <nb-card>
+               <nb-card-body style="padding: 0;">
+                 <div leaflet [leafletOptions]="options" (leafletMapReady)="mapReady($event)"
+                      ></div>
 
-                </div>
+               </nb-card-body>
+             </nb-card>
+           </div>
 
-            </nb-tab>
-            <nb-tab id="activiteTab" tabTitle="{{'activites'|translate}}">
-                <div class="form-group row">
-                  <label  class="label col-sm-2 col-form-label">{{'activite principal'|translate}}</label>
-                  <div class="col-sm-3">
-                    <nb-select fullWidth [selected]="activitePrincipalSelected" (selectedChange)="changeActivitePrincipal($event)" status="info">
-                      <nb-option *ngFor="let principale of listTypeActPrincipale" [value]="principale"> {{ principale.libelleFr }}</nb-option>
-                    </nb-select>
-                  </div>
+         </div>
+       <div class="form-group row justify-content-center">
+         <div class="col-md-1">
+           <button nbButton nbStepperPrevious>prev</button>
+         </div>
+         <div class="col-md-2">
+            <button nbButton nbStepperNext>next</button>
+         </div>
+       </div>
 
-                  <label *ngIf="activitePrincipalSelected" class="label col-sm-2 col-form-label">{{'activite'|translate}}</label>
-                  <div class="col-sm-3" *ngIf="activitePrincipalSelected">
-                    <nb-select [(ngModel)]="activiteSelected" name="activiteId" fullWidth status="info">
-                      <nb-option *ngFor="let activite of activitePrincipalSelected.children" [value]="activite"> {{ activite.libelleFr }}</nb-option>
-                    </nb-select>
-                  </div>
-                  <button (click)="ajouterActivite()" nbButton>{{'add'|translate}}</button>
-                </div>
-              <div class="label col-sm-2 col-form-label" *ngIf="newContribuable.listActivite.length>0">
-                <h4>{{'activite'|translate}}</h4>
-              </div>
-              <div class="form-group row justify-content-center" *ngIf="newContribuable.listActivite.length>0">
-                <ng2-smart-table [source]="source" (deleteConfirm)="onDeleteConfirm($event)"  [settings]="settings">
-                </ng2-smart-table>
-              </div>
-            </nb-tab>
-            <nb-tab id="validationTab" tabTitle="{{'validation'|translate}}">
-              <div class="row show-grid">
-                <div class="col-6">
-                  <div class="form-group row">
-                    <div class="col-sm-2 form-group required">
-                      <label for="inputtaxe" class="label col-sm-2 col-form-label control-label">{{'taxe'|translate}}</label>
-                    </div>
-                    <div class="col-sm-4">
-                      <input [readonly]="modeConsultation"    type="number" [(ngModel)]="newContribuable.taxe" nbInput fullWidth Onlynumber id="inputtaxe" name="inputtaxe" placeholder="" >
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="col-sm-2 form-group required">
-                      <label for="inputobservations" class="label col-sm-2 col-form-label control-label">{{'observations'|translate}}</label>
-                    </div>
-                    <div class="col-sm-10">
-                      <textarea rows="3" [readonly]="modeConsultation" [(ngModel)]="newContribuable.observations" nbInput fullWidth id="inputobservations" name="inputobservations" placeholder="" ></textarea>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-6">
-                  <div class="form-group row">
-                    <div  class="text-center">
-                      <img src="{{newContribuable.photo}}" class="rounded mx-auto d-block img-thumbnail" width="300" height="300">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <div class="custom-file">
-                      <input [readonly]="modeConsultation"    #imageInput type="file" (change)="processFile(imageInput)" class="custom-file-input" id="customFileLang" lang="fr">
-                      <label class="custom-file-label" for="customFileLang">{{'chosephoto' |translate}} </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </nb-tab>
+     </nb-step>
+     <nb-step  label="{{'activites'|translate}}" >
+       <div class="form-group row">
+           <label  class="label col-sm-2 col-form-label">{{'activite principal'|translate}}</label>
+           <div class="col-sm-3">
+             <nb-select fullWidth [selected]="activitePrincipalSelected" (selectedChange)="changeActivitePrincipal($event)" status="info">
+               <nb-option *ngFor="let principale of listTypeActPrincipale" [value]="principale"> {{ principale.libelleFr }}</nb-option>
+             </nb-select>
+           </div>
 
-          </nb-tabset>
-          
-        </nb-card>
-        <div class="col-md-6">
-          <nb-card>
-            <nb-card-body>
-              <button *ngIf="!modeConsultation" type="button" on nbButton (click)="enregistrerContribuable()">{{'save'|translate}}</button>
-            </nb-card-body>
-          </nb-card>
-        </div>
-      </form>
-      </div>
+           <label *ngIf="activitePrincipalSelected" class="label col-sm-2 col-form-label">{{'activite'|translate}}</label>
+           <div class="col-sm-3" *ngIf="activitePrincipalSelected">
+             <nb-select [(ngModel)]="activiteSelected" name="activiteId" fullWidth status="info">
+               <nb-option *ngFor="let activite of activitePrincipalSelected.children" [value]="activite"> {{ activite.libelleFr }}</nb-option>
+             </nb-select>
+           </div>
+           <button (click)="ajouterActivite()" nbButton>{{'add'|translate}}</button>
+         </div>
+       <div class="label col-sm-2 col-form-label" *ngIf="newContribuable.listActivite.length>0">
+         <h4>{{'activite'|translate}}</h4>
+       </div>
+       <div class="form-group row justify-content-center" *ngIf="newContribuable.listActivite.length>0">
+         <ng2-smart-table [source]="source" (deleteConfirm)="onDeleteConfirm($event)"  [settings]="settings">
+         </ng2-smart-table>
+       </div>
+       <div class="form-group row  justify-content-center fixed-bottom" style="bottom: 19px;">
+         <div class="col-sm-2"> </div>
+         <div class="col-md-1">
+           <button nbButton nbStepperPrevious>prev</button>
+         </div>
+         <div class="col-md-2">
+           <button nbButton nbStepperNext>next</button>
+         </div>
+       </div>
 
-  
+     </nb-step>
+     <nb-step  label="{{'validation'|translate}}">
+       <div class="row show-grid">
+         <div class="col-6">
+           <div class="form-group row">
+             <div class="col-sm-2 form-group required">
+               <label for="inputtaxe" class="label col-sm-2 col-form-label control-label">{{'taxe'|translate}}</label>
+             </div>
+             <div class="col-sm-4">
+               <input [readonly]="modeConsultation"    type="number" [(ngModel)]="newContribuable.taxe" nbInput fullWidth Onlynumber id="inputtaxe" name="inputtaxe" placeholder="" >
+             </div>
+           </div>
+           <div class="form-group row">
+             <div class="col-sm-2 form-group required">
+               <label for="inputobservations" class="label col-sm-2 col-form-label control-label">{{'observations'|translate}}</label>
+             </div>
+             <div class="col-sm-10">
+               <textarea rows="3" [readonly]="modeConsultation" [(ngModel)]="newContribuable.observations" nbInput fullWidth id="inputobservations" name="inputobservations" placeholder="" ></textarea>
+             </div>
+           </div>
+         </div>
+         <div class="col-6">
+           <div class="form-group row">
+             <div  class="text-center">
+               <img src="{{newContribuable.photo}}" class="rounded mx-auto d-block img-thumbnail" width="300" height="300">
+             </div>
+           </div>
+           <div class="form-group row">
+             <div class="custom-file">
+               <input [readonly]="modeConsultation"    #imageInput type="file" (change)="processFile(imageInput)" class="custom-file-input" id="customFileLang" lang="fr">
+               <label class="custom-file-label" for="customFileLang">{{'chosephoto' |translate}} </label>
+             </div>
+           </div>
+         </div>
+       </div>
+       <div class="form-group row justify-content-center" >
+         <div class="col-md-1"  style="bottom: -90px">
+           <button nbButton nbStepperPrevious>prev</button>
+         </div>
 
+         <div class="col-md-2" style="bottom: -90px">
+           <button *ngIf="!modeConsultation" type="button" on nbButton (click)="enregistrerContribuable()">{{'save'|translate}}</button>
+         </div>
+
+       </div>
+     </nb-step>
+
+   </nb-stepper>
+
+     </form>
+   </nb-card-body>
+ </nb-card>
+  </div>
 </div>

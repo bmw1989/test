@@ -10,12 +10,12 @@ import {
   NbRadioModule,
   NbDatepickerModule,
   NbTabsetModule,
-  NbSelectModule, NbAccordionModule,
+  NbSelectModule, NbAccordionModule, NbStepperModule,
 } from '@nebular/theme';
 import { ThemeModule } from '../../@theme/theme.module';
 import { ContribuableRoutingModule } from './contribuable-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import {LeafletModule} from "@asymmetrik/ngx-leaflet";
 import {GRCComponentsModule} from "../grc-components/grc-components.module";
@@ -42,12 +42,15 @@ import {NbMomentDateModule} from "@nebular/moment";
     Ng2SmartTableModule,
     ThemeModule,
     FormsModule,
+    ReactiveFormsModule,
+    ThemeModule,
     TranslateModule,
     LeafletModule.forRoot(),
     ContribuableRoutingModule,
     GRCComponentsModule,
     NbAccordionModule,
     NbMomentDateModule,
+    NbStepperModule,
   ],
   entryComponents :[LinkeditViewComponent],
 })

@@ -14,7 +14,7 @@
     },
     "accueil" : "Accueil",
     "ajouter" : "Ajouter",
-    "Informations personnelle" : "Informations personnelle",
+    "Informations personnelle" : "Info. personnelle",
     "phonefixe" : "Téléphone Fixe",
     "phonemobile" : "Téléphone Mobile",
     "email" : "Mail",
@@ -54,6 +54,8 @@
     "capitalSocial" : "Capital Sociale",
     "nomSociete" : "Nom Société",
     "dateCreationSociete": "Date Création",
+    "dateDebut" : "Date Début",
+    "dateFin" : "Date Fin",
 
     "MSG": {
 
@@ -66,7 +68,8 @@
             "MSG_ERR_CONT_005": "Le contribuable du NNI {{value}} existe déjà!"
           },
           "INFO": {
-            "MSG_INFO_CONT_001": "Aucune résultat!"
+            "MSG_INFO_CONT_001": "Aucune résultat!",
+            "MSG_INFO_CONT_002": "Opération effectué avec succès"
           }
 
         }

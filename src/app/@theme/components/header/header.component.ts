@@ -25,6 +25,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   themes = [
     {
+      value: 'corporate',
+      name: 'Corporate',
+    },
+    {
       value: 'default',
       name: 'Light',
     },
@@ -36,13 +40,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       value: 'cosmic',
       name: 'Cosmic',
     },
-    {
-      value: 'corporate',
-      name: 'Corporate',
-    },
+
   ];
 
-  currentTheme = 'default';
+  currentTheme = 'corporate';
   currentLang ='fr';
 
   userMenu = [ { title: 'Profile' }, { title: 'Log out' } ];
@@ -65,8 +66,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.currentTheme = this.themeService.currentTheme;
-
+   // this.currentTheme = this.themeService.currentTheme;
+    this.currentTheme ='corporate';
     this.userService.getUsers()
       .pipe(takeUntil(this.destroy$))
       .subscribe((users: any) => this.user = users.nick);
@@ -79,6 +80,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       )
       .subscribe((isLessThanXl: boolean) => this.userPictureOnly = isLessThanXl);
 
+    this.changeTheme('corporate');
     this.themeService.onThemeChange()
       .pipe(
         map(({ name }) => name),

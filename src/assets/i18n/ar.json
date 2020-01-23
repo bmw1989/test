@@ -2,19 +2,19 @@
     "Gestion des habilitations":"إدارة الإستخدام",
     "Gestion des utilisateurs":"إدارة المستخدمين",
     "Gestion des profiles":"إدارة البرفيل",
-    "lastname" : "اسم العائلة",
-    "firstname": "الإ سم",
+    "lastname" : "الإسم",
+    "firstname": "اللقب",
     "find" : "بحث",
     "accueil" : "إستقبال",
     "ajouter" : "إضافة",
     "Informations personnelle" : "معلومات شخصية",
     "phonefixe" : "الهاتف",
-    "phonemobile": "رقم الجوال",
+    "phonemobile": "الهاتف المحمول",
     "email" : "البريد الالكتروني",
     "Contribuables" : "دافع الضرائب",
     "Fiche Contribuables" : "المعلومات شخصية",
     "save" : "حفظ",
-    "adresse" : "عنوان",
+    "adresse" : "العنوان",
     "zone" : "منطقة",
     "carre" : "مربع",
     "bloc" : "بلك",
@@ -47,6 +47,8 @@
     "capitalSocial" : "الرأس المال الاجتماعي",
     "nomSociete" : "إسم الشركة",
     "dateCreationSociete": "تاريخ الإنشاء",
+    "dateDebut" : "تاريخ البداية",
+    "dateFin" : "تاريخ الانتهاء",
     "MSG": {
       "CONTRIBUABLE": {
         "ERR": {
@@ -57,7 +59,8 @@
           "MSG_ERR_CONT_005": "دافع ضرائب NNI {{value}} موجود بالفعل!"
         },
         "INFO": {
-          "MSG_INFO_CONT_001": "لا توجد نتائج!"
+          "MSG_INFO_CONT_001": "لا توجد نتائج!",
+          "MSG_INFO_CONT_002": "نفذت العملية بنجاح"
         }
 
       }
