@@ -14,7 +14,7 @@
     "callable-types": true,
     "class-name": true,
     "comment-format": [
-      false,
+      true,
       "check-space"
     ],
     "eofline": true,
