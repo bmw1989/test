@@ -40,7 +40,9 @@ export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 } 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, PaginationExampleComponent],
+  declarations: [AppComponent,
+    LoginComponent,
+    PaginationExampleComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
