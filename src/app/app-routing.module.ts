@@ -18,8 +18,8 @@ const routes: Routes = [
     path: 'logout',
     component: LoginComponent,
     data: {
-      title: 'Déconnexion'
-    }
+      title: 'Déconnexion',
+    },
   },
  
   {
@@ -35,7 +35,7 @@ const routes: Routes = [
         component: LoginComponent,
       },
       { path: 'notifications', loadChildren : () => import('./views/notifications/notifications.module').then(m => m.NotificationsModule)},
-      { path: 'grc-components', loadChildren : () => import('./pages/grc-components/grc-components.module').then(m => m.GRCComponentsModule)}
+
     ],
   },
   { path: '', redirectTo: 'login', pathMatch: 'full' },

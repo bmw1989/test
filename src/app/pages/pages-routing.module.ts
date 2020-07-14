@@ -20,6 +20,8 @@ const routes: Routes = [{
     
     { path: 'administration', loadChildren : () => import('./administration/administration.module').then(m => m.AdministrationModule)},
     { path: 'contribuable', loadChildren : () => import('./contribuable/contribuable.module').then(m => m.ContribuableModule)},
+    { path: 'grc-components', loadChildren : () => import('./grc-components/grc-components.module').then(m => m.GRCComponentsModule)},
+
   ],
 }];
 
